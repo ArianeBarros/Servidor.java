@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+//metodo prara ver se ja existe um usaurio com o mesmo nome na sala --- throws Exceptions
+
 public class Sala<Usuario>
 {
  //quant de lugares nome identificação
@@ -62,4 +64,4 @@ public class Sala<Usuario>
    {
    }
 
-}
+}//combobox
