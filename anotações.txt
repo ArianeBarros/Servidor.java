@@ -1,0 +1,15 @@
+Missão da main de class Salas
+
+1- Declarar 1 instância 1 obj da class Salas
+2- obj da classe salas
+3- Em loop, fazer acepts e declarar instancias(passando o socket gerado no acept para o construtor)
+
+Como enfiar o obj?
+Preciso recuperar de um banco de dados de uma tabela, que deve estar guardada. No banco deve estar todas as salas que devem existir
+
+A thred não faz quase nada
+-Usuario
+-Sala
+-Salas
+-Programa
+-Pacote chat e bd
