@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 
 //metodo prara ver se ja existe um usaurio com o mesmo nome na sala --- throws Exceptions
+//getUsuarios() -- arraylist com todos os nome nas salas
+
 
 public class Sala<Usuario>
 {

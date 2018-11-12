@@ -8,10 +8,10 @@ public class Usuario implements Comparable<Usuario>
 	private Sala sala; // a mesma sala da mean, com um ponteio lá e outro ca
 	private String nickname;
 	private Socket socket;
-	private BufferedReader receptor;
-	private PrintWriter transmissor;
+	private ObjectInputStream receptor;
+	private ObjectOutputStream transmissor;
 
-	public Usuario(Socket conexao, PrintWriter transmissor, BufferedReader receptor, String nome, Sala sala) throws Exception
+	public Usuario(Socket conexao,  ObjectOutputStream transmissor, ObjectInputStream receptor, String nome, Sala sala) throws Exception
 	{
 		//validar parametros TODOS, por causa das antinhas
 		//GUARDAR PARAMETROS NOS ATRIBUTOS
@@ -33,8 +33,8 @@ public class Usuario implements Comparable<Usuario>
 		try
 		{
 			this.socket = conexao;
-			this.transmissor = new PrintWriter(conexao.getOutputStream());
-			this.receptor = new BufferedReader(new InputStreamReader(conexao.getInputStream()));
+			this.transmissor = new ObjectOutputStream(conexao.getOutputStream());//?
+			this.receptor = new InputStreamReader(conexao.getInputStream());
 			this.nickname = nome;
 			this.sala = new Sala(sala);
 		}
@@ -114,13 +114,20 @@ public class Usuario implements Comparable<Usuario>
 		return this.transmissor;
 	}
 
-	public void envia()
+	public void envia(Enviavel x)//o parametro pode ser de varios tipos(Classes)
 	{
 
 	}
 
-	public void recebe() //pode ser String, ou , A SALA É UMA GUARDADORA DE USUARIOS, SALAS É GUARDADORA DE SALAS
+	public void recebe(Enviavel x) //pode ser String, ou , A SALA É UMA GUARDADORA DE USUARIOS, SALAS É GUARDADORA DE SALAS
 	{
 		//usar o receptor
+	}
+
+	public void fechaTudo()
+	{
+		this.transmissor.close();
+		this.receptor.clçose();
+		this.conexao.close();
 	}
 }

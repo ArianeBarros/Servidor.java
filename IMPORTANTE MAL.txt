@@ -1,0 +1,5 @@
+fazer 1 classe chamada enviavel
+herdar dela: outra classe salas
+                      mensagens - remetente e texto(getters e setters)
+                      classe pedido de sair
+Enviar-- envi algo que é enviavel
