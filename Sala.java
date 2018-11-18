@@ -1,39 +1,60 @@
 import java.util.ArrayList;
 
 //metodo prara ver se ja existe um usaurio com o mesmo nome na sala --- throws Exceptions
-//getUsuarios() -- arraylist com todos os nome nas salas
+//getUsuarios() -- arraylist com todos os nomes nas salas
 
 
 public class Sala<Usuario>
 {
  //quant de lugares nome identificação
-  private int qtdMaxima;
+  private int qtdMaxima = 6;//?
   private ArrayList<Usuario> lista;
   private String nome; //getter
   private int qtdAtual = 0;
 
-  public Sala(int lugares)
+  public Sala(int lugares, String qualNome)
   {
-	  this.qtd = lugares;
+	  this.qtdAtual = lugares;
 	  lista = new ArrayList<Usuario>;
-
+      this.nome = qualNome;
   }
   public void adicionarUsuario()
   {
-	  lista.add(Usuario usuario);
-	  qtd++;
+	  this.lista.add(Usuario usuario);
+	  this.qtdAtual++;
   }
 
-  public void excluirUsuario()
+  public void excluirUsuario(Usuario usuario)
   {
 	 int indice = lista.indexOf(Usuario usuario)
-     lista.remove(indice);
-     qtd--;
+     this.lista.remove(indice);
+     this.qtdAtual--;
   }
 
   public boolean isVazia()
   {
-    return this.lista.isEmpty();
+    return this.qtdAtual == 0;
+  }
+
+  public boolean jaExiste(String username) //throws Exceptoin??
+  {
+    for(int i = 0; i < this.qtdAtual; i++)
+    {
+		if(this.lista.get(i).equals(username))
+		  return true;
+	}
+
+	return false;
+  }
+
+  public void getUsuarios()
+  {
+	  return this.lista.clone();
+  }
+
+  public void getNomeClasse()
+  {
+
   }
 
   public boolean isCheia()

@@ -1,11 +1,14 @@
 
 public class CuidadoraDeUsuario extends Thread
 {
+	protected String salaDesejada;
 	private Usuario usuario;
 //em cada sala o usuario poderia ter um nome diferente
+//E para trocar de sala, tem rodar a janelinha denovo
 
   public CuidadoraDeUsuario(Socket conexao, Salas sala) throws Exception
   {
+
 	  //declarar e instanciar OOS e OIS, usando o Socket recebido
 	  //interagir com o usuário via OOS e OIS até descobrir o nome da sala em que ele deseja entrar, eventualmente, informando sala cheia
 	  //procurar em salas(param)  a sala com o nome desejado
@@ -15,15 +18,21 @@ public class CuidadoraDeUsuario extends Thread
 	  //fazer varias vezes i.envia(new AvisoDeEntradaDaSala(this.usuario.getNome())), onde i é o nome de algum usuario que já estava na sala --ArrayList de usuarios
 	  //incluir o usuario na sala
   }
-
+//quando a pessoa sair da sala esse run para
   public void run()//Toda a interação necessária com o socket recebido por parametro
   {
+	  //nada antes deste for infinito, pq o que era p estar aqui deve estar no construtor
+	  		//for(;;)
+	  		//{
+	  			//parar este for quando houver o pedido para sair da sala
+		//}
+
 	 Enviavel recebido = null;
 
     do                 //break   -- mandar uma mensagem ou sair da sala -> a run acaba
     {
 		//recebe primeiramente mensagens
-		//saida da sala -- break
+		//pedido de saida da sala -- break
 		//receber avisos de entrada e saida
 	}
 	while(!(recebido instanceof PedidoParaSairDaSala));

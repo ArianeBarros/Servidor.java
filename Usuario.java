@@ -1,7 +1,7 @@
 import java.io.*;
 import java.io.BufferedReader;
 import java.net.Socket;
-//enfia o usu na sla e a sla no usu
+//enfia o usu na sala e a sala no usu
 
 public class Usuario implements Comparable<Usuario>
 {
@@ -11,7 +11,7 @@ public class Usuario implements Comparable<Usuario>
 	private ObjectInputStream receptor;
 	private ObjectOutputStream transmissor;
 
-	public Usuario(Socket conexao,  ObjectOutputStream transmissor, ObjectInputStream receptor, String nome, Sala sala) throws Exception
+	public Usuario(Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, String nome, Sala sala) throws Exception
 	{
 		//validar parametros TODOS, por causa das antinhas
 		//GUARDAR PARAMETROS NOS ATRIBUTOS
@@ -33,8 +33,8 @@ public class Usuario implements Comparable<Usuario>
 		try
 		{
 			this.socket = conexao;
-			this.transmissor = new ObjectOutputStream(conexao.getOutputStream());//?
-			this.receptor = new InputStreamReader(conexao.getInputStream());
+			this.transmissor = new ObjectOutputStream(conexao.getOutputStream());
+			this.receptor = new ObjectInputStream(new InputStreamReader(conexao.getInputStream()));
 			this.nickname = nome;
 			this.sala = new Sala(sala);
 		}
@@ -104,22 +104,25 @@ public class Usuario implements Comparable<Usuario>
 		return this.socket;
 	}
 
-	public BufferedReader getReceptor()
+	public ObjectInputStream getReceptor()
 	{
 		return this.receptor;
 	}
 
-	public PrintWriter getTransmissor()
+	public ObjectOutputStream getTransmissor()
 	{
 		return this.transmissor;
 	}
 
-	public void envia(Enviavel x)//o parametro pode ser de varios tipos(Classes)
+	//ver isso
+	public void envia(Enviavel x)
 	{
-
+		// uma instancia de uma classe que herda de enviavel
+		this.transmissor = writeObject();
+		this.receptor = flush();
 	}
 
-	public void recebe(Enviavel x) //pode ser String, ou , A SALA É UMA GUARDADORA DE USUARIOS, SALAS É GUARDADORA DE SALAS
+	public Enviavel recebe() //pode ser String, ou , A SALA É UMA GUARDADORA DE USUARIOS, SALAS É GUARDADORA DE SALAS
 	{
 		//usar o receptor
 	}
@@ -127,7 +130,7 @@ public class Usuario implements Comparable<Usuario>
 	public void fechaTudo()
 	{
 		this.transmissor.close();
-		this.receptor.clçose();
+		this.receptor.close();
 		this.conexao.close();
 	}
 }

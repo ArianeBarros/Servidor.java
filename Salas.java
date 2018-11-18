@@ -12,4 +12,14 @@ public class Salas
 
   }
 
+  public void guarde()
+  {
+
+  }
+
+  public void jogueFora()
+  {
+
+  }
+
 }
