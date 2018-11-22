@@ -18,15 +18,22 @@ public class Sala<Usuario>
 	  lista = new ArrayList<Usuario>;
       this.nome = qualNome;
   }
-  public void adicionarUsuario()
+
+  /*synchronized(X) X -- obj q esta sendo compartilhado
+   {
+	   x.dsdsds
+	   x.dsldms
+   }
+  */
+  public void adicionarUsuario(Usuario usuario)
   {
-	  this.lista.add(Usuario usuario);
+	  this.lista.add(usuario);
 	  this.qtdAtual++;
   }
 
   public void excluirUsuario(Usuario usuario)
   {
-	 int indice = lista.indexOf(Usuario usuario)
+	 int indice = lista.indexOf(usuario)
      this.lista.remove(indice);
      this.qtdAtual--;
   }
@@ -54,7 +61,7 @@ public class Sala<Usuario>
 
   public void getNomeClasse()
   {
-
+     return this.nome.clone();
   }
 
   public boolean isCheia()
@@ -76,15 +83,84 @@ public class Sala<Usuario>
 
     return "Nome: " + this.nome + "\n\n Situação: " + sit;
   }
-  public boolean equals()
+  public boolean equals(Sala sala)
   {
+    if(this==sala)
+	   return true;
+
+	if(sala == null)
+	   return false;
+
+	//if(this.getClass()!=sala.getClass())
+	//   return false;
+
+	Sala<Usuario> s = (Sala<Usuario>)sala; // java enxerga que existe uma Fila chamada fila (que é o mesmo obj)
+
+	if(this.qtdMaxima!=s.qtdMaxima)
+	   return false;
+
+	for(int i = 0; i < this.qtdMaxima; i++)
+		if(!this.lista.get(i).equals(s.get(i)))
+		  return false;
+
+     return true;
   }
+
    public int hashCode()
    {
+    int ret = 1;
+
+    ret = ret * 2 + new Integer(this.qtdMaxima).hashCode();
+    ret = ret * 2 + new Integer(this.qtdAtual).hashCode();
+    ret = ret * 2 + this.nome.hashCode();
+
+    for(int i = 0; i < qtdMaxima; i++)
+    {
+      ret = ret * 2 + this.lista.get(i).hashCode();
+	}
+
+    return ret;
    }
+
+ /*  private X meuCloneDeX(Usuario user)
+   		{
+   			X ret = null;
+   			try
+   			{
+   				Class<?> classe = user.getClass();
+   				Class<?>[] tiposDeParametrosFormais = null;
+   				Method metodo = classe.getMethod("clone", tiposDeParametrosFormais);
+   				Object[] tiposDeParametrosReais = null;
+   				ret = (Usuario)metodo.invoke(tiposDeParametrosReais);
+   			}
+   			catch(NoSuchMethodException erro)
+   			{}
+   			catch(IllegalAccessException erro)
+   			{}
+   			catch(InvocationTargetException erro)
+   			{}
+
+   			return ret;
+   		}*/
+
 
    public Object clone()
    {
+     Sala<Usuario> ret = null;
+	try
+	{
+		ret = new Sala<Usuario>(this);
+	}
+	catch(Exception erro)
+	{}
+
+    return ret;
    }
 
 }//combobox
+
+/*bd
+Salas -- hardData -- p/ coisas que raramente mudam
+dao e dbo p/ pegar salas
+construtor da classe salas
+*/

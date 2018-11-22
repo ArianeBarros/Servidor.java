@@ -5,21 +5,25 @@ import java.util.ArrayList;
 
 public class Salas
 {
-  ArrayList<Sala> list;
+  protected ArrayList<Sala> list;
+  protected int qtdSalas;
 
-  public Salas()
+  public Salas()//pegar do bd :0
   {
 
   }
 
-  public void guarde()
+  public void guarde(Sala sala)
   {
-
+     this.list.add(sala);
+	 this.qtdSalas++;
   }
 
-  public void jogueFora()
+  public void jogueFora(Sala sala)
   {
-
+    int indice = lista.indexOf(sala)
+	this.lista.remove(indice);
+     this.qtdSalas--;
   }
 
 }
