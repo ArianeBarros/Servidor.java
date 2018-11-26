@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+package dbos;
 //metodo prara ver se ja existe um usaurio com o mesmo nome na sala --- throws Exceptions
 //getUsuarios() -- arraylist com todos os nomes nas salas
 
@@ -7,16 +7,46 @@ import java.util.ArrayList;
 public class Sala<Usuario>
 {
  //quant de lugares nome identificação
-  private int qtdMaxima = 6;//?
-  private ArrayList<Usuario> lista;
-  private String nome; //getter
-  private int qtdAtual = 0;
+  protected int qtdMaxima;//?
+  protected ArrayList<Usuario> lista;
+  protected String nome; //getter
+  protected int qtdAtual = 0;
 
-  public Sala(int lugares, String qualNome)
+  protected int codigo;
+
+  public Sala(int cod String nome, int qtd)
   {
-	  this.qtdAtual = lugares;
+	  this.qtdMaxima = qtd;
 	  lista = new ArrayList<Usuario>;
-      this.nome = qualNome;
+      this.nome = nome;
+
+       this.setCodigo(cod);
+	   this.setNome(nome);
+       this.setQtd(qtd);
+  }
+
+  public void setCodigo(int cod)
+  {
+    if(cod == null)
+	  	throw new Exception("Código não fornecido corretamente");
+
+  	 this.codigo = cod;
+  }
+
+   public void setNome(String nome)throws Exception
+   {
+  	 if(nome == null || nome.equals(" "))
+  	   throw new Exception("Nome não fornecido corretamente");
+
+  	 this.nome = nome;
+   }
+
+  public void setQtd(int qtd)
+  {
+     if(qtd == null)
+	  	throw new Exception("Quantidade máxima não fornecido corretamente");
+
+  	 this.qtdMaxima = qtd;
   }
 
   /*synchronized(X) X -- obj q esta sendo compartilhado
@@ -59,9 +89,9 @@ public class Sala<Usuario>
 	  return this.lista.clone();
   }
 
-  public void getNomeClasse()
+  public void setNomeClasse()
   {
-     return this.nome.clone();
+     return this.nome = ;
   }
 
   public boolean isCheia()
@@ -81,7 +111,7 @@ public class Sala<Usuario>
         else
          sit = "Disponível";
 
-    return "Nome: " + this.nome + "\n\n Situação: " + sit;
+    return "Nome: " + this.getNomeClasse() + "\n\n Situação: " + sit + "\n\n Usuários: " + this.getUsuarios();
   }
   public boolean equals(Sala sala)
   {

@@ -13,3 +13,11 @@ A thred não faz quase nada
 -Salas
 -Programa
 -Pacote chat e bd
+
+construtor
+meuCloneDeX
+equals
+toString
+hashCode
+construtor de copia
+clone

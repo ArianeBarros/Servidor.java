@@ -1,4 +1,5 @@
 import java.io.*;
+package daos;
 
 public class Servidor
 {
@@ -9,6 +10,9 @@ public class Servidor
 
 	}
 }
+
+//sQL - na mesma pasta da main
+//set classpath = .;sqljdbc42.jar
 
 /*
 Missão da main de class Salas
