@@ -1,4 +1,6 @@
 //Formulario Principal
+//ter um objeto OutputStream
+//a classe não vai criar o usuario, no programa, vai chamr a janela e na cuidadora de usuario vai pegar as informações deste formulaio
 package Servidor.java;
 /*import bd.*;
 import bd.core.*;
@@ -13,13 +15,12 @@ import javax.swing.JOptionPane;
 import controle.SalaUsuario;
 import controle.Usuario;
 
-public class FormularioPrincipal extends javax.swing.JFrame {
+public class FormularioPrincipal extends javax.swing.JFrame
+{
 
     SalaUsuario<Usuario> sala = new SalaUsuario<Usuario>();
     Usuario usuario;
-    /**
-     * Creates new form Crud
-     */
+
     public FormularioPrincipal() {
         initComponents();
     }
@@ -27,39 +28,87 @@ public class FormularioPrincipal extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lbUsuario = new javax.swing.JLabel();
+        lbSalas = new javax.swing.JLabel();
+        lbChat = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         btnEntrar = new javax.swing.JButton();
-        txtMessage = new javax.swing.JTextField();
+        cbSalas = new javax.swing.JComboBox<>();
+        JPanel1 = new javax.swing.JPanel();
+       //txtMessage = new javax.swing.JTextField();
        // jScrollPane1 = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 30)); // NOI18N
-        jLabel1.setText("CHAT");
+        lbChat.setFont(new java.awt.Font("Segoe Script", 3, 50));
+        lbChat.setForeground(new java.awt.Color(0, 204, 0));
+        lbChat.setText("CHAT");
 
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        jLabel2.setText("Usuário: ");
+        lbSalas.setFont(new java.awt.Font("SansSerif", 1, 18));
+        lbSalas.setText("Salas disponíveis:");
 
-        jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        jLabel3.setText("Salas disponíveis:");
+        lbUsuario.setFont(new java.awt.Font("SansSerif", 1, 18));
+        lbUsuario.setText("Nome do Usuário:");
 
-        txtNome.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        cbSalas.setFont(new java.awt.Font("Calibri", 0, 18));
+        cbSalas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" })); //colocar as salas
 
-        btnEntrar.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        txtNome.setFont(new java.awt.Font("SansSerif", 0, 18));
+
+        btnEntrar.setFont(new java.awt.Font("Segoe Script", 3, 50));
         btnEntrar.setText("Entrar");
+
+        /*
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEntrarActionPerformed(evt);
             }
         });
+        */
 
-        txtMessage.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        txtMessage.setText("Mensagem:");
-
-        //jScrollPane1.setViewportView(txtArea);
+javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField2))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(10, 10, 10)
+                                .addComponent(jComboBox2, 0, 163, Short.MAX_VALUE)))
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(27, 27, 27)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -67,309 +116,52 @@ public class FormularioPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
-                .addGap(146, 146, 146))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                   // .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnEntrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                      //  .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(19, 19, 19)))))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE)
+                )
         );
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+//
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE)
+                ))
+
+//
+               .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEntrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    //.addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                   .addComponent(btnEntrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                   .addComponent(jLabel2)
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
+                   .addComponent(jLabel3)
                     .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-               //.addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                  ) ) ;
+               .addGap(18, 18, 18)
+
+              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+               .addComponent(txtMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+
+                  );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {
-
-		usuario = new Usuario(Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, txtNome.text, sala);
-
-
+    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt)
+    {
+		 //usuario = new Usuario(Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, txtNome.text, cbSalas.getSelectedItem());
          sala.add(usuario);
 
         new FormularioChat();
-
-      /*txtMessage.setForeground(Color.black);
-      txtMessage.setText("Mensagem:");
-        if(txtCodigo.getText() == null || "".equals(txtCodigo.getText()))
-       {
-           txtMessage.setForeground(Color.red);
-           txtMessage.setText("Erro ao incluir : Complete todos os campos");
-           txtCodigo.grabFocus();
-       }
-       else
-       {
-           if(txtTitulo.getText() == null || "".equals(txtTitulo.getText()))
-            {
-                txtMessage.setForeground(Color.red);
-                txtMessage.setText("Erro ao incluir : Complete todos os campos");
-                txtTitulo.grabFocus();
-            }
-           else
-           {
-            if(txtPreco.getText() == null || "".equals(txtPreco.getText()))
-            {
-                txtMessage.setForeground(Color.red);
-                txtMessage.setText("Erro ao incluir : Complete todos os campos");
-                txtPreco.grabFocus();
-            }
-            else
-            {
-                try
-                {
-                    Salas.incluir(new Sala(Integer.parseInt(txtCodigo.getText()),
-                            txtTitulo.getText(),Float.parseFloat(txtPreco.getText())));
-                    txtMessage.setText("Mensagem: Sala incluido.");
-                } catch (Exception ex)
-                {
-                    Logger.getLogger(Crud.class.getName()).log(Level.SEVERE, null, ex);
-                     txtMessage.setText("Mensagem: Erro ao incluir - Código já existente.");
-                }
-            }
-           }
-       }
-        txtPreco.setText("");
-        txtTitulo.setText("");
-        txtCodigo.setText("");*/
-    }
-
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-         txtMessage.setForeground(Color.black);
-         txtMessage.setText("Mensagem:");
-
-         if(txtCodigo.getText() == null || "".equals(txtCodigo.getText()))
-       {
-           txtMessage.setForeground(Color.red);
-           txtMessage.setText("Erro ao editar : Digite o código do livro a ser editado.");
-           txtCodigo.grabFocus();
-       }
-       else
-       {
-
-        if(txtTitulo.getText() == null || "".equals(txtTitulo.getText()))
-            {
-                if(txtPreco.getText() == null || "".equals(txtPreco.getText()))
-                {
-                    txtMessage.setForeground(Color.red);
-                    txtMessage.setText("Erro ao editar : Digite o que deseja mudar no livro.");
-                    txtTitulo.grabFocus();
-                }
-            }
-           else
-           {
-            try {
-                if(Salas.cadastrado(Integer.parseInt(txtCodigo.getText())))
-                {
-                    if(txtPreco.getText() == null || "".equals(txtPreco.getText()))
-                    {
-                        try {
-                            float preco = (Salas.getSala(Integer.parseInt(txtCodigo.getText()))).getPreco();
-                            Salas.alterar(new Sala(Integer.parseInt(txtCodigo.getText()),
-                                    txtTitulo.getText(),preco));
-                            txtMessage.setText("Mensagem: Sala editado.");
-                        }
-                        catch (Exception ex) {
-                            Logger.getLogger(Crud.class.getName()).log(Level.SEVERE, null, ex);
-                            txtMessage.setText("Mensagem: Erro na edição do livro - Não existe.");
-                        }
-
-                    }
-                    else
-                    {
-                        if(txtTitulo.getText() == null || "".equals(txtTitulo.getText()))
-                        {
-                            try {
-                                String titulo = (Salas.getSala(Integer.parseInt(txtCodigo.getText()))).getNome();
-                                Salas.alterar(new Sala(Integer.parseInt(txtCodigo.getText()),
-                                        titulo,Float.parseFloat(txtPreco.getText())));
-                                txtMessage.setText("Mensagem: Sala editado.");
-                            }
-                            catch (Exception ex) {
-                                Logger.getLogger(Crud.class.getName()).log(Level.SEVERE, null, ex);
-                                txtMessage.setText("Mensagem: Erro na edição do livro - Não existe.");
-                            }
-
-                        }
-
-                        else
-                        {
-                            try {
-                                Salas.alterar(new Sala(Integer.parseInt(txtCodigo.getText()),
-                                        txtTitulo.getText(),Float.parseFloat(txtPreco.getText())));
-                                txtMessage.setText("Mensagem: Sala editado.");
-                            }
-                            catch (Exception ex) {
-                                Logger.getLogger(Crud.class.getName()).log(Level.SEVERE, null, ex);
-                                txtMessage.setText("Mensagem: Erro na edição do livro - Não existe.");
-                            }
-                        }
-                    }
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(Crud.class.getName()).log(Level.SEVERE, null, ex);
-            }
-           }
-       }
-          txtPreco.setText("");
-        txtTitulo.setText("");
-        txtCodigo.setText("");
-    }//GEN-LAST:event_btnEditarActionPerformed
-
-    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        txtMessage.setForeground(Color.black);
-         txtMessage.setText("Mensagem:");
-
-         if(txtCodigo.getText() == null || "".equals(txtCodigo.getText()))
-       {
-           txtMessage.setForeground(Color.red);
-           txtMessage.setText("Erro ao consultar : Digite o código do livro a ser consultado.");
-           txtCodigo.grabFocus();
-       }
-       else
-       {
-
-        try {
-            if(Salas.cadastrado(Integer.parseInt(txtCodigo.getText())))
-            {
-            Sala livro = Salas.getSala(Integer.parseInt(txtCodigo.getText()));
-            String titulo = livro.getNome();
-            String preco = livro.getPreco() +"";
-            txtTitulo.setText(titulo);
-            txtPreco.setText(preco);
-            txtMessage.setText("Mensagem: Consulta realizada com sucesso.");
-            }
-            else
-            {
-                 txtMessage.setForeground(Color.red);
-                 txtMessage.setText("Mensagem: Erro na consulta do livro - Não existe.");
-            }
-            }
-            catch (Exception ex) {
-                Logger.getLogger(Crud.class.getName()).log(Level.SEVERE, null, ex);
-                 txtMessage.setForeground(Color.red);
-                 txtMessage.setText("Mensagem: Erro na consulta do livro .");
-            }
-       }
-
-    }//GEN-LAST:event_btnConsultarActionPerformed
-
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-       txtMessage.setForeground(Color.black);
-         txtMessage.setText("Mensagem:");
-
-
-          if(txtCodigo.getText() == null || "".equals(txtCodigo.getText()))
-       {
-           txtMessage.setForeground(Color.red);
-           txtMessage.setText("Erro ao excluir : Digite o código do livro a ser editado.");
-           txtCodigo.grabFocus();
-       }
-          else
-          {
-           try
-           {
-               if(Salas.cadastrado(Integer.parseInt(txtCodigo.getText())))
-               {
-
-              String message = "Deseja realmente excluir o cadastro deste livro?";
-                String title = "Confirmação";
-
-                int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
-                  if (reply == JOptionPane.YES_OPTION)
-                  {
-                    try
-                    {
-                        Salas.excluir(Integer.parseInt(txtCodigo.getText()));
-                        txtMessage.setText("Mensagem: Consulta excluída com sucesso .");
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.getLogger(Crud.class.getName()).log(Level.SEVERE, null, ex);
-                        txtMessage.setText("Erro ao excluir.");
-                    }
-
-                    txtCodigo.setText("");
-                    txtTitulo.setText("");
-                    txtPreco.setText("");
-                  }
-               }
-               else
-               {
-                    txtMessage.setForeground(Color.red);
-                     txtMessage.setText("Erro ao excluir: Sala não existente.");
-               }
-          }
-                catch (Exception ex)
-              {
-                  Logger.getLogger(Crud.class.getName()).log(Level.SEVERE, null, ex);
-                  txtMessage.setText("Erro ao excluir.");
-              }
-          }
-    }//GEN-LAST:event_btnExcluirActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try
-        {
-            MeuResultSet resultado = Salas.getSalas();
-            for(int i = 0; i<resultado.getRow();i++)
-                {
-                    for(int c = 0 ; c<4;c++)
-                    {
-                            resultado.absolute(i);
-
-                            txtArea.append(resultado.getString(c) + "     ");
-                    }
-                    txtArea.append("\n");
-            }
-        }
-        catch (Exception ex) {
-            Logger.getLogger(Crud.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
+	}
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -386,29 +178,18 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Crud.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new Crud().setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+		            public void run() {
+		                new FormularioPrincipal().setVisible(true);
+		            }
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnConsultar;
-    private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnIncluir;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea txtArea;
-    private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtMessage;
-    private javax.swing.JTextField txtPreco;
-    private javax.swing.JTextField txtTitulo;
-    // End of variables declaration//GEN-END:variables
+    private javax.swing.JButton btnEntrar;
+    private javax.swing.JComboBox<String> cbSalas;
+    private javax.swing.JLabel lbChat;
+    private javax.swing.JLabel lbSalas;
+    private javax.swing.JLabel lbUsuario;
+    private javax.swing.JTextField txtNome;
 }

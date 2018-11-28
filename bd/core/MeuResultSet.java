@@ -1,4 +1,6 @@
-﻿import java.sql.Array;
+﻿package bd.core;
+
+import java.sql.Array;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.Date;

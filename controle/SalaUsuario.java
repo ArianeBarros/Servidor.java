@@ -10,7 +10,7 @@ import java.util.ArrayList;
 //getUsuarios() -- arraylist com todos os nomes nas salas
 
 
-public class SalaUsuario
+public class SalaUsuario<Usuario>
 {
  //quant de lugares nome identificação
   protected int qtdMaxima;//?
@@ -18,14 +18,9 @@ public class SalaUsuario
   protected String nome;
   protected int qtdAtual = 0;
 
-  public SalaUsuario<Usuario> (/*String nome, int qtdM*/)throws Exception
+  public SalaUsuario(String nome, int qtdM)throws Exception
   {
 
-  }
-
-  public void getCodigo(int cod)throws Exception
-  {
-    	 this.codigo = cod;
   }
 
    public void getNome(String nome)throws Exception
@@ -73,17 +68,17 @@ public class SalaUsuario
 	return false;
   }
 
-  public void getUsuarios()
+  public ArrayList<Usuario> getUsuarios()
   {
-	  return this.lista.clone();
+	  return (ArrayList<Usuario>)this.lista.clone();
   }
 
-  public void getNome()
+  public String getNome()
   {
      return this.nome;
   }
 
-   public void getQtd()
+   public int getQtd()
     {
        return this.qtdMaxima;
   }
@@ -97,15 +92,15 @@ public class SalaUsuario
   {
 	String sit;
 
-    if(this.lista.isVazia())
+    if(this.isVazia())
       sit = "Vazia";
     else
-      if(this.lista.isCheia())
+      if(this.isCheia())
         sit = "Cheia";
         else
          sit = "Disponível";
 
-    return "Nome: " + this.getNomeClasse() + "\n\n Situação: " + sit + "\n\n Usuários: " + this.getUsuarios();
+    return "Nome: " + this.getNome() + "\n\n Situação: " + sit + "\n\n Usuários: " + this.getUsuarios();
   }
   public boolean equals(SalaUsuario<Usuario> sala)
   {
@@ -121,7 +116,7 @@ public class SalaUsuario
 	   return false;
 
 	for(int i = 0; i < this.qtdMaxima; i++)
-		if(!this.lista.get(i).equals(s.get(i)))
+		if(!this.lista.get(i).equals(s.lista.get(i)))
 		  return false;
 
      return true;
@@ -142,6 +137,8 @@ public class SalaUsuario
 
     return ret;
    }
+
+// fazer construtor de copia
 
    public Object clone()
    {

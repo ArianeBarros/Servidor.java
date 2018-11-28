@@ -1,7 +1,7 @@
-//package bd.daos;
+package bd.daos;
 
 import java.sql.*;
-//import bd.*;
+import bd.*;
 //import bd.core.*;
 //import bd.dbos.*;
 

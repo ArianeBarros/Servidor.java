@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Usuario //implements Comparable<Usuario>
 {
-	private SalaUsuario<Usuario> sala; // a mesma sala da main, com um ponteiro lá e outro ca
+	//private SalaUsuario<Usuario> sala; // a mesma sala da main, com um ponteiro lá e outro ca
 	private String nickname;
 	private Socket socket;
 	private ObjectInputStream receptor;
