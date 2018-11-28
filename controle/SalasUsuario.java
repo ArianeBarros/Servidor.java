@@ -10,13 +10,15 @@ import java.util.ArrayList;
 
 public class SalasUsuario
 {
-  protected ArrayList<Sala> list;
+  protected ArrayList<SalaUsuario<Usuario>> list;
   protected int qtdAtualSalas = 0;
-  protected int qtdMaxima = 3;
+  protected int qtdMaxima;
 
-  public Salas()
+  public SalasUsuario(SalaUsuario<Usuario> sala)
   {
     list = new ArrayList<SalaUsuario<Usuario>>();
+    list.add(sala.getNome());
+    this.qtdMaxima = sala.getQtd();
   }
 
   public void guarde(SalaUsuario<Usuario> sala)throws Exception
@@ -38,7 +40,7 @@ public class SalasUsuario
   {
     if(!isVazia())
     {
-       int indice = lista.indexOf(sala.getSalaNome(nomeSala));
+       int indice = list.indexOf(sala.getSalaNome(nomeSala));
 	   this.list.remove(indice);
        this.qtdAtualSalas--;
  	}
@@ -79,7 +81,7 @@ public class SalasUsuario
 
       return "Salas: " + nomes + "\n\n Situação: " + sit;
     }
-    public boolean equals(SalasUsuario<SalaUsuario<Usuario>> salas)
+    public boolean equals(SalasUsuario salas)
     {
       if(this==salas)
   	   return true;
@@ -87,13 +89,13 @@ public class SalasUsuario
   	if(salas == null)
   	   return false;
 
-  	SalasUsuario<SalaUsuario<Usuario>> s = (SalasUsuario<SalaUsuario<Usuario>>)salas;
+  	SalasUsuario s = (SalasUsuario)salas;
 
   	if(this.qtdMaxima!=s.qtdMaxima)
   	   return false;
 
   	for(int i = 0; i < this.qtdMaxima; i++)
-  		if(!this.lista.get(i).equals(s.get(i)))
+  		if(!this.list.get(i).equals(list.s.get(i)))
   		  return false;
 
        return true;
@@ -104,7 +106,7 @@ public class SalasUsuario
       int ret = 1;
 
       ret = ret * 2 + new Integer(this.qtdMaxima).hashCode();
-      ret = ret * 2 + new Integer(this.qtdAtual).hashCode();
+      ret = ret * 2 + new Integer(this.qtdAtualSalas).hashCode();
 
       for(int i = 0; i < qtdMaxima; i++)
       {
@@ -116,10 +118,10 @@ public class SalasUsuario
 
     public Object clone()
       {
-        SalasUsuario<SalaUsuario<Usuario>> ret = null;
+        SalasUsuario ret = null;
    	try
    	{
-   		ret = new SalasUsuario<SalaUsuario<Usuario>>(this);
+   		ret = new SalasUsuario(this);
    	}
    	catch(Exception erro)
    	{}

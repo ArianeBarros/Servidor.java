@@ -3,6 +3,7 @@ import java.io.*;
 import java.io.BufferedReader;
 import java.net.*;
 import java.util.*;
+//import enviaveis.Enviavel;
 //enfia o usu na sala e a sala no usu
 
 public class Usuario //implements Comparable<Usuario>

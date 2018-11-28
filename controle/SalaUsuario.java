@@ -13,14 +13,16 @@ import java.util.ArrayList;
 public class SalaUsuario<Usuario>
 {
  //quant de lugares nome identificação
-  protected int qtdMaxima;//?
-  protected ArrayList<Usuario> lista = new ArrayList<Usuario>();
+  protected int qtdMaxima;
+  protected ArrayList<Usuario> lista;
   protected String nome;
   protected int qtdAtual = 0;
 
-  public SalaUsuario(String nome, int qtdM)throws Exception
+  public SalaUsuario(String nomeSala, int qtdM)throws Exception
   {
-
+     this.nome = nomeSala;
+     this.qtdMaxima = qtdM;
+     this.lista = new ArrayList<Usuario>(this.qtdMaxima);
   }
 
    public void getNome(String nome)throws Exception
@@ -139,6 +141,21 @@ public class SalaUsuario<Usuario>
    }
 
 // fazer construtor de copia
+
+   public SalaUsuario(SalaUsuario<Usuario> modelo) throws Exception
+   {
+	  if(modelo == null)
+	  	throw new Exception("Modelo ausente");
+
+	this.qtdMaxima = modelo.qtdMaxima;
+
+	this.qtdAtual = modelo.qtdAtual;
+
+	this.lista = new ArrayList<Usuario>(modelo.lista.size());
+
+	for(int i=0; i<modelo.lista.size(); i++)
+	  this.lista.get(i) = modelo.lista.get(i);
+  }
 
    public Object clone()
    {
