@@ -1,3 +1,4 @@
+package enviaveis;
 public class Mensagem implements Enviavel
 {
 	private Texto;

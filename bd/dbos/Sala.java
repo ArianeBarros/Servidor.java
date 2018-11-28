@@ -1,34 +1,40 @@
+package bd.dbos;
+
 import java.util.ArrayList;
-package dbos;
+import controle.*;
+
 //metodo prara ver se ja existe um usaurio com o mesmo nome na sala --- throws Exceptions
 //getUsuarios() -- arraylist com todos os nomes nas salas
 
 
-public class Sala<Usuario>
+public class Sala
 {
  //quant de lugares nome identificação
   protected int qtdMaxima;//?
   protected ArrayList<Usuario> lista;
   protected String nome; //getter
   protected int qtdAtual = 0;
-
   protected int codigo;
 
-  public Sala(int cod String nome, int qtd)
+  public Sala(int cod, String nome, int qtd)	throws Exception
   {
-	  this.qtdMaxima = qtd;
-	  lista = new ArrayList<Usuario>;
-      this.nome = nome;
-
+	try
+	{
+	   this.lista = new ArrayList<Usuario>();
        this.setCodigo(cod);
 	   this.setNome(nome);
        this.setQtd(qtd);
+   	}
+   	catch(Exception error)
+   	{
+		throw new Exception(error.getMessage());
+	}
   }
 
-  public void setCodigo(int cod)
+  public void setCodigo(int cod)throws Exception
   {
-    if(cod == null)
-	  	throw new Exception("Código não fornecido corretamente");
+    if(cod == null || cod < 0)
+	  	throw new Exception("O código fornecido é inválido");
 
   	 this.codigo = cod;
   }
@@ -41,10 +47,10 @@ public class Sala<Usuario>
   	 this.nome = nome;
    }
 
-  public void setQtd(int qtd)
+  public void setQtd(int qtd)throws Exception
   {
-     if(qtd == null)
-	  	throw new Exception("Quantidade máxima não fornecido corretamente");
+     if(qtd == null || qtd < 0)
+	  	throw new Exception("A quantidade máxima é inválida");
 
   	 this.qtdMaxima = qtd;
   }
@@ -63,7 +69,7 @@ public class Sala<Usuario>
 
   public void excluirUsuario(Usuario usuario)
   {
-	 int indice = lista.indexOf(usuario)
+	 int indice = lista.indexOf(usuario);
      this.lista.remove(indice);
      this.qtdAtual--;
   }
@@ -89,9 +95,14 @@ public class Sala<Usuario>
 	  return this.lista.clone();
   }
 
-  public void setNomeClasse()
+  public void getNome()
   {
-     return this.nome = ;
+     return this.nome;
+  }
+
+   public void getQtd()
+    {
+       return this.qtdMaxima;
   }
 
   public boolean isCheia()

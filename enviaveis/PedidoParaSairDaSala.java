@@ -1,7 +1,9 @@
+package enviaveis;
+import controle.*;
 public class PedidoParaSairDaSala implements Enviavel
 {
 	//talvez
-	private Sala;
+	private Sala<Usuario>;
 	private Usuario;
 
 	public PedidoParaSairDaSala()
@@ -24,7 +26,7 @@ public class PedidoParaSairDaSala implements Enviavel
 		return true;
 	}
 
-	public String toString()
+	/*public String toString()
 	{
-	}
+	}*/
 }

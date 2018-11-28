@@ -1,12 +1,11 @@
 import java.io.*;
-package daos;
-
+import bd.dbos.Sala;
 public class Servidor
 {
    public static void main (String[]args)
    	{
-   		protected Salas salas = new Salas();
-
+   		//protected Salas salas = new Salas();
+   		new FormularioTeste();
 
 	}
 }

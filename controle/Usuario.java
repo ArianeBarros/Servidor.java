@@ -1,11 +1,13 @@
+package controle;
 import java.io.*;
 import java.io.BufferedReader;
-import java.net.Socket;
+import java.net.*;
+import java.util.*;
 //enfia o usu na sala e a sala no usu
 
-public class Usuario implements Comparable<Usuario>
+public class Usuario //implements Comparable<Usuario>
 {
-	private Sala sala; // a mesma sala da mean, com um ponteio lá e outro ca
+	private Sala<Usuario> sala; // a mesma sala da mean, com um ponteio lá e outro ca
 	private String nickname;
 	private Socket socket;
 	private ObjectInputStream receptor;
@@ -131,6 +133,6 @@ public class Usuario implements Comparable<Usuario>
 	{
 		this.transmissor.close();
 		this.receptor.close();
-		this.conexao.close();
+		this.socket.close();
 	}
 }

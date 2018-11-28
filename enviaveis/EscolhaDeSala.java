@@ -1,3 +1,4 @@
+package enviaveis;
 public class EscolhaDeSala // getters, setters, metodos obrigatorios e construtor
 {
 	public EscolhaDeSala()

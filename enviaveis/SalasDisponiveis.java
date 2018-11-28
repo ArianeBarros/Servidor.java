@@ -1,3 +1,5 @@
+package enviaveis;
+
 public class SalasDisponiveis implements Enviavel
 {
 	//arrayList com os nomes das salas com string de nomes
@@ -8,5 +10,6 @@ public class SalasDisponiveis implements Enviavel
 
 	public int hashCode()
 	{
+		return 0;	// para tirar o erro
 	}
 }
