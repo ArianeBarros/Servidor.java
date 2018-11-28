@@ -5,7 +5,7 @@ public class Servidor
    public static void main (String[]args)
    	{
    		//protected Salas salas = new Salas();
-   		new FormularioTeste();
+   		new FormularioPrincipal();
 
 	}
 }

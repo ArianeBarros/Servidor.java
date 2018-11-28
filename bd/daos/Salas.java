@@ -1,248 +1,179 @@
 package bd.daos;
 
 import java.sql.*;
-import bd.*;
-import bd.core.*;
-import bd.dbos.*;
+import bd.BDSQLServer;
+import bd.core.MeuResultSet;
+import bd.dbos.Sala;
 
-import java.util.ArrayList;
-import java.net.*;
-import java.io.*;
-import java.util.*;
-
-//guarde
-//jge fora
 
 public class Salas
 {
-  protected ArrayList<Sala> list;
-  protected int codSala;
-  protected int qtdAtualSalas = 0;
-  protected int qtdMaxima = 3;
+    public static boolean cadastrado (int codigo) throws Exception
+    {
+        boolean retorno = false;
 
-  public static boolean cadastrado(int codigo)throws Exception
-  {
-	  boolean retorno = false;
+        try
+        {
+            String sql;
 
-	          String sql;
-                   try
-                   {
-			             sql = "SELECT * " +
-			                   "FROM SalasSQL " +
-			                   "WHERE CODIGO = ?";
+            sql = "SELECT * " +
+                  "FROM SALASSQL " +
+                  "WHERE CODIGO = ?";
 
-			             BDSQLServer.COMANDO.prepareStatement (sql);
+            BDSQLServer.COMANDO.prepareStatement (sql);
 
-			             BDSQLServer.COMANDO.setInt (1, codigo);
+            BDSQLServer.COMANDO.setInt (1, codigo);
 
-			             MeuResultSet resultado = (MeuResultSet)BDSQLServer.COMANDO.executeQuery ();
+            MeuResultSet resultado = (MeuResultSet)BDSQLServer.COMANDO.executeQuery ();
 
-			             retorno = resultado.first();
-			         }
-			         catch (SQLException erro)
-			         {
-			             throw new Exception ("Erro ao procurar livro");
-			         }
-
+            retorno = resultado.first();
+       }
+        catch (SQLException erro)
+        {
+            throw new Exception ("Erro ao procurar sala");
+        }
 
         return retorno;
-  }
-
-  public static Sala getSalaCod(int codigo) throws Exception
-      {
-          Sala sala = null;
-
-          try
-          {
-              String sql;
-
-              sql = "SELECT * " +
-                    "FROM SalasSQL " +
-                    "WHERE CODIGO = ?";
-
-              BDSQLServer.COMANDO.prepareStatement (sql);
-
-              BDSQLServer.COMANDO.setInt (1, codigo);
-
-              MeuResultSet resultado = (MeuResultSet)BDSQLServer.COMANDO.executeQuery ();
-
-              if (!resultado.first())
-                  throw new Exception ("Nao cadastrado");
-
-              sala = new Sala (resultado.getInt   ("CODIGO"),
-                                 resultado.getString("NOME"),
-                                 resultado.getInt ("QTD"));
-          }
-          catch (SQLException erro)
-          {
-              throw new Exception ("Erro ao procurar sala");
-          }
-
-          return sala;
-      }
-
-      public static Sala getSalaNome(String nome) throws Exception
-	        {
-	            Sala sala = null;
-
-	            try
-	            {
-	                String sql;
-
-	                sql = "SELECT * " +
-	                      "FROM SalasSQL " +
-	                      "WHERE NOME = ?";
-
-	                BDSQLServer.COMANDO.prepareStatement (sql);
-
-	                BDSQLServer.COMANDO.setString(1, nome);
-
-	                MeuResultSet resultado = (MeuResultSet)BDSQLServer.COMANDO.executeQuery ();
-
-	                if (!resultado.first())
-	                    throw new Exception ("Nao cadastrado");
-
-	                sala = new Sala (resultado.getInt   ("CODIGO"),
-	                                   resultado.getString("NOME"),
-	                                   resultado.getInt ("QTD"));
-	            }
-	            catch (SQLException erro)
-	            {
-	                throw new Exception ("Erro ao procurar sala");
-	            }
-
-	            return sala;
-      }
-
-    /*  public static MeuResultSet getSalas() throws Exception
-      {
-          MeuResultSet resultado = null;
-
-          try
-          {
-              String sql;
-
-              sql = "SELECT * " +
-                    "FROM SalasSQL";
-
-              BDSQLServer.COMANDO.prepareStatement (sql);
-
-              resultado = (MeuResultSet)BDSQLServer.COMANDO.executeQuery ();
-          }
-          catch (SQLException erro)
-          {
-              throw new Exception ("Erro ao recuperar salas");
-          }
-
-          return resultado;
-    }*/
-
-  public void guarde(Sala sala)throws Exception
-  {
-	 if(!isCheia())
-	 {
-		for(int i = qtdAtualSalas; i < qtdMaxima; i++)
-		{
-		   this.list.add(sala.getSalaCod(i));
-		   this.qtdAtualSalas++;
-		}
-
-	 }
-     else
-        throw new Exception("Sem espaço para mais salas");
-  }
-
-  public void excluir(Sala sala, String nomeSala)throws Exception//pegar todos os tipos de exclusão
-  {
-    if(!isVazia())
-    {
-       int indice = lista.indexOf(sala.getSalaNome(nomeSala));
-	   this.list.remove(indice);
-       this.qtdAtualSalas--;
- 	 //}
-   /*  else
-       throw new Exception("Sala não existe");*/
-	}
-	else
-	  throw new Exception("Sem salas disponíveis para exclusão");
-  }
-
-  public boolean isVazia()
-  {
-	  return this.list.size() == 0;
-  }
-
-   public boolean isCheia()
-    {
-       return this.list.size() == this.qtdMaxima;
     }
 
-    public String toString()
+    public static void incluir (Sala sala) throws Exception
     {
-  	String sit;
-  	String nomes = "";
+        if (sala==null)
+            throw new Exception ("Sala nao fornecida");
 
-      if(this.list.isVazia())
-        sit = "Vazia";
-      else
-        if(this.list.isCheia())
-          sit = "Cheia";
-          else
-           sit = "Disponível";
+        try
+        {
+            String sql;
 
-     for(int i = 0; i < this.list.length; i++)
-     {
-		 nomes += this.list.get(i);
-	 }
+            sql = "INSERT INTO SALASSQL " +
+                  "(CODIGO,NOME,QTD) " +
+                  "VALUES " +
+                  "(?,?,?)";
 
-      return "Salas: " + nomes + "\n\n Situação: " + sit;
-    }
-    public boolean equals(Salas salas)
-    {
-      if(this==salas)
-  	   return true;
+            BDSQLServer.COMANDO.prepareStatement (sql);
 
-  	if(salas == null)
-  	   return false;
+            BDSQLServer.COMANDO.setInt    (1, sala.getCodigo ());
+            BDSQLServer.COMANDO.setString (2, sala.getNome ());
+            BDSQLServer.COMANDO.setInt  (3, sala.getQtd());
 
-  	Salas<Sala> s = (Salas<Sala>)salas;
-
-  	if(this.qtdMaxima!=s.qtdMaxima)
-  	   return false;
-
-  	for(int i = 0; i < this.qtdMaxima; i++)
-  		if(!this.lista.get(i).equals(s.get(i)))
-  		  return false;
-
-       return true;
+            BDSQLServer.COMANDO.executeUpdate ();
+            BDSQLServer.COMANDO.commit        ();
+        }
+        catch (SQLException erro)
+        {
+            throw new Exception ("Erro ao inserir sala");
+        }
     }
 
-     public int hashCode()
-     {
-      int ret = 1;
+    public static void excluir (int codigo) throws Exception
+    {
+        if (!cadastrado (codigo))
+            throw new Exception ("Nao cadastrado");
 
-      ret = ret * 2 + new Integer(this.qtdMaxima).hashCode();
-      ret = ret * 2 + new Integer(this.qtdAtual).hashCode();
+        try
+        {
+            String sql;
 
-      for(int i = 0; i < qtdMaxima; i++)
-      {
-        ret = ret * 2 + this.list.get(i).hashCode();
-  	}
+            sql = "DELETE FROM SALASSQL " +
+                  "WHERE CODIGO=?";
 
-      return ret;
-   }
+            BDSQLServer.COMANDO.prepareStatement (sql);
 
-    public Object clone()
-      {
-        Salas<Sala> ret = null;
-   	try
-   	{
-   		ret = new Salas<Sala>(this);
-   	}
-   	catch(Exception erro)
-   	{}
+            BDSQLServer.COMANDO.setInt (1, codigo);
 
-       return ret;
-   }
+            BDSQLServer.COMANDO.executeUpdate ();
+            BDSQLServer.COMANDO.commit        ();        }
+        catch (SQLException erro)
+        {
+            throw new Exception ("Erro ao excluir sala");
+        }
+    }
 
+    public static void alterar (Sala sala) throws Exception
+    {
+        if (sala==null)
+            throw new Exception ("Sala nao fornecida");
+
+        if (!cadastrado (sala.getCodigo()))
+            throw new Exception ("Nao cadastrada");
+
+        try
+        {
+            String sql;
+
+            sql = "UPDATE SALASSQL " +
+                  "SET NOME=? " +
+                  ", QTD=? " +
+                  "WHERE CODIGO = ?";
+
+            BDSQLServer.COMANDO.prepareStatement (sql);
+
+            BDSQLServer.COMANDO.setString (1, sala.getNome ());
+            BDSQLServer.COMANDO.setInt  (2, sala.getQtd ());
+            BDSQLServer.COMANDO.setInt    (3, livro.getCodigo ());
+
+            BDSQLServer.COMANDO.executeUpdate ();
+            BDSQLServer.COMANDO.commit        ();
+        }
+        catch (SQLException erro)
+        {
+            throw new Exception ("Erro ao atualizar dados de sala");
+        }
+    }
+
+    public static Sala getSala (int codigo) throws Exception
+    {
+        Sala sala = null;
+
+        try
+        {
+            String sql;
+
+            sql = "SELECT * " +
+                  "FROM SALASSQL " +
+                  "WHERE CODIGO = ?";
+
+            BDSQLServer.COMANDO.prepareStatement (sql);
+
+            BDSQLServer.COMANDO.setInt (1, codigo);
+
+            MeuResultSet resultado = (MeuResultSet)BDSQLServer.COMANDO.executeQuery ();
+
+            if (!resultado.first())
+                throw new Exception ("Nao cadastrado");
+
+            sala = new Sala (resultado.getInt   ("CODIGO"),
+                               resultado.getString("NOME"),
+                               resultado.getInt ("QTD"));
+        }
+        catch (SQLException erro)
+        {
+            throw new Exception ("Erro ao procurar livro");
+        }
+
+        return sala;
+    }
+
+    public static MeuResultSet getSalas () throws Exception
+    {
+        MeuResultSet resultado = null;
+
+        try
+        {
+            String sql;
+
+            sql = "SELECT * " +
+                  "FROM SALASSQL";
+
+            BDSQLServer.COMANDO.prepareStatement (sql);
+
+            resultado = (MeuResultSet)BDSQLServer.COMANDO.executeQuery ();
+        }
+        catch (SQLException erro)
+        {
+            throw new Exception ("Erro ao recuperar salas");
+        }
+
+        return resultado;
+    }
 }

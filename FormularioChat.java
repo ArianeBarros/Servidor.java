@@ -1,4 +1,4 @@
-
+//Formulario Principal
 package Servidor.java;
 import bd.*;
 import bd.core.*;
@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-public class FormularioTeste extends javax.swing.JFrame {
+public class FormularioChat extends javax.swing.JFrame {
 
     /**
      * Creates new form Crud

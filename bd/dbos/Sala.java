@@ -3,24 +3,16 @@ package bd.dbos;
 import java.util.ArrayList;
 import controle.*;
 
-//metodo prara ver se ja existe um usaurio com o mesmo nome na sala --- throws Exceptions
-//getUsuarios() -- arraylist com todos os nomes nas salas
-
-
-public class Sala
+public class Sala implements Cloneable
 {
- //quant de lugares nome identificação
-  protected int qtdMaxima;//?
-  protected ArrayList<Usuario> lista;
-  protected String nome; //getter
-  protected int qtdAtual = 0;
+  protected int qtd;
+  protected String nome;
   protected int codigo;
 
   public Sala(int cod, String nome, int qtd)	throws Exception
   {
-	try
+	try//?
 	{
-	   this.lista = new ArrayList<Usuario>();
        this.setCodigo(cod);
 	   this.setNome(nome);
        this.setQtd(qtd);
@@ -33,170 +25,111 @@ public class Sala
 
   public void setCodigo(int cod)throws Exception
   {
-    if(cod == null || cod < 0)
-	  	throw new Exception("O código fornecido é inválido");
+    if(cod < 0)
+	  	throw new Exception("Código é inválido");
 
   	 this.codigo = cod;
   }
 
    public void setNome(String nome)throws Exception
    {
-  	 if(nome == null || nome.equals(" "))
+  	 if(nome == null || nome.equals(""))
   	   throw new Exception("Nome não fornecido corretamente");
 
   	 this.nome = nome;
    }
 
-  public void setQtd(int qtd)throws Exception
+  public void setQtd(int qtdBD)throws Exception
   {
-     if(qtd == null || qtd < 0)
+     if(qtd < 0)
 	  	throw new Exception("A quantidade máxima é inválida");
 
-  	 this.qtdMaxima = qtd;
+  	 this.qtd = qtdBD;
   }
 
-  /*synchronized(X) X -- obj q esta sendo compartilhado
+   public int getCodigo ()
+  {
+          return this.codigo;
+  }
+
+  public String getNome ()
+  {
+	  return this.nome;
+  }
+
+  public float getQtd()
+  {
+	  return this.qtd;
+  }
+
+  public String toString ()
+  {
+          String ret="";
+
+          ret+="Codigo: "+this.codigo+"\n";
+          ret+="Nome: "+this.nome  +"\n";
+          ret+="Qtd: "+this.qtd;
+
+          return ret;
+    }
+
+
+   public boolean equals (Object obj)
+      {
+          if (this==obj)
+              return true;
+
+          if (obj==null)
+              return false;
+
+          if (!(obj instanceof Sala))
+              return false;
+
+          Sala sal = (Sala)obj;
+
+          if (this.codigo!=sal.codigo)
+              return false;
+
+          if (this.nome.equals(sal.nome))
+              return false;
+
+          if (this.qtd!=sal.qtd)
+              return false;
+
+          return true;
+    }
+
+    public int hashCode ()
    {
-	   x.dsdsds
-	   x.dsldms
-   }
-  */
-  public void adicionarUsuario(Usuario usuario)
-  {
-	  this.lista.add(usuario);
-	  this.qtdAtual++;
-  }
+	   int ret=666;
 
-  public void excluirUsuario(Usuario usuario)
-  {
-	 int indice = lista.indexOf(usuario);
-     this.lista.remove(indice);
-     this.qtdAtual--;
-  }
+	   ret = 7*ret + new Integer(this.codigo).hashCode();
+	   ret = 7*ret + this.nome.hashCode();
+	   ret = 7*ret + new Float(this.qtd).hashCode();
 
-  public boolean isVazia()
-  {
-    return this.qtdAtual == 0;
-  }
-
-  public boolean jaExiste(String username) //throws Exceptoin??
-  {
-    for(int i = 0; i < this.qtdAtual; i++)
-    {
-		if(this.lista.get(i).equals(username))
-		  return true;
-	}
-
-	return false;
-  }
-
-  public void getUsuarios()
-  {
-	  return this.lista.clone();
-  }
-
-  public void getNome()
-  {
-     return this.nome;
-  }
-
-   public void getQtd()
-    {
-       return this.qtdMaxima;
-  }
-
-  public boolean isCheia()
-  {
-     return this.lista.size() == this.qtdMaxima;
-  }
-
-  public String toString()
-  {
-	String sit;
-
-    if(this.lista.isVazia())
-      sit = "Vazia";
-    else
-      if(this.lista.isCheia())
-        sit = "Cheia";
-        else
-         sit = "Disponível";
-
-    return "Nome: " + this.getNomeClasse() + "\n\n Situação: " + sit + "\n\n Usuários: " + this.getUsuarios();
-  }
-  public boolean equals(Sala sala)
-  {
-    if(this==sala)
-	   return true;
-
-	if(sala == null)
-	   return false;
-
-	//if(this.getClass()!=sala.getClass())
-	//   return false;
-
-	Sala<Usuario> s = (Sala<Usuario>)sala; // java enxerga que existe uma Fila chamada fila (que é o mesmo obj)
-
-	if(this.qtdMaxima!=s.qtdMaxima)
-	   return false;
-
-	for(int i = 0; i < this.qtdMaxima; i++)
-		if(!this.lista.get(i).equals(s.get(i)))
-		  return false;
-
-     return true;
-  }
-
-   public int hashCode()
-   {
-    int ret = 1;
-
-    ret = ret * 2 + new Integer(this.qtdMaxima).hashCode();
-    ret = ret * 2 + new Integer(this.qtdAtual).hashCode();
-    ret = ret * 2 + this.nome.hashCode();
-
-    for(int i = 0; i < qtdMaxima; i++)
-    {
-      ret = ret * 2 + this.lista.get(i).hashCode();
-	}
-
-    return ret;
+	   return ret;
    }
 
- /*  private X meuCloneDeX(Usuario user)
-   		{
-   			X ret = null;
-   			try
-   			{
-   				Class<?> classe = user.getClass();
-   				Class<?>[] tiposDeParametrosFormais = null;
-   				Method metodo = classe.getMethod("clone", tiposDeParametrosFormais);
-   				Object[] tiposDeParametrosReais = null;
-   				ret = (Usuario)metodo.invoke(tiposDeParametrosReais);
-   			}
-   			catch(NoSuchMethodException erro)
-   			{}
-   			catch(IllegalAccessException erro)
-   			{}
-   			catch(InvocationTargetException erro)
-   			{}
-
-   			return ret;
-   		}*/
-
-
-   public Object clone()
+   public Sala (Sala modelo) throws Exception
    {
-     Sala<Usuario> ret = null;
-	try
+	   this.codigo = modelo.codigo;
+	   this.nome   = modelo.nome;
+	   this.qtd  = modelo.qtd;
+   }
+
+     public Object clone ()
 	{
-		ret = new Sala<Usuario>(this);
-	}
-	catch(Exception erro)
-	{}
+		Sala ret=null;
 
-    return ret;
-   }
+		try
+		{
+			ret = new Sala (this);
+		}
+		catch (Exception erro)
+		{}
+
+		return ret;
+	}
 
 }//combobox
 
@@ -204,4 +137,132 @@ public class Sala
 Salas -- hardData -- p/ coisas que raramente mudam
 dao e dbo p/ pegar salas
 construtor da classe salas
+*/
+
+/*
+package dbos;
+
+public class Livro implements Cloneable
+{
+    private int    codigo;
+    private String nome;
+    private float  preco;
+
+    public void setCodigo (int codigo) throws Exception
+    {
+        if (codigo <= 0)
+            throw new Exception ("Codigo invalido");
+
+        this.codigo = codigo;
+    }
+
+    public void setNome (String nome) throws Exception
+    {
+        if (nome==null || nome.equals(""))
+            throw new Exception ("Nome nao fornecido");
+
+        this.nome = nome;
+    }
+
+    public void setPreco (float preco) throws Exception
+    {
+        if (preco <= 0)
+            throw new Exception ("Preco invalido");
+
+        this.preco = preco;
+    }
+
+    public int getCodigo ()
+    {
+        return this.codigo;
+    }
+
+    public String getNome ()
+    {
+        return this.nome;
+    }
+
+    public float getPreco ()
+    {
+        return this.preco;
+    }
+
+    public Livro (int codigo, String nome, float preco) throws Exception
+    {
+        this.setCodigo (codigo);
+        this.setNome   (nome);
+        this.setPreco  (preco);
+    }
+
+    public String toString ()
+    {
+        String ret="";
+
+        ret+="Codigo: "+this.codigo+"\n";
+        ret+="Nome..: "+this.nome  +"\n";
+        ret+="Preco.: "+this.preco;
+
+        return ret;
+    }
+
+    public boolean equals (Object obj)
+    {
+        if (this==obj)
+            return true;
+
+        if (obj==null)
+            return false;
+
+        if (!(obj instanceof Livro))
+            return false;
+
+        Livro liv = (Livro)obj;
+
+        if (this.codigo!=liv.codigo)
+            return false;
+
+        if (this.nome.equals(liv.nome))
+            return false;
+
+        if (this.preco!=liv.preco)
+            return false;
+
+        return true;
+    }
+
+    public int hashCode ()
+    {
+        int ret=666;
+
+        ret = 7*ret + new Integer(this.codigo).hashCode();
+        ret = 7*ret + this.nome.hashCode();
+        ret = 7*ret + new Float(this.preco).hashCode();
+
+        return ret;
+    }
+
+
+    public Livro (Livro modelo) throws Exception
+    {
+        this.codigo = modelo.codigo; // nao clono, pq nao eh objeto
+        this.nome   = modelo.nome;   // nao clono, pq nao eh clonavel
+        this.preco  = modelo.preco;  // nao clono, pq nao eh objeto
+    }
+
+    public Object clone ()
+    {
+        Livro ret=null;
+
+        try
+        {
+            ret = new Livro (this);
+        }
+        catch (Exception erro)
+        {} // nao trato, pq this nunca ï¿½ null e construtor de
+           // copia da excecao qdo seu parametro for null
+
+        return ret;
+    }
+}
+
 */

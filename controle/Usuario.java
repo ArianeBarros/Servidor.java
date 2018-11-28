@@ -7,13 +7,13 @@ import java.util.*;
 
 public class Usuario //implements Comparable<Usuario>
 {
-	private Sala<Usuario> sala; // a mesma sala da mean, com um ponteio lá e outro ca
+	private SalaUsuario<Usuario> sala; // a mesma sala da main, com um ponteiro lá e outro ca
 	private String nickname;
 	private Socket socket;
 	private ObjectInputStream receptor;
 	private ObjectOutputStream transmissor;
 
-	public Usuario(Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, String nome, Sala sala) throws Exception
+	public Usuario(Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, String nome, SalaUsuario<Usuario> sala) throws Exception
 	{
 		//validar parametros TODOS, por causa das antinhas
 		//GUARDAR PARAMETROS NOS ATRIBUTOS
@@ -38,7 +38,7 @@ public class Usuario //implements Comparable<Usuario>
 			this.transmissor = new ObjectOutputStream(conexao.getOutputStream());
 			this.receptor = new ObjectInputStream(new InputStreamReader(conexao.getInputStream()));
 			this.nickname = nome;
-			this.sala = new Sala(sala);
+			this.sala = new SalaUsuario<Usuario>(sala);
 		}
 		catch(Exception e)
 		{
