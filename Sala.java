@@ -1,7 +1,7 @@
-package bd.dbos;
+//package bd.dbos;
 
 import java.util.ArrayList;
-import controle.*;
+//import controle.*;
 
 public class Sala implements Cloneable
 {

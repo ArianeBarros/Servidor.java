@@ -1,11 +1,13 @@
 import java.io.*;
-import bd.dbos.Sala;
+//import bd.dbos.Sala;
+
 public class Servidor
 {
    public static void main (String[]args)
    	{
    		//protected Salas salas = new Salas();
-   		new FormularioPrincipal();
+   		System.out.print("ok");
+   		FormularioPrincipal form = new FormularioPrincipal();
 
 	}
 }

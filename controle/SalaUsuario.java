@@ -14,11 +14,11 @@ public class SalaUsuario
 {
  //quant de lugares nome identificação
   protected int qtdMaxima;//?
-  protected ArrayList<Usuario> lista;
+  protected ArrayList<Usuario> lista = new ArrayList<Usuario>();
   protected String nome;
   protected int qtdAtual = 0;
 
-  public SalaUsuario<Usuario>(String nome, int qtdM)	throws Exception
+  public SalaUsuario<Usuario> (/*String nome, int qtdM*/)throws Exception
   {
 
   }

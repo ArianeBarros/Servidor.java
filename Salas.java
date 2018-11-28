@@ -1,10 +1,16 @@
-package bd.daos;
+//package bd.daos;
 
 import java.sql.*;
-import bd.BDSQLServer;
-import bd.core.MeuResultSet;
-import bd.dbos.Sala;
+//import bd.*;
+//import bd.core.*;
+//import bd.dbos.*;
 
+
+/*
+public interface Coisa implements Serializable
+{
+}
+*/
 
 public class Salas
 {
@@ -36,7 +42,7 @@ public class Salas
         return retorno;
     }
 
-    public static void incluir (Sala sala) throws Exception
+    public static void incluir(Sala sala) throws Exception
     {
         if (sala==null)
             throw new Exception ("Sala nao fornecida");

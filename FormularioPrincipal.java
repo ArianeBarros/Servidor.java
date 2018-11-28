@@ -1,9 +1,9 @@
 //Formulario Principal
 package Servidor.java;
-import bd.*;
+/*import bd.*;
 import bd.core.*;
 import bd.daos.Salas;
-import bd.dbos.Sala;
+import bd.dbos.Sala;*/
 import java.awt.Color;
 import java.sql.Array;
 import java.sql.SQLException;
@@ -109,7 +109,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
                //.addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                  ) ) ;      );
+                  ) ) ;
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
