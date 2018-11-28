@@ -14,7 +14,7 @@ public class SalasUsuario
   protected int qtdAtualSalas = 0;
   protected int qtdMaxima;
 
-  public SalasUsuario<SalaUsuario<Usuario>>(SalaUsuario<Usuario> sala)
+  public SalasUsuario(SalaUsuario<Usuario> sala)
   {
     list.add(sala.getNome());
     this.qtdMaxima = sala.getQtd();

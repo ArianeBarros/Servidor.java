@@ -1,3 +1,5 @@
+package Servidor.java;
+
 import java.io.*;
 import bd.dbos.Sala;
 
@@ -7,7 +9,7 @@ public class Servidor
    	{
    		//protected Salas salas = new Salas();
    		System.out.print("ok");
-   		FormularioPrincipal form = new FormularioPrincipal();
+   		new FormularioPrincipal();
 
 	}
 }

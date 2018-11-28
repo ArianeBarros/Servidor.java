@@ -25,15 +25,15 @@ public class SalaUsuario<Usuario>
      this.lista = new ArrayList<Usuario>(this.qtdMaxima);
   }
 
-   public void getNome(String nome)throws Exception
+ /*  public String getNome()throws Exception
    {
-	   this.nome = nome;
+	   return this.nome;
    }
 
-  public void getQtd(int qtd)throws Exception
+  public int getQtd()throws Exception
   {
-	  this.qtdMaxima = qtd;
-  }
+	 return this.qtdMaxima;
+  }*/
 
   /*synchronized(X) X -- obj q esta sendo compartilhado
    {

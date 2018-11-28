@@ -9,10 +9,10 @@ import java.util.*;
 public class Usuario //implements Comparable<Usuario>
 {
 	//private SalaUsuario<Usuario> sala; // a mesma sala da main, com um ponteiro lá e outro ca
-	private String nickname;
-	private Socket socket;
-	private ObjectInputStream receptor;
-	private ObjectOutputStream transmissor;
+	protected String nickname;
+	protected Socket socket;
+	protected ObjectInputStream receptor;
+	protected ObjectOutputStream transmissor;
 
 	public Usuario(Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, String nome, SalaUsuario<Usuario> sala) throws Exception
 	{
@@ -37,9 +37,11 @@ public class Usuario //implements Comparable<Usuario>
 		{
 			this.socket = conexao;
 			this.transmissor = new ObjectOutputStream(conexao.getOutputStream());
-			this.receptor = new ObjectInputStream(new InputStreamReader(conexao.getInputStream()));
+			receptor = new ObjectInputStream(conexao.getInputStream());
+			//this.receptor = new ObjectInputStream(new InputStreamReader(conexao.getInputStream()));
 			this.nickname = nome;
-			this.sala = new SalaUsuario<Usuario>(sala);
+			sala = new SalaUsuario<Usuario>(sala.getNome(), sala.getQtd());
+			//this.sala = new SalaUsuario<Usuario>(sala);
 		}
 		catch(Exception e)
 		{
@@ -49,7 +51,7 @@ public class Usuario //implements Comparable<Usuario>
 
 	public String toString()
 	{
-		return "Usuário:" + this.nickname + "Receptor:" + this.receptor + "Transmissor:" + this.transmissot;
+		return "Usuário:" + this.nickname + "Receptor:" + this.receptor + "Transmissor:" + this.transmissor;
 	}
 
 	public int hashCode()
@@ -59,6 +61,8 @@ public class Usuario //implements Comparable<Usuario>
 		ret = ret * 2 + this.socket.hashCode();
 		ret = ret * 2 + this.transmissor.hashCode();
 		ret = ret * 2 + this.receptor.hashCode();
+
+		return ret;
 	}
 
 	public boolean equals(Object obj)
@@ -86,9 +90,9 @@ public class Usuario //implements Comparable<Usuario>
 		if(!this.receptor.equals(u.receptor))
 			return false;
 
-		if(!this.sala.equals(u.sala))
+/*		if(!this.sala.equals(u.sala))
 			return false;
-
+*/
 		return true;
 	}
 
@@ -118,7 +122,7 @@ public class Usuario //implements Comparable<Usuario>
 	}
 
 	//ver isso
-	public void envia(Enviavel x)
+/*	public void envia(Enviavel x)
 	{
 		// uma instancia de uma classe que herda de enviavel
 		//String texto = tf.getText();
@@ -131,12 +135,19 @@ public class Usuario //implements Comparable<Usuario>
 	public Enviavel recebe() //pode ser String, ou , A SALA É UMA GUARDADORA DE USUARIOS, SALAS É GUARDADORA DE SALAS
 	{
 		//usar o receptor
-	}
+	}*/
 
-	public void fechaTudo()
+	public void fechaTudo()throws Exception
 	{
-		this.transmissor.close();
-		this.receptor.close();
-		this.socket.close();
+		try
+		{
+			this.transmissor.close();
+			this.receptor.close();
+			this.socket.close();
+		}
+		catch(Exception error)
+		{
+			throw new Exception(error);
+		}
 	}
 }
