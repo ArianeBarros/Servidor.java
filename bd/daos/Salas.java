@@ -42,7 +42,7 @@ public class Salas
         return retorno;
     }
 
-    public static void incluir(Sala sala) throws Exception
+    public void incluir(Sala sala) throws Exception
     {
         if (sala==null)
             throw new Exception ("Sala nao fornecida");

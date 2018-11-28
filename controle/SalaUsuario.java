@@ -153,8 +153,8 @@ public class SalaUsuario<Usuario>
 
 	this.lista = new ArrayList<Usuario>(modelo.lista.size());
 
-	for(int i=0; i<modelo.lista.size(); i++)
-	  this.lista.get(i) = modelo.lista.get(i);
+	//for(int i=0; i< this.qtdAtual; i++)
+	 // this.lista.get(i) = modelo.lista.get(i);
   }
 
    public Object clone()

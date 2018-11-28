@@ -49,7 +49,7 @@ public class Usuario //implements Comparable<Usuario>
 
 	public String toString()
 	{
-		return "Usuário" + this.nickname + "Receptor:" + this.receptor + "Transmissor:" + this.transmissot;
+		return "Usuário:" + this.nickname + "Receptor:" + this.receptor + "Transmissor:" + this.transmissot;
 	}
 
 	public int hashCode()
@@ -121,8 +121,11 @@ public class Usuario //implements Comparable<Usuario>
 	public void envia(Enviavel x)
 	{
 		// uma instancia de uma classe que herda de enviavel
-		this.transmissor = writeObject();
-		this.receptor = flush();
+		//String texto = tf.getText();
+		String texto = x;
+		//this.transmissor = writeObject();
+		transmissor.println(texto);
+		this.transmissor.flush();
 	}
 
 	public Enviavel recebe() //pode ser String, ou , A SALA É UMA GUARDADORA DE USUARIOS, SALAS É GUARDADORA DE SALAS

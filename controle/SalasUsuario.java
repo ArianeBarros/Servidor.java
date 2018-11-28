@@ -14,11 +14,11 @@ public class SalasUsuario
   protected int qtdAtualSalas = 0;
   protected int qtdMaxima;
 
-  public SalasUsuario(SalaUsuario<Usuario> sala)
+  public SalasUsuario<SalaUsuario<Usuario>>(SalaUsuario<Usuario> sala)
   {
-    list = new ArrayList<SalaUsuario<Usuario>>();
     list.add(sala.getNome());
     this.qtdMaxima = sala.getQtd();
+    list = new ArrayList<SalaUsuario<Usuario>>(this.qtdMaxima);
   }
 
   public void guarde(SalaUsuario<Usuario> sala)throws Exception
