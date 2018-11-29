@@ -1,4 +1,4 @@
-﻿package bd;
+package bd;
 
 import java.io.InputStream;
 import java.io.Reader;
@@ -403,7 +403,7 @@ public class MeuPreparedStatement extends MeuStatement implements PreparedStatem
 		return ret;
     }
 
-    // O metodo compareTo, que �, por vezes, obrigatorio, nao esta
+    // O metodo compareTo, que ?, por vezes, obrigatorio, nao esta
     // sendo implementado porque, tendo dois objetos instanciados
     // desta classe, nao faria sentido pensar em qual deles eh o
     // maior ou em qual deles eh o menor.

@@ -1,16 +1,29 @@
 //package Servidor.java;
 
 import java.io.*;
-import bd.Sala;
-import enviaveis.*;
+import bd.*;
+//import bd.core;
+//import enviaveis.*;
 
 public class Servidor
 {
-   public static void main (String[]args)
+   public static void main (String[]args)throws Exception
    	{
-   		//protected Salas salas = new Salas();
-   		//System.out.print("ok");
+//   		protected Salas salas = new Salas();
+   		System.out.print("ok");
    		FormularioP form = new FormularioP();
+
+   	   try
+		{
+		 // for(int i = 0; i < 3; i++)
+			System.out.print(Salas.getSala(1));
+          //System.out.print("blz");
+
+		}
+		catch (Exception e)
+		{
+			System.out.println (e.getMessage());
+        }
 
 	}
 }

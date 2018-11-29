@@ -23,7 +23,7 @@ public class Salas implements Cloneable
             String sql;
 
             sql = "SELECT * " +
-                  "FROM SALASSQL " +
+                  "FROM SALAS " +
                   "WHERE CODIGO = ?";
 
             BDSQLServer.COMANDO.prepareStatement (sql);
@@ -51,7 +51,7 @@ public class Salas implements Cloneable
         {
             String sql;
 
-            sql = "INSERT INTO SALASSQL " +
+            sql = "INSERT INTO SALAS " +
                   "(CODIGO,NOME,QTD) " +
                   "VALUES " +
                   "(?,?,?)";
@@ -80,7 +80,7 @@ public class Salas implements Cloneable
         {
             String sql;
 
-            sql = "DELETE FROM SALASSQL " +
+            sql = "DELETE FROM SALAS " +
                   "WHERE CODIGO=?";
 
             BDSQLServer.COMANDO.prepareStatement (sql);
@@ -107,7 +107,7 @@ public class Salas implements Cloneable
         {
             String sql;
 
-            sql = "UPDATE SALASSQL " +
+            sql = "UPDATE SALAS " +
                   "SET NOME=? " +
                   ", QTD=? " +
                   "WHERE CODIGO = ?";
@@ -116,7 +116,7 @@ public class Salas implements Cloneable
 
             BDSQLServer.COMANDO.setString (1, sala.getNome ());
             BDSQLServer.COMANDO.setInt  (2, sala.getQtd ());
-            BDSQLServer.COMANDO.setInt    (3, livro.getCodigo ());
+            BDSQLServer.COMANDO.setInt    (3, sala.getCodigo ());
 
             BDSQLServer.COMANDO.executeUpdate ();
             BDSQLServer.COMANDO.commit        ();
@@ -136,7 +136,7 @@ public class Salas implements Cloneable
             String sql;
 
             sql = "SELECT * " +
-                  "FROM SALASSQL " +
+                  "FROM SALAS " +
                   "WHERE CODIGO = ?";
 
             BDSQLServer.COMANDO.prepareStatement (sql);
@@ -154,7 +154,7 @@ public class Salas implements Cloneable
         }
         catch (SQLException erro)
         {
-            throw new Exception ("Erro ao procurar livro");
+            throw new Exception ("Erro ao procurar sala");
         }
 
         return sala;
@@ -169,7 +169,7 @@ public class Salas implements Cloneable
             String sql;
 
             sql = "SELECT * " +
-                  "FROM SALASSQL";
+                  "FROM SALAS";
 
             BDSQLServer.COMANDO.prepareStatement (sql);
 
