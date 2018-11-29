@@ -1,26 +1,18 @@
 //package bd.dbos;
 package bd;
-import java.util.ArrayList;
-import controle.*;
+import java.sql.*;
 
 public class Sala implements Cloneable
 {
-  protected int qtd;
-  protected String nome;
-  protected int codigo;
+  private int qtd;
+  private String nome;
+  private int codigo;
 
   public Sala(int cod, String nome, int qtd)	throws Exception
   {
-	try
-	{
        this.setCodigo(cod);
 	   this.setNome(nome);
        this.setQtd(qtd);
-   	}
-   	catch(Exception error)
-   	{
-		throw new Exception(error.getMessage());
-	}
   }
 
   public void setCodigo(int cod)throws Exception
@@ -49,7 +41,7 @@ public class Sala implements Cloneable
 
    public int getCodigo ()
   {
-          return this.codigo;
+     return this.codigo;
   }
 
   public String getNome ()
@@ -105,7 +97,7 @@ public class Sala implements Cloneable
 
 	   ret = 7*ret + new Integer(this.codigo).hashCode();
 	   ret = 7*ret + this.nome.hashCode();
-	   ret = 7*ret + new Float(this.qtd).hashCode();
+	   ret = 7*ret + new Integer(this.qtd).hashCode();
 
 	   return ret;
    }

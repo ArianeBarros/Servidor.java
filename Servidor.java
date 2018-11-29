@@ -15,10 +15,8 @@ public class Servidor
 
    	   try
 		{
-		 // for(int i = 0; i < 3; i++)
-			System.out.print(Salas.getSala(1));
+			System.out.print(Salas.getSalas());
           //System.out.print("blz");
-
 		}
 		catch (Exception e)
 		{
