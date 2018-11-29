@@ -10,7 +10,7 @@ import java.util.ArrayList;
 //getUsuarios() -- arraylist com todos os nomes nas salas
 
 
-public class SalaUsuario<Usuario>
+public class SalaUsuario
 {
  //quant de lugares nome identificação
   protected int qtdMaxima;
@@ -104,7 +104,7 @@ public class SalaUsuario<Usuario>
 
     return "Nome: " + this.getNome() + "\n\n Situação: " + sit + "\n\n Usuários: " + this.getUsuarios();
   }
-  public boolean equals(SalaUsuario<Usuario> sala)
+  public boolean equals(Object sala)
   {
     if(this==sala)
 	   return true;
@@ -112,13 +112,13 @@ public class SalaUsuario<Usuario>
 	if(sala == null)
 	   return false;
 
-	SalaUsuario<Usuario> s = (SalaUsuario<Usuario>)sala;
+	SalaUsuario s = (SalaUsuario)sala;
 
 	if(this.qtdMaxima!=s.qtdMaxima)
 	   return false;
 
-	for(int i = 0; i < this.qtdMaxima; i++)
-		if(!this.lista.get(i).equals(s.lista.get(i)))
+
+		if(!this.lista.equals(s))
 		  return false;
 
      return true;
@@ -142,7 +142,7 @@ public class SalaUsuario<Usuario>
 
 // fazer construtor de copia
 
-   public SalaUsuario(SalaUsuario<Usuario> modelo) throws Exception
+   public SalaUsuario(SalaUsuario modelo) throws Exception
    {
 	  if(modelo == null)
 	  	throw new Exception("Modelo ausente");
@@ -153,16 +153,15 @@ public class SalaUsuario<Usuario>
 
 	this.lista = new ArrayList<Usuario>(modelo.lista.size());
 
-	//for(int i=0; i< this.qtdAtual; i++)
-	 // this.lista.get(i) = modelo.lista.get(i);
+	 this.lista = modelo.lista;//!!
   }
 
    public Object clone()
    {
-     SalaUsuario<Usuario> ret = null;
+     SalaUsuario ret = null;
 	try
 	{
-		ret = new SalaUsuario<Usuario>(this);
+		ret = new SalaUsuario(this);
 	}
 	catch(Exception erro)
 	{}

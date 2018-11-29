@@ -6,7 +6,7 @@ import java.util.*;
 //import enviaveis.Enviavel;
 //enfia o usu na sala e a sala no usu
 
-public class Usuario //implements Comparable<Usuario>
+public class Usuario implements Cloneable
 {
 	//private SalaUsuario<Usuario> sala; // a mesma sala da main, com um ponteiro lá e outro ca
 	protected String nickname;
@@ -14,7 +14,7 @@ public class Usuario //implements Comparable<Usuario>
 	protected ObjectInputStream receptor;
 	protected ObjectOutputStream transmissor;
 
-	public Usuario(Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, String nome, SalaUsuario<Usuario> sala) throws Exception
+	public Usuario(Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, String nome, SalaUsuario sala) throws Exception
 	{
 		//validar parametros TODOS, por causa das antinhas
 		//GUARDAR PARAMETROS NOS ATRIBUTOS
@@ -40,7 +40,7 @@ public class Usuario //implements Comparable<Usuario>
 			receptor = new ObjectInputStream(conexao.getInputStream());
 			//this.receptor = new ObjectInputStream(new InputStreamReader(conexao.getInputStream()));
 			this.nickname = nome;
-			sala = new SalaUsuario<Usuario>(sala.getNome(), sala.getQtd());
+			sala = new SalaUsuario(sala.getNome(), sala.getQtd());
 			//this.sala = new SalaUsuario<Usuario>(sala);
 		}
 		catch(Exception e)

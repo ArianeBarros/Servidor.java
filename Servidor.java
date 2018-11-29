@@ -1,15 +1,16 @@
-package Servidor.java;
+//package Servidor.java;
 
 import java.io.*;
-import bd.dbos.Sala;
+import bd.Sala;
+import enviaveis.*;
 
 public class Servidor
 {
    public static void main (String[]args)
    	{
    		//protected Salas salas = new Salas();
-   		System.out.print("ok");
-   		new FormularioPrincipal();
+   		//System.out.print("ok");
+   		FormularioP form = new FormularioP();
 
 	}
 }

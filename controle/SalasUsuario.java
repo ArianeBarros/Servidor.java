@@ -10,24 +10,24 @@ import java.util.ArrayList;
 
 public class SalasUsuario
 {
-  protected ArrayList<SalaUsuario<Usuario>> list;
+  protected ArrayList<SalaUsuario> list;
   protected int qtdAtualSalas = 0;
   protected int qtdMaxima;
 
-  public SalasUsuario(SalaUsuario<Usuario> sala)
+  public SalasUsuario(SalaUsuario sala)
   {
-    list.add(sala.getNome());
+	list = new ArrayList<SalaUsuario>(this.qtdMaxima);
+    list.add(sala);
     this.qtdMaxima = sala.getQtd();
-    list = new ArrayList<SalaUsuario<Usuario>>(this.qtdMaxima);
   }
 
-  public void guarde(SalaUsuario<Usuario> sala)throws Exception
+  public void guarde(SalaUsuario sala)throws Exception
   {
 	 if(!isCheia())
 	 {
 		for(int i = qtdAtualSalas; i < qtdMaxima; i++)
 		{
-		   this.list.add(sala.getSalaCod(i));
+		   this.list.add(sala);
 		   this.qtdAtualSalas++;
 		}
 
@@ -36,11 +36,11 @@ public class SalasUsuario
         throw new Exception("Sem espaço para mais salas");
   }
 
-  public void excluir(SalaUsuario<SalaUsuario<Usuario>> sala, String nomeSala)throws Exception//pegar todos os tipos de exclusão
+  public void excluir(SalaUsuario sala, String nomeSala)throws Exception//pegar todos os tipos de exclusão
   {
     if(!isVazia())
     {
-       int indice = list.indexOf(sala.getSalaNome(nomeSala));
+       int indice = list.indexOf(nomeSala);
 	   this.list.remove(indice);
        this.qtdAtualSalas--;
  	}
@@ -66,22 +66,22 @@ public class SalasUsuario
   	String sit;
   	String nomes = "";
 
-      if(this.list.isVazia())
+      if(this.isVazia())
         sit = "Vazia";
       else
-        if(this.list.isCheia())
+        if(this.isCheia())
           sit = "Cheia";
           else
            sit = "Disponível";
 
-     for(int i = 0; i < this.list.length; i++)
+     for(int i = 0; i < this.list.size(); i++)
      {
 		 nomes += "\n\n " + this.list.get(i);
 	 }
 
       return "Salas: " + nomes + "\n\n Situação: " + sit;
     }
-    public boolean equals(SalasUsuario salas)
+    public boolean equals(Object salas)
     {
       if(this==salas)
   	   return true;
@@ -94,8 +94,8 @@ public class SalasUsuario
   	if(this.qtdMaxima!=s.qtdMaxima)
   	   return false;
 
-  	for(int i = 0; i < this.qtdMaxima; i++)
-  		if(!this.list.get(i).equals(list.s.get(i)))
+
+  		if(!this.list.equals(s))
   		  return false;
 
        return true;
@@ -115,6 +115,41 @@ public class SalasUsuario
 
       return ret;
    }
+
+  /* private SalaUsuario<Usuario> meuCloneDeSala(SalaUsuario<Usuario> sala)
+   		{
+   			SalaUsuario<Usuario> ret = null;
+   			try
+   			{
+   				SalaUsuario<Usuario> classe = SalaUsuario<Usuario>;
+   				ArrayList<SalaUsuario<Usuario>> tiposDeParametrosFormais = null;
+   				Method metodo = classe.getMethod("clone", tiposDeParametrosFormais);
+   				ArrayList<SalaUsuario<Usuario>> tiposDeParametrosReais = null;
+   				ret = (SalaUsuario<Usuario>)metodo.invoke(tiposDeParametrosReais);
+   			}
+   			catch(NoSuchMethodException erro)
+   			{}
+   			catch(IllegalAccessException erro)
+   			{}
+   			catch(InvocationTargetException erro)
+   			{}
+
+   			return ret;
+		}*/
+
+    public SalasUsuario(SalasUsuario modelo) throws Exception
+      {
+		  if(modelo == null)
+			throw new Exception("Modelo ausente");
+
+		this.qtdMaxima = modelo.qtdMaxima;
+
+		this.qtdAtualSalas = modelo.qtdAtualSalas;
+
+		this.list = new ArrayList<SalaUsuario>(modelo.list.size());
+
+		this.list = modelo.list;
+  	 }
 
     public Object clone()
       {

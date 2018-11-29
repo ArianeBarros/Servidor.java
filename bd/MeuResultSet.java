@@ -1,5 +1,4 @@
-﻿//package bd.core;
-package bd;
+﻿package bd;
 
 import java.sql.Array;
 import java.sql.Blob;
