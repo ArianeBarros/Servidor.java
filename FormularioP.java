@@ -12,7 +12,7 @@ public class FormularioP
 	protected JComboBox<String> cbSalas = new JComboBox<String>();
     protected JPanel jp                 = new JPanel();
 
-
+  //main[]??
 
     public FormularioP()
     {
@@ -35,5 +35,28 @@ public class FormularioP
 
 		this.janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.janela.setVisible(true);
+
+		 btnEntrar.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnEntrarActionPerformed(evt);
+			}
+        });
+
+
+	}
+
+	  private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt)
+	    {
+			/*String escolhida = cbSalas.getSelectedIndex();
+			int qtd = sala.getQtd();
+
+			 sala = new SalaUsuario<Usuario>(escolhida, qtd);
+			 //usuario = new Usuario(Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, txtNome.text, cbSalas.getSelectedItem());
+	         sala.add(usuario);*/
+
+	        new FormularioChat();
+
+
+
 	}
 }
