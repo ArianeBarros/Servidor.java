@@ -3,7 +3,7 @@ import java.io.*;
 import java.io.BufferedReader;
 import java.net.*;
 import java.util.*;
-//import enviaveis.Enviavel;
+import enviaveis.Enviavel;
 //enfia o usu na sala e a sala no usu
 
 public class Usuario implements Cloneable
@@ -122,20 +122,20 @@ public class Usuario implements Cloneable
 	}
 
 	//ver isso
-/*	public void envia(Enviavel x)
+	public void envia(Enviavel x)
 	{
 		// uma instancia de uma classe que herda de enviavel
 		//String texto = tf.getText();
-		String texto = x;
+		String texto = x.toString();
 		//this.transmissor = writeObject();
-		transmissor.println(texto);
+		transmissor.writeBytes(texto);
 		this.transmissor.flush();
 	}
 
 	public Enviavel recebe() //pode ser String, ou , A SALA É UMA GUARDADORA DE USUARIOS, SALAS É GUARDADORA DE SALAS
 	{
 		//usar o receptor
-	}*/
+	}
 
 	public void fechaTudo()throws Exception
 	{

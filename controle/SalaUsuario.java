@@ -75,15 +75,25 @@ public class SalaUsuario
 	  return (ArrayList<Usuario>)this.lista.clone();
   }
 
+  public Usuario getUsuario(int i)
+  {
+    return this.lista.get(i);
+  }
+
   public String getNome()
   {
      return this.nome;
   }
 
    public int getQtd()
-    {
+   {
        return this.qtdMaxima;
-  }
+   }
+
+   public int getQtdAtual()
+   {
+	   return this.qtdAtual;
+   }
 
   public boolean isCheia()
   {

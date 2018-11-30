@@ -3,8 +3,8 @@ import controle.*;
 public class PedidoParaSairDaSala implements Enviavel
 {
 	//talvez
-	private Sala<Usuario>;
-	private Usuario;
+	//protected SalaUsuario<Usuario>;
+	//protected Usuario;
 
 	public PedidoParaSairDaSala()
 	{

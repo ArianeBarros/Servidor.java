@@ -1,11 +1,13 @@
 package enviaveis;
+
 public class Mensagem implements Enviavel
 {
-	private Texto;
-	private destinatario;
+	private String texto;
+	private String destinatario;
 
-	public Mensagem()
+	public Mensagem(String enviar)
 	{
+      this.texto = enviar;
 	}
 
 	public int hashCode()

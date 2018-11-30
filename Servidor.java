@@ -2,6 +2,10 @@
 
 import java.io.*;
 import bd.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.net.*;
 //import bd.core;
 //import enviaveis.*;
 
@@ -13,9 +17,21 @@ public class Servidor
    		System.out.print("ok");
    		//FormularioTeste form = new FormularioTeste();
    		FormularioP form2 = new FormularioP();
+   		FormularioChat chat;
    		//FormularioChat form3 = new FormularioChat();
 
-   	   try
+   		 ServerSocket pedido = new ServerSocket(12345);
+		 Socket conexao = pedido.accept();
+		 //CuidadoraDeUsario j = new CuidadoraDeUsuario(conexao);
+		 BufferedReader receptor = new BufferedReader(new InputStreamReader(conexao.getInputStream()));
+		 for(;;)
+		 {
+			chat = new FormularioChat();
+			String textoR = receptor.readLine();
+			chat.mostra(textoR);
+		 }
+
+   	   /*try
 		{
 			for(int i = 0; i < 3; i++)
 			{
@@ -27,7 +43,7 @@ public class Servidor
 		catch (Exception e)
 		{
 			System.out.println (e.getMessage());
-        }
+        }*/
 
 	}
 }
