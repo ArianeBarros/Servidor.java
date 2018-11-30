@@ -11,12 +11,18 @@ public class Servidor
    	{
 //   		protected Salas salas = new Salas();
    		System.out.print("ok");
-   		FormularioP form = new FormularioP();
+   		//FormularioTeste form = new FormularioTeste();
+   		FormularioP form2 = new FormularioP();
+   		//FormularioChat form3 = new FormularioChat();
 
    	   try
 		{
-			System.out.print(Salas.getSalas());
-          //System.out.print("blz");
+			for(int i = 0; i < 3; i++)
+			{
+			  System.out.print(Salas.getSala(i + 1));
+			  //System.out.println("I: " + i);
+              //System.out.print("blz");
+		    }
 		}
 		catch (Exception e)
 		{

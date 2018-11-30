@@ -1,62 +1,57 @@
+//package Servidor.java;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class FormularioP
+class FormularioP
 {
 	protected JFrame janela             = new JFrame("CHAT");
 	protected JLabel lbUsuario          = new JLabel("Nome usuário:");
 	protected JLabel lbSalas            = new JLabel("Salas disponiveís");
-	protected JLabel lbChat             = new JLabel("CHAT", SwingConstants.CENTER);
+	protected JLabel lbChat             = new JLabel("CHAT");
 	protected JTextField txtNome        = new JTextField();
-	protected JButton btnEntrar         = new JButton("Entrar");//, SwingConstants.RIGHT
+	protected JButton btnEntrar         = new JButton("Entrar");
 	protected JComboBox<String> cbSalas = new JComboBox<String>();
     protected JPanel jp                 = new JPanel();
 
-  //main[]??
-
-    public FormularioP()
+    public FormularioP() throws Exception
     {
-		lbChat.setFont(new Font("Segoe Script", 3, 50));
-		lbChat.setForeground(new Color(0, 204, 0));
+		try
+		{
+			lbChat.setFont(new Font("Segoe Script", 3, 50));
+			lbChat.setForeground(new Color(0, 204, 0));
+			lbChat.setBounds(0, 0, 800, 600);
 
-		lbSalas.setFont(new Font("SansSerif", 1, 18));
+			lbSalas.setFont(new Font("SansSerif", 1, 18));
 
-		lbUsuario.setFont(new Font("SansSerif", 1, 18));
+			lbUsuario.setFont(new Font("SansSerif", 1, 18));
 
-		this.janela.setSize(760, 700);
-		this.janela.getContentPane().setLayout(new BorderLayout());
+			//cbSalas.setFont(new Font("Calibri", 0, 18));
+			//cbSalas.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" })); //colocar os itens da sala
 
-		this.janela.add(lbChat, BorderLayout.NORTH);
-		btnEntrar.setPreferredSize(new Dimension(40,40));
+			//txtNome.setFont(new Font("SansSerif", 0, 18));
+			//btnEntrar.setFont(new Font("Source Sans Pro Black", 1, 14));
+			//btnEntrar.setSize(5, 10);
 
-		this.janela.add(btnEntrar, BorderLayout.SOUTH);
-		//this.janela.add(lbUsuario, BorderLayout.NORTH);
-		//this.janela.add(lbSalas, BorderLayout.NORTH);
+			this.janela.setSize(760, 700);
+			//this.janela.getContentPane().setLayout(new GroupLayout());
+			this.janela.getContentPane().setLayout(new BorderLayout());
+			//
+			this.janela.add(lbChat, BorderLayout.NORTH);
+			//btnEntrar.setPreferredSize(new Dimension(40,40));
 
-		this.janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.janela.setVisible(true);
+			//this.janela.add(btnEntrar);
+			this.janela.add(cbSalas, BorderLayout.NORTH);
+			this.janela.add(lbUsuario);
+			this.janela.add(txtNome);
+		    //this.janela.add(lbSalas, BorderLayout.NORTH);
 
-		 btnEntrar.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btnEntrarActionPerformed(evt);
-			}
-        });
-
-
-	}
-
-	  private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt)
-	    {
-			/*String escolhida = cbSalas.getSelectedIndex();
-			int qtd = sala.getQtd();
-
-			 sala = new SalaUsuario<Usuario>(escolhida, qtd);
-			 //usuario = new Usuario(Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, txtNome.text, cbSalas.getSelectedItem());
-	         sala.add(usuario);*/
-
-	        new FormularioChat();
-
-
-
+			this.janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			this.janela.setVisible(true);
+		}
+		catch(Exception error)
+		{
+			throw new Exception(error);
+		}
 	}
 }
