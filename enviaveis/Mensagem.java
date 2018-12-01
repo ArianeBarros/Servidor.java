@@ -5,12 +5,17 @@ public class Mensagem implements Enviavel
 	private String texto;
 	private String destinatario;
 
-	public Mensagem(String enviar)
+	public Mensagem(Enviavel enviar)
 	{
-      this.texto = enviar;
+      this.texto = enviar.toString();
 	}
 
-	public int hashCode()
+	public void envia()
+	{
+
+	}
+
+	/*public int hashCode()
 	{
 	}
 
@@ -23,5 +28,5 @@ public class Mensagem implements Enviavel
 		if(this.getClass()!= obj.getClass())
 			return false;
 		return true;
-	}
+	}*/
 }

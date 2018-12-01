@@ -72,10 +72,14 @@ public class CuidadoraDeUsuario extends Thread
 		//pedido de saida da sala -- break
 		//receber avisos de entrada e saida
 
-		recebido = this.usuario.recebe();
+//		recebido = this.usuario.recebe();
 
 		if(recebido instanceof Mensagem)
 		{
+			//recebido = new Mensagem();
+
+			recebido.envia();
+
 			System.out.print("O usuario quer enviar alguma mensagem");
             for(int i =0; i < this.sala.getQtd(); i++) //pq nao funciona this.sala.size();??
 			{
@@ -102,7 +106,7 @@ public class CuidadoraDeUsuario extends Thread
     //new AvisoDeSaidaDaSala(this.usuario.getNome());
 
     //Fechar tudoo
-    this.usuario.fechaTudo();
+    //this.usuario.fechaTudo();
   }//Quando sai do run a cuidadora deixa de existir
 
 }

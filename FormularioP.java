@@ -2,9 +2,12 @@
 
 import javax.swing.*;
 import java.awt.*;
+import bd.*;
 
 class FormularioP
 {
+	protected Salas salas = new Salas();
+
 	protected JFrame janela             = new JFrame("CHAT");
 	protected JLabel lbUsuario          = new JLabel("Nome usuário:");
 	protected JLabel lbSalas            = new JLabel("Salas disponiveís");
@@ -42,6 +45,7 @@ class FormularioP
 
 			//this.janela.add(btnEntrar);
 			this.janela.add(cbSalas, BorderLayout.NORTH);
+			exibeCb();
 			this.janela.add(lbUsuario);
 			this.janela.add(txtNome);
 		    //this.janela.add(lbSalas, BorderLayout.NORTH);
@@ -53,5 +57,21 @@ class FormularioP
 		{
 			throw new Exception(error);
 		}
+	}
+
+	public void exibeCb()throws Exception
+	{
+		try
+		{
+		   for(int i = 0; i < 3; i++)
+		   {
+			 cbSalas.addItem((this.salas.getSala(i + 1)).toString());
+		   }
+	   }
+	   catch(Exception error)
+	   {
+		   throw new Exception(error);
+	   }
+
 	}
 }

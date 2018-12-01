@@ -14,10 +14,10 @@ public class Servidor
    public static void main (String[]args)throws Exception
    	{
 //   		protected Salas salas = new Salas();
-   		System.out.print("ok");
+  		System.out.print("ok");
    		//FormularioTeste form = new FormularioTeste();
    		FormularioP form2 = new FormularioP();
-   		FormularioChat chat;
+   		/*FormularioChat chat;
    		//FormularioChat form3 = new FormularioChat();
 
    		 ServerSocket pedido = new ServerSocket(12345);
@@ -29,7 +29,7 @@ public class Servidor
 			chat = new FormularioChat();
 			String textoR = receptor.readLine();
 			chat.mostra(textoR);
-		 }
+		 }*/
 
    	   /*try
 		{

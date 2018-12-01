@@ -122,7 +122,7 @@ public class Usuario implements Cloneable
 	}
 
 	//ver isso
-	public void envia(Enviavel x)
+	public void envia(Enviavel x)throws Exception
 	{
 		// uma instancia de uma classe que herda de enviavel
 		//String texto = tf.getText();
@@ -132,10 +132,12 @@ public class Usuario implements Cloneable
 		this.transmissor.flush();
 	}
 
-	public Enviavel recebe() //pode ser String, ou , A SALA É UMA GUARDADORA DE USUARIOS, SALAS É GUARDADORA DE SALAS
+	/*public Enviavel recebe() //pode ser String, ou , A SALA É UMA GUARDADORA DE USUARIOS, SALAS É GUARDADORA DE SALAS
 	{
+
 		//usar o receptor
-	}
+		return "Ainda não fiz";
+	}*/
 
 	public void fechaTudo()throws Exception
 	{

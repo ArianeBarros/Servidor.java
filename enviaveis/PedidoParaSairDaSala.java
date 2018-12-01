@@ -10,7 +10,12 @@ public class PedidoParaSairDaSala implements Enviavel
 	{
 	}
 
-	public int hashCode()
+	public void envia()
+	{
+
+	}
+
+	/*public int hashCode()
 	{
 	}
 
@@ -26,7 +31,18 @@ public class PedidoParaSairDaSala implements Enviavel
 		return true;
 	}
 
-	/*public String toString()
+	public String toString()
 	{
 	}*/
 }
+
+
+
+
+
+
+
+
+
+
+
