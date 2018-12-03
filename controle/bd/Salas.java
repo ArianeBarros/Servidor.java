@@ -1,11 +1,7 @@
-//package bd.daos;
-package bd;
+package controle.bd;
 import java.sql.*;
-//import bd.*;
-//import bd.core.*;
-//import bd.dbos.*;
 
-public class Salas implements Cloneable
+public class Salas
 {
     public static boolean cadastrado (int codigo) throws Exception
     {

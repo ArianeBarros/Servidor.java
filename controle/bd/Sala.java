@@ -1,5 +1,5 @@
-//package bd.dbos;
-package bd;
+package controle.bd;
+
 import java.sql.*;
 
 public class Sala implements Cloneable

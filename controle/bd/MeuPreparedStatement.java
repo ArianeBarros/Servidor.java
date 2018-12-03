@@ -1,4 +1,4 @@
-package bd;
+package controle.bd;
 
 import java.io.InputStream;
 import java.io.Reader;

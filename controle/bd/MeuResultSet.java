@@ -1,4 +1,4 @@
-package bd;
+package controle.bd;
 
 import java.sql.Array;
 import java.sql.Blob;

@@ -1,4 +1,5 @@
-package enviaveis;
+package controle.enviaveis;
+
 public class EscolhaDeSala implements Enviavel // getters, setters, metodos obrigatorios e construtor
 {
 	public EscolhaDeSala()

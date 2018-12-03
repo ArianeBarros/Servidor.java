@@ -6,7 +6,7 @@ import java.io.Serializable;
  //import java.util.ArrayList;
  //import bd.*;
  import controle.*;
- import enviaveis.*;
+ import controle.enviaveis.*;
  import java.net.ServerSocket;
  import java.net.Socket;
  import java.util.Date;
@@ -24,18 +24,20 @@ public class CuidadoraDeUsuario extends Thread
 //em cada sala o usuario poderia ter um nome diferente
 //E para trocar de sala, tem rodar a janelinha denovo
 
-  public CuidadoraDeUsuario(Socket conexao, SalaUsuario sala) throws Exception //SalasUsuario sala -- salas ou sala??
+  public CuidadoraDeUsuario(Socket conexao, SalasUsuario salas) throws Exception //SalasUsuario sala -- salas ou sala??
   {
+	  //declarar e instanciar OOS e OIS, usando o Socket recebido
 	  this.oos = new ObjectOutputStream(conexao.getOutputStream());
 	  this.ois = new ObjectInputStream(conexao.getInputStream());
 
-      this.sala = new SalaUsuario(sala.getNome(), sala.getQtd());
+      //interagir com o usuário via OOS e OIS até descobrir o nome da sala em que ele deseja entrar, eventualmente, informando sala cheia
+      //this.sala = new SalaUsuario(int salas.getCod, String nomeSala, int qtdM);
       if(this.sala.isCheia())
         System.out.print("Sala invalida");
          //avisar o usuario que esta cheia
 
 
-	  this.salas = new SalasUsuario(this.sala);
+	  this.salas = new SalasUsuario();
 	  //if(this.salas.getSala(this.sala))
 
 
@@ -44,8 +46,8 @@ public class CuidadoraDeUsuario extends Thread
 
 
 
-	  //declarar e instanciar OOS e OIS, usando o Socket recebido
-	  //interagir com o usuário via OOS e OIS até descobrir o nome da sala em que ele deseja entrar, eventualmente, informando sala cheia
+
+
 	  //procurar em salas(param)  a sala com o nome desejado
 	  //interagir com o usuário via OOS e OIS para descobrir o nome que ele deseja usar, eventualmente, retornando nome invalido ou ja usado(usar metodo da Sala)
 	  //instanciar 1 Usuario, fornecendo conexao, OOS, OIS, sala e nome

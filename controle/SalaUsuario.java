@@ -1,17 +1,18 @@
 package controle;
+import controle.bd.*;
 import java.io.*;
 import java.io.BufferedReader;
 import java.net.*;
 import java.util.*;
 import java.util.ArrayList;
-import Usuario.Usuario;
+//import Usuario.Usuario;
 
 
 //metodo prara ver se ja existe um usaurio com o mesmo nome na sala --- throws Exceptions
 //getUsuarios() -- arraylist com todos os nomes nas salas
 
 
-public class SalaUsuario
+public class SalaUsuario extends Sala
 {
  //quant de lugares nome identificação
   protected int qtdMaxima;
@@ -19,11 +20,12 @@ public class SalaUsuario
   protected String nome;
   protected int qtdAtual = 0;
 
-  public SalaUsuario(String nomeSala, int qtdM)throws Exception
+  public SalaUsuario(int cod, String nomeSala, int qtdM)
   {
-     this.nome = nomeSala;
+	  super();
+     /*this.nome = nomeSala;
      this.qtdMaxima = qtdM;
-     this.lista = new ArrayList<Usuario>(this.qtdMaxima);
+     this.lista = new ArrayList<Usuario>(this.qtdMaxima);*/
   }
 
  /*  public String getNome()throws Exception

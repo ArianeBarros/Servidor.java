@@ -1,4 +1,4 @@
-package enviaveis;
+package controle.enviaveis;
 
 public class Mensagem implements Enviavel
 {

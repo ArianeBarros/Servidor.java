@@ -1,7 +1,7 @@
 //package Servidor.java;
 
 import java.io.*;
-import bd.*;
+import controle.bd.*;
 import java.awt.*;
 import java.awt.event.*;
 import controle.*;
@@ -19,11 +19,8 @@ public class Servidor
    		//FormularioTeste form = new FormularioTeste();
    		FormularioP form2 = new FormularioP();
 
-   		Object qual = new Object();
-
-
    		ServerSocket ss = new ServerSocket(12345);
-   		SalasUsuario salas = new SalasUsuario();
+   		SalasUsuario salas = new SalasUsuario(); //Salas disponíveis
 
    		try
    		{

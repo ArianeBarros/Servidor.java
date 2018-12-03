@@ -1,6 +1,7 @@
 package controle;
+//import bd.Salas;
 import java.io.*;
-import bd.*;
+import controle.bd.*;
 import java.io.BufferedReader;
 import java.net.*;
 import java.util.*;
@@ -18,9 +19,9 @@ public class SalasUsuario extends Salas
   public SalasUsuario()
   {
 	  super();
-	list = new ArrayList<SalaUsuario>(this.qtdMaxima);
+	/*list = new ArrayList<SalaUsuario>(this.qtdMaxima);
     list.add(sala);
-    this.qtdMaxima = sala.getQtd();
+    this.qtdMaxima = sala.getQtd();*/
   }
 
   public void guarde(SalaUsuario sala)throws Exception

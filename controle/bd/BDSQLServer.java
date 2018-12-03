@@ -1,8 +1,4 @@
-package bd;
-
-//import bd.core.*;
-//import bd.daos.*;
-//import bd.dbos.*;
+package controle.bd;
 
 public class BDSQLServer
 {

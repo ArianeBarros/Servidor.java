@@ -1,9 +1,9 @@
-package Usuario;
+package controle;
 import java.io.*;
 import java.io.BufferedReader;
 import java.net.*;
 import java.util.*;
-import enviavel.Enviavel;
+import controle.enviaveis.Enviavel;
 //enfia o usu na sala e a sala no usu
 
 public class Usuario implements Serializable
@@ -14,7 +14,7 @@ public class Usuario implements Serializable
 	protected ObjectInputStream receptor;
 	protected ObjectOutputStream transmissor;
 
-	public Usuario(Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, String nome) throws Exception
+	public Usuario(Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, String nome) throws Exception //SalaUsuario sala,
 	{
 		//validar parametros TODOS, por causa das antinhas
 		//GUARDAR PARAMETROS NOS ATRIBUTOS
