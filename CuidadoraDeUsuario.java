@@ -20,12 +20,14 @@ public class CuidadoraDeUsuario extends Thread
 	protected SalaUsuario sala;
 	protected SalasUsuario salas;
 	protected AvisoDeSaidaDaSala avisoSaida;
-	protected String nome ="Amanda";
+	protected String nome;
+	protected Socket socket;
 //em cada sala o usuario poderia ter um nome diferente
 //E para trocar de sala, tem rodar a janelinha denovo
 
   public CuidadoraDeUsuario(Socket conexao, SalasUsuario salas) throws Exception //SalasUsuario sala -- salas ou sala??
   {
+	  this.socket = conexao;
 	  //declarar e instanciar OOS e OIS, usando o Socket recebido
 	  this.oos = new ObjectOutputStream(conexao.getOutputStream());
 	  this.ois = new ObjectInputStream(conexao.getInputStream());
@@ -92,14 +94,12 @@ public class CuidadoraDeUsuario extends Thread
 		this.sala.excluirUsuario(this.usuario);
 
 
-
-
 	//remover this.usuario da sala
 
 	for(int i =0; i < this.sala.getQtdAtual(); i++)
 	{
 		Usuario notificar = this.sala.getUsuario(i);
-		avisoSaida = new AvisoDeSaidaDaSala(notificar);
+		avisoSaida = new AvisoDeSaidaDaSala(socket, nome);
 	}
 
 	//mandar para todos da sala um aviso avisando que ele saiu da sala

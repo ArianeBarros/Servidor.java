@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.net.*;
 import java.util.*;
 import java.util.ArrayList;
-//import Usuario.Usuario;
 
 
 //metodo prara ver se ja existe um usaurio com o mesmo nome na sala --- throws Exceptions
@@ -22,9 +21,9 @@ public class SalaUsuario extends Sala
 
   public SalaUsuario()
   {
-	  super();
-     this.nome = super.nomeSala;
-     this.qtdMaxima = super.qtdM;
+	 super();
+     this.nome = super.getNome();
+     this.qtdMaxima = super.getQtd();
      this.lista = new ArrayList<Usuario>(this.qtdMaxima);
   }
 

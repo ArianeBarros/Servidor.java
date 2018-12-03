@@ -1,13 +1,14 @@
 package controle.enviaveis;
 import java.net.*;
 import java.util.*;
+import java.io.BufferedReader;
+import java.io.*;
 
 public class AvisoDeSaidaDaSala implements Enviavel
 {
 
- // SalaUsuario sala;
  // SalasUsuario salas;
-  ObjectOutputStream transmissor;
+  ObjectInputStream transmissor;
   String nick;
 
 
@@ -15,14 +16,16 @@ public class AvisoDeSaidaDaSala implements Enviavel
   {
    // this.sala = new SalaUsuario();
    // this.salas = new SalasUsuario();
-    this.transmissor = new ObjectOutputStream(conexao.getInputStream());
+   if(transmissor == null)
+	  throw new Exception("PrintWriter inválido!");
+    this.transmissor = new ObjectInputStream(conexao.getInputStream());
     this.nick = nome;
   }
 
   public void envia()
   {
-	  this.sala.excluirUsuario();
-	  transmissor.println(this.nick + " saiu da sala");
+      this.transmissor.writeObject(this.nick + "saiu da sala");
+      this.transmissor.flush();
   }
 
 }

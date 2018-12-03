@@ -14,7 +14,7 @@ class FormularioP
 {
 	protected Salas salas = new Salas();
 	ServerSocket s = new ServerSocket(12345);
- 	protected SalaUsuario salaUsuario;
+ 	//protected SalaUsuario salaUsuario;
 
 	protected JFrame janela             = new JFrame("CHAT");
 	protected JLabel lbUsuario          = new JLabel("Nome usuário:");
@@ -95,9 +95,16 @@ class FormularioP
             {
 				 public void actionPerformed(ActionEvent event)
 				 {
-                    new FormularioChat();
+					 try
+					 {
+						new FormularioChat();
+						Socket s = new Socket("localhost", 12345);
 
-                    //selecionada();
+					}
+					catch(Exception erro)
+					{
+						System.out.println(erro);
+					}
 				 }
 		    });
 

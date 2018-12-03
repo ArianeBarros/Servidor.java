@@ -24,12 +24,12 @@ public class Servidor
 
    		try
    		{
-
+           Socket s = ss.accept();
+			CuidadoraDeUsuario tratadora = new CuidadoraDeUsuario(s, salas);
 		}
 		catch(Exception erro)
 		{
-			Socket s = ss.accept();
-			CuidadoraDeUsuario tratadora = new CuidadoraDeUsuario(s, salas);
+           System.out.println("Servidor: " + erro);
 		}
 
    		//qual = form2.selecionada();

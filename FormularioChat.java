@@ -4,35 +4,62 @@ import java.awt.*;
 public class FormularioChat
 {
 	protected JFrame janela             = new JFrame("CHAT");
-	protected JLabel lbUsuario          = new JLabel("Nome usuário:");
-	protected JLabel lbSalas            = new JLabel("Salas disponiveís");
+	protected JLabel lbUsuario          = new JLabel("Usuários");
 	protected JLabel lbChat             = new JLabel("CHAT", SwingConstants.CENTER);
-	protected JTextField txtNome        = new JTextField();
-	protected JButton btnEntrar         = new JButton("Entrar");//, SwingConstants.RIGHT
-	protected JComboBox<String> cbSalas = new JComboBox<String>();
-    protected JPanel jp                 = new JPanel();
+	protected JTextField txtMsg         = new JTextField();
+	protected JTextArea taMsg           = new JTextArea();
+	protected JButton btnEnviar         = new JButton("Enviar");//, SwingConstants.RIGHT
+	protected JList<String> lUsu        = new JList<String>();
 
     public FormularioChat()
     {
 		lbChat.setFont(new Font("Segoe Script", 3, 50));
 		lbChat.setForeground(new Color(0, 204, 0));
 
-		lbSalas.setFont(new Font("SansSerif", 1, 18));
-
 		lbUsuario.setFont(new Font("SansSerif", 1, 18));
 
-		this.janela.setSize(760, 700);
+		//lUsu.setFont(new Font("Calibri", 0, 18));
+		//taMsg.setFont(new Font("Calibri", 0, 18));
+
+		this.janela.setSize(660, 600);
 		this.janela.getContentPane().setLayout(new BorderLayout());
 
-		this.janela.add(lbChat, BorderLayout.NORTH);
-		btnEntrar.setPreferredSize(new Dimension(40,40));
+		JPanel panelN = new JPanel();
+		JPanel panelC = new JPanel();
+		JPanel panelW = new JPanel();
+		JPanel panelS = new JPanel();
+		JPanel panelE = new JPanel();
 
-		this.janela.add(btnEntrar, BorderLayout.SOUTH);
+		panelN.setLayout(new BorderLayout());
+		panelC.setLayout(new BorderLayout());
+		panelW.setLayout(new BorderLayout());
+		panelS.setLayout(new BorderLayout());
+		panelE.setLayout(new BorderLayout());
+
+		this.janela.add(panelN, BorderLayout.NORTH);
+		this.janela.add(panelC, BorderLayout.CENTER);
+		this.janela.add(panelW, BorderLayout.WEST);
+		this.janela.add(panelS, BorderLayout.SOUTH);
+		this.janela.add(panelE, BorderLayout.EAST);
+
+		panelN.add(lbChat, BorderLayout.NORTH);
+		panelN.add(lbUsuario, BorderLayout.SOUTH);
+		panelC.add(lUsu, BorderLayout.WEST);
+		panelS.add(txtMsg, BorderLayout.CENTER);
+		panelS.add(btnEnviar, BorderLayout.EAST);
+		//panelC.add(taMsg, BorderLayout.CENTER);
+
+		//this.janela.add(lbChat, BorderLayout.NORTH);
+
+		//btnEntrar.setPreferredSize(new Dimension(40,40));
+		//this.janela.add(btnEntrar, BorderLayout.SOUTH);
 		//this.janela.add(lbUsuario, BorderLayout.NORTH);
 		//this.janela.add(lbSalas, BorderLayout.NORTH);
 
 		this.janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.janela.setVisible(true);
+
+		/*
 
 		 btnEntrar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -50,7 +77,7 @@ public class FormularioChat
 			 //usuario = new Usuario(Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, txtNome.text, cbSalas.getSelectedItem());
 	         sala.add(usuario);
 
-	        new FormularioChat();*/
-
+	        new FormularioChat();
+	        */
 	}
 }
