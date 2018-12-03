@@ -1,5 +1,6 @@
 package controle;
 import java.io.*;
+import bd.*;
 import java.io.BufferedReader;
 import java.net.*;
 import java.util.*;
@@ -8,14 +9,15 @@ import java.util.ArrayList;
 //guarde
 //jge fora
 
-public class SalasUsuario
+public class SalasUsuario extends Salas
 {
   protected ArrayList<SalaUsuario> list;
   protected int qtdAtualSalas = 0;
   protected int qtdMaxima;
 
-  public SalasUsuario(SalaUsuario sala)
+  public SalasUsuario()
   {
+	  super();
 	list = new ArrayList<SalaUsuario>(this.qtdMaxima);
     list.add(sala);
     this.qtdMaxima = sala.getQtd();

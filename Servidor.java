@@ -4,6 +4,7 @@ import java.io.*;
 import bd.*;
 import java.awt.*;
 import java.awt.event.*;
+import controle.*;
 import javax.swing.*;
 import java.net.*;
 //import bd.core;
@@ -17,10 +18,28 @@ public class Servidor
   		System.out.print("ok");
    		//FormularioTeste form = new FormularioTeste();
    		FormularioP form2 = new FormularioP();
-   		/*FormularioChat chat;
-   		//FormularioChat form3 = new FormularioChat();
 
-   		 ServerSocket pedido = new ServerSocket(12345);
+   		Object qual = new Object();
+
+
+   		ServerSocket ss = new ServerSocket(12345);
+   		SalasUsuario salas = new SalasUsuario();
+
+   		try
+   		{
+
+		}
+		catch(Exception erro)
+		{
+			Socket s = ss.accept();
+			CuidadoraDeUsuario tratadora = new CuidadoraDeUsuario(s, salas);
+		}
+
+   		//qual = form2.selecionada();
+
+   		//System.out.print("Agora: " + qual);
+
+   		/* ServerSocket pedido = new ServerSocket(12345);
 		 Socket conexao = pedido.accept();
 		 //CuidadoraDeUsario j = new CuidadoraDeUsuario(conexao);
 		 BufferedReader receptor = new BufferedReader(new InputStreamReader(conexao.getInputStream()));
@@ -138,4 +157,32 @@ como descobrir se alguem mandou alguma mensagem
 
 foco - gained
 keyListaner
+*/
+
+
+
+/*
+public void exibeCb()throws Exception
+	{
+		try
+		{
+		   for(int i = 0; i < 3; i++)
+		   {
+			   Sala sala = new Sala(this.salas.getSala(i + 1));
+
+			 cbSalas.addItem(sala.getNome());
+		   }
+	   }
+	   catch(Exception error)
+	   {
+		   throw new Exception(error);
+	   }
+
+	}
+
+	protected Salas salas = new Salas();
+
+		this.janela.add(cbSalas, BorderLayout.NORTH);
+			exibeCb();
+
 */

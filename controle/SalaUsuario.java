@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.net.*;
 import java.util.*;
 import java.util.ArrayList;
+import Usuario.Usuario;
 
 
 //metodo prara ver se ja existe um usaurio com o mesmo nome na sala --- throws Exceptions

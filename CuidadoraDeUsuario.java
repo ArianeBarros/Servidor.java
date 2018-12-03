@@ -29,8 +29,6 @@ public class CuidadoraDeUsuario extends Thread
 	  this.oos = new ObjectOutputStream(conexao.getOutputStream());
 	  this.ois = new ObjectInputStream(conexao.getInputStream());
 
-
-
       this.sala = new SalaUsuario(sala.getNome(), sala.getQtd());
       if(this.sala.isCheia())
         System.out.print("Sala invalida");

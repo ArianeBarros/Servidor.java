@@ -5,6 +5,13 @@ import java.sql.*;
 //import bd.core.*;
 //import bd.dbos.*;
 
+
+/*
+public interface Coisa implements Serializable
+{
+}
+*/
+
 public class Salas implements Cloneable
 {
     public static boolean cadastrado (int codigo) throws Exception
@@ -16,8 +23,8 @@ public class Salas implements Cloneable
             String sql;
 
             sql = "SELECT * " +
-                  "FROM SALAS " +
-                  "WHERE CODSALA = ?";
+                  "FROM SALASSQL " +
+                  "WHERE CODIGO = ?";
 
             BDSQLServer.COMANDO.prepareStatement (sql);
 
@@ -29,13 +36,13 @@ public class Salas implements Cloneable
        }
         catch (SQLException erro)
         {
-            throw new Exception (erro);
+            throw new Exception ("Erro ao procurar sala");
         }
 
         return retorno;
     }
 
-    public static void incluir(Sala sala) throws Exception
+    public void incluir(Sala sala) throws Exception
     {
         if (sala==null)
             throw new Exception ("Sala nao fornecida");
@@ -44,8 +51,8 @@ public class Salas implements Cloneable
         {
             String sql;
 
-            sql = "INSERT INTO SALAS " +
-                  "(CODSALA,NOME,QTD) " +
+            sql = "INSERT INTO SALASSQL " +
+                  "(CODIGO,NOME,QTD) " +
                   "VALUES " +
                   "(?,?,?)";
 
@@ -67,14 +74,14 @@ public class Salas implements Cloneable
     public static void excluir (int codigo) throws Exception
     {
         if (!cadastrado (codigo))
-            throw new Exception ("Nao cadastrado aquiiii");
+            throw new Exception ("Nao cadastrado");
 
         try
         {
             String sql;
 
-            sql = "DELETE FROM SALAS " +
-                  "WHERE CODSALA=?";
+            sql = "DELETE FROM SALASSQL " +
+                  "WHERE CODIGO=?";
 
             BDSQLServer.COMANDO.prepareStatement (sql);
 
@@ -100,16 +107,16 @@ public class Salas implements Cloneable
         {
             String sql;
 
-            sql = "UPDATE SALAS " +
+            sql = "UPDATE SALASSQL " +
                   "SET NOME=? " +
                   ", QTD=? " +
-                  "WHERE CODSALA = ?";
+                  "WHERE CODIGO = ?";
 
             BDSQLServer.COMANDO.prepareStatement (sql);
 
             BDSQLServer.COMANDO.setString (1, sala.getNome ());
             BDSQLServer.COMANDO.setInt  (2, sala.getQtd ());
-            BDSQLServer.COMANDO.setInt    (3, sala.getCodigo ());
+            BDSQLServer.COMANDO.setInt    (3, livro.getCodigo ());
 
             BDSQLServer.COMANDO.executeUpdate ();
             BDSQLServer.COMANDO.commit        ();
@@ -129,8 +136,8 @@ public class Salas implements Cloneable
             String sql;
 
             sql = "SELECT * " +
-                  "FROM SALAS " +
-                  "WHERE CODSALA = ?";
+                  "FROM SALASSQL " +
+                  "WHERE CODIGO = ?";
 
             BDSQLServer.COMANDO.prepareStatement (sql);
 
@@ -139,15 +146,15 @@ public class Salas implements Cloneable
             MeuResultSet resultado = (MeuResultSet)BDSQLServer.COMANDO.executeQuery ();
 
             if (!resultado.first())
-                throw new Exception ("Nao cadastrado getSala()");
+                throw new Exception ("Nao cadastrado");
 
-            sala = new Sala (resultado.getInt   ("CODSALA"),
+            sala = new Sala (resultado.getInt   ("CODIGO"),
                                resultado.getString("NOME"),
                                resultado.getInt ("QTD"));
         }
         catch (SQLException erro)
         {
-            throw new Exception (erro);
+            throw new Exception ("Erro ao procurar livro");
         }
 
         return sala;
@@ -162,7 +169,7 @@ public class Salas implements Cloneable
             String sql;
 
             sql = "SELECT * " +
-                  "FROM SALAS";
+                  "FROM SALASSQL";
 
             BDSQLServer.COMANDO.prepareStatement (sql);
 
@@ -170,7 +177,7 @@ public class Salas implements Cloneable
         }
         catch (SQLException erro)
         {
-            throw new Exception (erro);
+            throw new Exception ("Erro ao recuperar salas");
         }
 
         return resultado;
