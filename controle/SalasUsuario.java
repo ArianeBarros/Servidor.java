@@ -1,7 +1,7 @@
 package controle;
 //import bd.Salas;
 import java.io.*;
-import controle.bd.*;
+//import controle.bd.*;
 import java.io.BufferedReader;
 import java.net.*;
 import java.util.*;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 //guarde
 //jge fora
 
-public class SalasUsuario extends Salas
+public class SalasUsuario
 {
   protected ArrayList<SalaUsuario> list;
   protected int qtdAtualSalas = 0;
@@ -18,10 +18,9 @@ public class SalasUsuario extends Salas
 
   public SalasUsuario()
   {
-	  super();
-	/*list = new ArrayList<SalaUsuario>(this.qtdMaxima);
-    list.add(sala);
-    this.qtdMaxima = sala.getQtd();*/
+	list = new ArrayList<SalaUsuario>(this.qtdMaxima);
+    //list.add(sala);
+    //this.qtdMaxima = sala.getQtd();
   }
 
   public void guarde(SalaUsuario sala)throws Exception
@@ -39,11 +38,11 @@ public class SalasUsuario extends Salas
         throw new Exception("Sem espaço para mais salas");
   }
 
-  public void excluir(SalaUsuario sala, String nomeSala)throws Exception//pegar todos os tipos de exclusão
+  public void excluir(SalaUsuario sala)throws Exception//pegar todos os tipos de exclusão
   {
     if(!isVazia())
     {
-       int indice = list.indexOf(nomeSala);
+       int indice = list.indexOf(sala.getNome());
 	   this.list.remove(indice);
        this.qtdAtualSalas--;
  	}

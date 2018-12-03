@@ -34,7 +34,7 @@ public class Salas
     public static void incluir(Sala sala) throws Exception
     {
         if (sala==null)
-            throw new Exception ("Sala nao fornecida");
+            throw new Exception ("Sala não fornecida");
 
         try
         {

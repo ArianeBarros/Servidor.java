@@ -14,7 +14,7 @@ public class Usuario implements Serializable
 	protected ObjectInputStream receptor;
 	protected ObjectOutputStream transmissor;
 
-	public Usuario(Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, String nome) throws Exception //SalaUsuario sala,
+	public Usuario(Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, String nome, SalaUsuario sala) throws Exception //SalaUsuario sala,
 	{
 		//validar parametros TODOS, por causa das antinhas
 		//GUARDAR PARAMETROS NOS ATRIBUTOS

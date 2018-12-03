@@ -20,23 +20,14 @@ public class SalaUsuario extends Sala
   protected String nome;
   protected int qtdAtual = 0;
 
-  public SalaUsuario(int cod, String nomeSala, int qtdM)
+  public SalaUsuario()
   {
 	  super();
-     /*this.nome = nomeSala;
-     this.qtdMaxima = qtdM;
-     this.lista = new ArrayList<Usuario>(this.qtdMaxima);*/
+     this.nome = super.nomeSala;
+     this.qtdMaxima = super.qtdM;
+     this.lista = new ArrayList<Usuario>(this.qtdMaxima);
   }
 
- /*  public String getNome()throws Exception
-   {
-	   return this.nome;
-   }
-
-  public int getQtd()throws Exception
-  {
-	 return this.qtdMaxima;
-  }*/
 
   /*synchronized(X) X -- obj q esta sendo compartilhado
    {
@@ -119,6 +110,9 @@ public class SalaUsuario extends Sala
   }
   public boolean equals(Object sala)
   {
+	   if (!super.equals (sala))
+            return false;
+
     if(this==sala)
 	   return true;
 
@@ -139,7 +133,7 @@ public class SalaUsuario extends Sala
 
    public int hashCode()
    {
-    int ret = 1;
+    int ret = super.hashCode();
 
     ret = ret * 2 + new Integer(this.qtdMaxima).hashCode();
     ret = ret * 2 + new Integer(this.qtdAtual).hashCode();
