@@ -33,7 +33,9 @@ public class CuidadoraDeUsuario extends Thread
 	  this.ois = new ObjectInputStream(conexao.getInputStream());
 
       //interagir com o usuário via OOS e OIS até descobrir o nome da sala em que ele deseja entrar, eventualmente, informando sala cheia
-      //this.sala = new SalaUsuario(int salas.getCod, String nomeSala, int qtdM);
+
+      this.sala = new SalaUsuario();
+
       if(this.sala.isCheia())
         System.out.print("Sala invalida");
          //avisar o usuario que esta cheia
