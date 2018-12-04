@@ -1,10 +1,6 @@
-import java.io.Serializable;
-//import java.io.FileInputStream;
-//import java.io.FileOutputStream;
+ import java.io.Serializable;
  import java.io.ObjectInputStream;
  import java.io.ObjectOutputStream;
- //import java.util.ArrayList;
- //import bd.*;
  import controle.*;
  import controle.enviaveis.*;
  import java.net.ServerSocket;
@@ -13,15 +9,18 @@ import java.io.Serializable;
 
 public class CuidadoraDeUsuario extends Thread
 {
+    protected boolean morta = false;
 	protected String salaDesejada;
 	protected Usuario usuario;
 	protected ObjectOutputStream oos;
 	protected ObjectInputStream ois;
-	protected SalaUsuario sala;
+	//protected SalaUsuario sala;
 	protected SalasUsuario salas;
 	protected AvisoDeSaidaDaSala avisoSaida;
 	protected String nome;
 	protected Socket socket;
+	protected Enviavel recebido;
+	protected SalaUsuario sala;
 //em cada sala o usuario poderia ter um nome diferente
 //E para trocar de sala, tem rodar a janelinha denovo
 
@@ -34,82 +33,103 @@ public class CuidadoraDeUsuario extends Thread
 
       //interagir com o usuário via OOS e OIS até descobrir o nome da sala em que ele deseja entrar, eventualmente, informando sala cheia
 
-      this.sala = new SalaUsuario();
+     this.nome = (String)ois.readObject();
+     this.salaDesejada = (String)ois.readObject();
 
-      if(this.sala.isCheia())
-        System.out.print("Sala invalida");
-         //avisar o usuario que esta cheia
+      this.salas = new SalasUsuario();
 
+       this.sala = new SalaUsuario(this.salas.descobrirSala(salaDesejada));
 
-	  this.salas = new SalasUsuario();
-	  //if(this.salas.getSala(this.sala))
+      if(this.sala.jaExiste(nome))
+         throw new Exception("Já existe um usuário com esse nome aqui");
 
-
-       this.usuario = new Usuario(conexao, this.oos, this.ois, this.nome, this.sala);
-
-
-
-
-
-
-	  //procurar em salas(param)  a sala com o nome desejado
-	  //interagir com o usuário via OOS e OIS para descobrir o nome que ele deseja usar, eventualmente, retornando nome invalido ou ja usado(usar metodo da Sala)
-	  //instanciar 1 Usuario, fornecendo conexao, OOS, OIS, sala e nome
-	  //fazer varias vezes this.usuario.envia(new AvisoDeEntradaDaSala(i)), onde i é o nome de algum usuario que já estava na sala --ArrayList de usuarios
-	  //fazer varias vezes i.envia(new AvisoDeEntradaDaSala(this.usuario.getNome())), onde i é o nome de algum usuario que já estava na sala --ArrayList de usuarios
-	  //incluir o usuario na sala
+      this.usuario = new Usuario(conexao, this.oos, this.ois, this.nome, this.sala);
   }
 //quando a pessoa sair da sala esse run para
   public void run()//Toda a interação necessária com o socket recebido por parametro
   {
-	  //nada antes deste for infinito, pq o que era p estar aqui deve estar no construtor
-	  		//for(;;)
-	  		//{
-	  			//parar este for quando houver o pedido para sair da sala
-		//}
+	  while(!morta)
+	  {
+                AvisoDeEntradaNaSala aviso = new AvisoDeEntradaNaSala(this.nome);
 
-	 Enviavel recebido = null;
 
-    do                 //break   -- mandar uma mensagem ou sair da sala -> a run acaba
-    {
-		//recebe primeiramente mensagens
-		//pedido de saida da sala -- break
-		//receber avisos de entrada e saida
+                for(int i = 0; i < this.sala.getQtd(); i++)
+                {
 
-//		recebido = this.usuario.recebe();
+				  sala.getUsuario(i).enviar(aviso);
+			    }
 
-		if(recebido instanceof Mensagem)
-		{
-			//recebido = new Mensagem();
+		    //procurar em salas(param)  a sala com o nome desejado
+		  	  //interagir com o usuário via OOS e OIS para descobrir o nome que ele deseja usar, eventualmente, retornando nome invalido ou ja usado(usar metodo da Sala)
+		  	  //instanciar 1 Usuario, fornecendo conexao, OOS, OIS, sala e nome
+		  	  //fazer varias vezes this.usuario.envia(new AvisoDeEntradaDaSala(i)), onde i é o nome de algum usuario que já estava na sala --ArrayList de usuarios
+		  	  //fazer varias vezes i.envia(new AvisoDeEntradaDaSala(this.usuario.getNome())), onde i é o nome de algum usuario que já estava na sala --ArrayList de usuarios
+	  //incluir o usuario na sala
 
-			recebido.envia();
 
-			System.out.print("O usuario quer enviar alguma mensagem");
-            for(int i =0; i < this.sala.getQtd(); i++) //pq nao funciona this.sala.size();??
+
+
+		  //avisar todo mundo q eu entri
+
+			  //nada antes deste for infinito, pq o que era p estar aqui deve estar no construtor
+					//for(;;)
+					//{
+						//parar este for quando houver o pedido para sair da sala
+				//}
+
+			do                 //break   -- mandar uma mensagem ou sair da sala -> a run acaba
 			{
-				//this.sala.get(i).recebe();
-	        }
-		}
-	}
-	while(!(recebido instanceof PedidoParaSairDaSala));
+				//recebe primeiramente mensagens
+				//pedido de saida da sala -- break
+				//receber avisos de entrada e saida
 
-		this.sala.excluirUsuario(this.usuario);
+				//recebido = oos.read();
+
+				if(recebido instanceof Mensagem)
+				{
+					//recebido = new Mensagem();
+
+					recebido.envia();
+
+					System.out.print("O usuario quer enviar alguma mensagem");
+
+				}
+				else
+				{
+					if(recebido instanceof AvisoDeSaidaDaSala)
+					{
+						for(int i =0; i < this.sala.getQtd(); i++) //pq nao funciona this.sala.size();??
+						{
+							  avisoSaida = new AvisoDeSaidaDaSala(socket, nome);
 
 
-	//remover this.usuario da sala
+					    }
+					}
 
-	for(int i =0; i < this.sala.getQtdAtual(); i++)
-	{
-		Usuario notificar = this.sala.getUsuario(i);
-		avisoSaida = new AvisoDeSaidaDaSala(socket, nome);
-	}
+				}
+			}
+			while(!(recebido instanceof PedidoParaSairDaSala));
 
-	//mandar para todos da sala um aviso avisando que ele saiu da sala
-    //new AvisoDeSaidaDaSala(this.usuario.getNome());
+            //remover this.usuario da sala
+			this.sala.excluirUsuario(this.usuario);
 
-    //Fechar tudoo
-    //this.usuario.fechaTudo();
-  }//Quando sai do run a cuidadora deixa de existir
+            //mandar para todos da sala um aviso avisando que ele saiu da sala
+			//new AvisoDeSaidaDaSala(this.usuario.getNome());
+			for(int i =0; i < this.sala.getQtdAtual(); i++)
+			{
+				//Usuario notificar = this.sala.getUsuario(i);
+				avisoSaida = new AvisoDeSaidaDaSala(socket, nome);
+			}
+
+			this.usuario.fechaTudo();
+			morra();
+    }
+  }
+
+  public void morra()
+  {
+	  this.morta = true;
+  }
 
 }
 //A cuidadora do remetente

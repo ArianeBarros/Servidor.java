@@ -121,22 +121,14 @@ public class Usuario implements Serializable
 	}
 
 	//ver isso
-	public void envia(Enviavel x)throws Exception
-	{
-		// uma instancia de uma classe que herda de enviavel
-		//String texto = tf.getText();
-		String texto = x.toString();
-		//this.transmissor = writeObject();
-		transmissor.writeBytes(texto);
-		this.transmissor.flush();
-	}
 
-	/*public Enviavel recebe() //pode ser String, ou , A SALA É UMA GUARDADORA DE USUARIOS, SALAS É GUARDADORA DE SALAS
+	public void enviar(Enviavel coisa)throws Exception //pode ser String, ou , A SALA É UMA GUARDADORA DE USUARIOS, SALAS É GUARDADORA DE SALAS
 	{
-
+       this.transmissor.writeObject(coisa.toString());
+       this.transmissor.flush();
+        //this.receptor
 		//usar o receptor
-		return "Ainda não fiz";
-	}*/
+	}
 
 	public void fechaTudo()throws Exception
 	{

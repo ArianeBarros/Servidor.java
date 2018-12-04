@@ -19,8 +19,6 @@ public class SalasUsuario
   public SalasUsuario()
   {
 	list = new ArrayList<SalaUsuario>(this.qtdMaxima);
-    //list.add(sala);
-    //this.qtdMaxima = sala.getQtd();
   }
 
   public void guarde(SalaUsuario sala)throws Exception
@@ -36,6 +34,17 @@ public class SalasUsuario
 	 }
      else
         throw new Exception("Sem espaço para mais salas");
+  }
+
+  public SalaUsuario descobrirSala(String nomeSala)throws Exception
+  {
+	  for(int i = 0; i < this.list.size(); i++)
+	  {
+		  if(this.list.get(i).getNome() == nomeSala)
+		    return this.list.get(i);
+	  }
+
+	  throw new Exception("Sala não encontrada");
   }
 
   public void excluir(SalaUsuario sala)throws Exception//pegar todos os tipos de exclusão
@@ -117,27 +126,6 @@ public class SalasUsuario
 
       return ret;
    }
-
-  /* private SalaUsuario<Usuario> meuCloneDeSala(SalaUsuario<Usuario> sala)
-   		{
-   			SalaUsuario<Usuario> ret = null;
-   			try
-   			{
-   				SalaUsuario<Usuario> classe = SalaUsuario<Usuario>;
-   				ArrayList<SalaUsuario<Usuario>> tiposDeParametrosFormais = null;
-   				Method metodo = classe.getMethod("clone", tiposDeParametrosFormais);
-   				ArrayList<SalaUsuario<Usuario>> tiposDeParametrosReais = null;
-   				ret = (SalaUsuario<Usuario>)metodo.invoke(tiposDeParametrosReais);
-   			}
-   			catch(NoSuchMethodException erro)
-   			{}
-   			catch(IllegalAccessException erro)
-   			{}
-   			catch(InvocationTargetException erro)
-   			{}
-
-   			return ret;
-		}*/
 
     public SalasUsuario(SalasUsuario modelo) throws Exception
       {

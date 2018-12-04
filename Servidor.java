@@ -16,8 +16,7 @@ public class Servidor
    	{
 //   		protected Salas salas = new Salas();
   		System.out.print("ok");
-   		//FormularioTeste form = new FormularioTeste();
-   		FormularioP form2 = new FormularioP();
+   		FormularioP form = new FormularioP();
 
    		ServerSocket ss = new ServerSocket(12345);
    		SalasUsuario salas = new SalasUsuario(); //Salas disponíveis
@@ -25,7 +24,7 @@ public class Servidor
    		try
    		{
            Socket s = ss.accept();
-			CuidadoraDeUsuario tratadora = new CuidadoraDeUsuario(s, salas);
+		   CuidadoraDeUsuario tratadora = new CuidadoraDeUsuario(s, salas);
 		}
 		catch(Exception erro)
 		{

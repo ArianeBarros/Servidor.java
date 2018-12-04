@@ -11,7 +11,7 @@ import java.util.ArrayList;
 //getUsuarios() -- arraylist com todos os nomes nas salas
 
 
-public class SalaUsuario extends Sala
+public class SalaUsuario
 {
  //quant de lugares nome identificação
   protected int qtdMaxima;
@@ -20,22 +20,15 @@ public class SalaUsuario extends Sala
   protected int qtdAtual = 0;
   protected int codigo;
 
-  public SalaUsuario()
+  public SalaUsuario(String nome, int qtd)
   {
-	 super();
-
-     this.nome = super.getNome();
-     this.qtdMaxima = super.getQtd();
+     this.nome = nome;
+     this.qtdMaxima = qtd;
      this.lista = new ArrayList<Usuario>(this.qtdMaxima);
   }
 
 
-  /*synchronized(X) X -- obj q esta sendo compartilhado
-   {
-	   x.dsdsds
-	   x.dsldms
-   }
-  */
+
   public void adicionarUsuario(Usuario usuario)
   {
 	  this.lista.add(usuario);

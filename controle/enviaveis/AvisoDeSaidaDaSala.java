@@ -8,24 +8,32 @@ public class AvisoDeSaidaDaSala implements Enviavel
 {
 
  // SalasUsuario salas;
-  ObjectInputStream transmissor;
+  ObjectOutputStream transmissor;
   String nick;
 
 
-  public AvisoDeSaidaDaSala(Socket conexao, String nome)
+  public AvisoDeSaidaDaSala(Socket conexao, String nome)throws Exception
   {
    // this.sala = new SalaUsuario();
    // this.salas = new SalasUsuario();
    if(transmissor == null)
 	  throw new Exception("PrintWriter inválido!");
-    this.transmissor = new ObjectInputStream(conexao.getInputStream());
+
+    this.transmissor = new ObjectOutputStream(conexao.getOutputStream());
     this.nick = nome;
   }
 
   public void envia()
   {
-      this.transmissor.writeObject(this.nick + "saiu da sala");
-      this.transmissor.flush();
+	  try
+	  {
+		  this.transmissor.writeObject(this.nick.toString() + "saiu da sala");
+		  this.transmissor.flush();
+	  }
+	  catch(IOException error)
+	  {
+	    System.out.println(error);
+	  }
   }
 
 }

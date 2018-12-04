@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 
 public class FormularioChat
 {
@@ -11,8 +14,20 @@ public class FormularioChat
 	protected JButton btnEnviar         = new JButton("Enviar");//, SwingConstants.RIGHT
 	protected JList<String> lUsu        = new JList<String>();
 
-    public FormularioChat()
+	protected ObjectInputStream receptor;
+	protected ObjectOutputStream transmissor;
+
+    public FormularioChat(String nomeUser, String ip, String nomeSala)throws Exception
     {
+		Socket meuSocket = new Socket(ip, 12345);
+        this.receptor = new ObjectInputStream(meuSocket.getInputStream());
+        this.transmissor = new ObjectOutputStream(meuSocket.getOutputStream());
+
+        transmissor.writeObject(nomeSala);
+        transmissor.writeObject(nomeUser);
+        transmissor.flush();
+
+
 		lbChat.setFont(new Font("Segoe Script", 3, 50));
 		lbChat.setForeground(new Color(0, 204, 0));
 
