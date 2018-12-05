@@ -8,8 +8,8 @@ public class AvisoDeSaidaDaSala implements Enviavel
 {
 
  // SalasUsuario salas;
-  ObjectOutputStream transmissor;
-  String nick;
+  protected OjectOutputStream transmissor;
+  protected  String nick;
 
 
   public AvisoDeSaidaDaSala(Socket conexao, String nome)throws Exception
@@ -39,9 +39,33 @@ public class AvisoDeSaidaDaSala implements Enviavel
 	  return "";
   }
 
-}
+  public String toString()
+  {
+	  return "o nome do usuário é"+this.nick;
+  }
 
+  public boolean Equals(Object obj)
+  {
+	  if(this==obj)
+	      return true;
+	  if(obj==null)
+	     return false;
+	  if(this.getClass()!=obj.getClass)
+	  	return false;
+	  	AvisoDeSaidaDaSala adsds=(AvisoDeSaidaDaSala)adsds;
+	  if(!this.transmissor.equals(adsds.transmissor))
+	  	return false;
+	  if(!this.nick.equals(adsds.nick))
+	  	return false;
+	  	return true;
+  }
 
+  public int hashCode()
+  {
+	  int ret=7;
+	  ret=ret*11+transmissor.hashCode();
+	  ret=ret*13+nick.hashCode();
+  }
 
 
 
