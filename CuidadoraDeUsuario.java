@@ -49,10 +49,12 @@ public class CuidadoraDeUsuario extends Thread
       this.aviso = new AvisoDeEntradaNaSala(this.nome);
   }
 //quando a pessoa sair da sala esse run para
-  public void run()//Toda a interação necessária com o socket recebido por parametro
+  public void run()throws Exception//Toda a interação necessária com o socket recebido por parametro
   {
 	  while(!morta)
 	  {
+		  try
+		  {
                 for(int i = 0; i < this.sala.getQtd(); i++)
                 {
 				  this.sala.getUsuario(i).enviar(aviso);
@@ -121,6 +123,11 @@ public class CuidadoraDeUsuario extends Thread
 
 			this.usuario.fechaTudo();
 			morra();
+		}
+		catch(Exception erro)
+		{
+			throw new Exception(erro);
+		}
     }
   }
 

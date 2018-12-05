@@ -19,9 +19,21 @@ public class FormularioChat
 
     public FormularioChat(String nomeUser, String ip, String nomeSala)throws Exception
     {
+	try
+	{
+		System.out.println("aqui");
 		Socket meuSocket = new Socket(ip, 12345);
-        this.receptor = new ObjectInputStream(meuSocket.getInputStream());
+		System.out.println("aqui2");
+		this.receptor = new ObjectInputStream(meuSocket.getInputStream());
+		System.out.println("aqui quase");
         this.transmissor = new ObjectOutputStream(meuSocket.getOutputStream());
+		System.out.println("yayy");
+	}
+	catch(Exception error)
+	{
+		throw new Exception("IP erradoo: " + error);
+	}
+
 
         transmissor.writeObject(nomeSala);
         transmissor.writeObject(nomeUser);
