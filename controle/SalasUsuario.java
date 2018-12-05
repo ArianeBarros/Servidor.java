@@ -1,5 +1,6 @@
 package controle;
-//import bd.Salas;
+
+import controle.bd.Salas;
 import java.io.*;
 //import controle.bd.*;
 import java.io.BufferedReader;
@@ -10,15 +11,15 @@ import java.util.ArrayList;
 //guarde
 //jge fora
 
-public class SalasUsuario
+public class SalasUsuario extends Salas
 {
-  protected ArrayList<SalaUsuario> list;
+  protected ArrayList<SalaUsuario> list = new ArrayList();
   protected int qtdAtualSalas = 0;
   protected int qtdMaxima;
 
   public SalasUsuario()
   {
-	list = new ArrayList<SalaUsuario>(this.qtdMaxima);
+	  super();
   }
 
   public void guarde(SalaUsuario sala)throws Exception
@@ -40,7 +41,7 @@ public class SalasUsuario
   {
 	  for(int i = 0; i < this.list.size(); i++)
 	  {
-		  if(this.list.get(i).getNome() == nomeSala)
+		  if(this.list.get(i).getNome().equals(nomeSala))
 		    return this.list.get(i);
 	  }
 

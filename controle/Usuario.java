@@ -4,17 +4,18 @@ import java.io.BufferedReader;
 import java.net.*;
 import java.util.*;
 import controle.enviaveis.Enviavel;
+import java.util.ArrayList;
 //enfia o usu na sala e a sala no usu
 
 public class Usuario implements Serializable
 {
-	//private SalaUsuario<Usuario> sala; // a mesma sala da main, com um ponteiro lá e outro ca
+	private SalaUsuario sala; // a mesma sala da main, com um ponteiro lá e outro ca
 	protected String nickname;
 	protected Socket socket;
 	protected ObjectInputStream receptor;
 	protected ObjectOutputStream transmissor;
 
-	public Usuario(Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, String nome, SalaUsuario sala) throws Exception //SalaUsuario sala,
+	public Usuario(Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, String nome, SalaUsuario aSala) throws Exception //SalaUsuario sala,
 	{
 		//validar parametros TODOS, por causa das antinhas
 		//GUARDAR PARAMETROS NOS ATRIBUTOS
@@ -40,12 +41,17 @@ public class Usuario implements Serializable
 			//this.receptor = new ObjectInputStream(new InputStreamReader(conexao.getInputStream()));
 			this.nickname = nome;
 
-			//this.sala = new SalaUsuario<Usuario>(sala);
+			this.sala = aSala;
 		}
 		catch(Exception e)
 		{
 			throw new Exception("Socket de conexão inválido");
 		}
+	}
+
+	public ArrayList<Usuario> listaUsers()
+	{
+		return this.sala.getUsuarios();
 	}
 
 	public String toString()
@@ -124,8 +130,15 @@ public class Usuario implements Serializable
 
 	public void enviar(Enviavel coisa)throws Exception //pode ser String, ou , A SALA É UMA GUARDADORA DE USUARIOS, SALAS É GUARDADORA DE SALAS
 	{
+		try
+		{
 		   this.transmissor.writeObject(coisa.toString());
 		   this.transmissor.flush();
+	   }
+	   catch(Exception erro)
+	   {
+		   throw new Exception(erro);
+	   }
         //this.receptor
 		//usar o receptor
 	}

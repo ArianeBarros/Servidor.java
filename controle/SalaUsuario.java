@@ -20,7 +20,7 @@ public class SalaUsuario
   protected int qtdAtual = 0;
   protected int codigo;
 
-  public SalaUsuario(String nome, int qtd)
+  public SalaUsuario(String nome, int qtd) throws Exception
   {
      this.nome = nome;
      this.qtdMaxima = qtd;

@@ -33,13 +33,12 @@ public class CuidadoraDeUsuario extends Thread
 	  this.ois = new ObjectInputStream(conexao.getInputStream());
 
       //interagir com o usuário via OOS e OIS até descobrir o nome da sala em que ele deseja entrar, eventualmente, informando sala cheia
-
-     this.nome = (String)ois.readObject();
      this.salaDesejada = (String)ois.readObject();
-
-      this.salas = new SalasUsuario();
-
-       this.sala = new SalaUsuario(this.salas.descobrirSala(salaDesejada));
+     this.nome = (String)ois.readObject();
+	System.out.println(this.salaDesejada + " frangooooo");
+      this.salas = salas;
+	System.out.println(this.salas);
+      // this.sala = new SalaUsuario(this.salas.descobrirSala(salaDesejada));
 
       if(this.sala.jaExiste(nome))
          throw new Exception("Já existe um usuário com esse nome aqui");
@@ -47,23 +46,25 @@ public class CuidadoraDeUsuario extends Thread
       this.usuario = new Usuario(conexao, this.oos, this.ois, this.nome, this.sala);
 
       this.aviso = new AvisoDeEntradaNaSala(this.nome);
+
   }
 //quando a pessoa sair da sala esse run para
-  public void run()throws Exception//Toda a interação necessária com o socket recebido por parametro
+//@Override
+  public void run()//Toda a interação necessária com o socket recebido por parametro
   {
+	try
+	{
 	  while(!morta)
 	  {
-		  try
-		  {
-                for(int i = 0; i < this.sala.getQtd(); i++)
-                {
-				  this.sala.getUsuario(i).enviar(aviso);
-			    }
-		    //procurar em salas(param)  a sala com o nome desejado
-		  	  //interagir com o usuário via OOS e OIS para descobrir o nome que ele deseja usar, eventualmente, retornando nome invalido ou ja usado(usar metodo da Sala)
-		  	  //instanciar 1 Usuario, fornecendo conexao, OOS, OIS, sala e nome
-		  	  //fazer varias vezes this.usuario.envia(new AvisoDeEntradaDaSala(i)), onde i é o nome de algum usuario que já estava na sala --ArrayList de usuarios
-		  	  //fazer varias vezes i.envia(new AvisoDeEntradaDaSala(this.usuario.getNome())), onde i é o nome de algum usuario que já estava na sala --ArrayList de usuarios
+			for(int i = 0; i < this.sala.getQtd(); i++)
+			{
+			  this.sala.getUsuario(i).enviar(aviso);
+			}
+			//procurar em salas(param)  a sala com o nome desejado
+			  //interagir com o usuário via OOS e OIS para descobrir o nome que ele deseja usar, eventualmente, retornando nome invalido ou ja usado(usar metodo da Sala)
+			  //instanciar 1 Usuario, fornecendo conexao, OOS, OIS, sala e nome
+			  //fazer varias vezes this.usuario.envia(new AvisoDeEntradaDaSala(i)), onde i é o nome de algum usuario que já estava na sala --ArrayList de usuarios
+			  //fazer varias vezes i.envia(new AvisoDeEntradaDaSala(this.usuario.getNome())), onde i é o nome de algum usuario que já estava na sala --ArrayList de usuarios
 	  //incluir o usuario na sala
 
 
@@ -103,17 +104,17 @@ public class CuidadoraDeUsuario extends Thread
 							  avisoSaida = new AvisoDeSaidaDaSala(socket, nome);
 
 
-					    }
+						}
 					}
 
 				}
 			}
 			while(!(recebido instanceof PedidoParaSairDaSala));
 
-            //remover this.usuario da sala
+			//remover this.usuario da sala
 			this.sala.excluirUsuario(this.usuario);
 
-            //mandar para todos da sala um aviso avisando que ele saiu da sala
+			//mandar para todos da sala um aviso avisando que ele saiu da sala
 			//new AvisoDeSaidaDaSala(this.usuario.getNome());
 			for(int i =0; i < this.sala.getQtdAtual(); i++)
 			{
@@ -123,12 +124,10 @@ public class CuidadoraDeUsuario extends Thread
 
 			this.usuario.fechaTudo();
 			morra();
-		}
-		catch(Exception erro)
+	}}
+		catch(Exception err)
 		{
-			throw new Exception(erro);
 		}
-    }
   }
 
   public void morra()

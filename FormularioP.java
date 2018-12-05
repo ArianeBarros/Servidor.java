@@ -18,11 +18,11 @@ class FormularioP
 
 	protected JFrame janela             = new JFrame("CHAT");
 	protected JLabel lbUsuario          = new JLabel("Nome usuário:");
-	protected JLabel lbIp               = new JLabel("IP da máquina: ");
+	//protected JLabel lbIp               = new JLabel("IP da máquina: ");
 	protected JLabel lbSalas            = new JLabel("Salas disponiveís: ");
 	protected JLabel lbChat             = new JLabel("CHAT");
 	protected JTextField txtNome        = new JTextField();
-	protected JTextField txtIp          = new JTextField();
+	protected JTextField txtErro        = new JTextField();
 	protected JButton btnEntrar         = new JButton("Entrar");
 	protected JComboBox<String> cbSalas = new JComboBox<String>();
 
@@ -37,10 +37,10 @@ class FormularioP
 
 			lbUsuario.setFont(new Font("SansSerif", 1, 18));
 
-			lbIp.setFont(new Font("SansSerif", 1, 18));
+			//lbIp.setFont(new Font("SansSerif", 1, 18));
 
 			txtNome.setFont(new Font("SansSerif", 0, 18));
-			txtIp.setFont(new Font("SansSerif", 0, 18));
+			txtErro.setFont(new Font("SansSerif", 0, 18));
 
 			cbSalas.setFont(new Font("Calibri", 0, 18));
 			//cbSalas.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -76,11 +76,12 @@ class FormularioP
 
 			panelN.add(lbChat, BorderLayout.NORTH);
 			panelW.add(lbUsuario, BorderLayout.NORTH);
-			panelW.add(lbIp, BorderLayout.CENTER);
+			//panelW.add(lbIp, BorderLayout.CENTER);
 			panelC.add(txtNome, BorderLayout.NORTH);
-			panelC.add(txtIp, BorderLayout.CENTER);
+			//panelC.add(txtIp, BorderLayout.CENTER);
 			panelW.add(lbSalas, BorderLayout.SOUTH);
 			panelC.add(cbSalas, BorderLayout.SOUTH);
+			panelS.add(txtErro, BorderLayout.SOUTH);
 
 
 			//this.janela.add(cbSalas, BorderLayout.CENTER);
@@ -97,10 +98,19 @@ class FormularioP
 				 {
 					 try
 					 {
+						 if(txtNome.getText() == "" || txtNome.getText() == null || cbSalas.getSelectedItem().toString() == "Selecione uma sala")
+						 	txtErro.setText("Forneça um nome e uma sala adequada");
+						 else
+						 {
+
+						 	Socket meuSocket  = new Socket("localhost",12346);
+							ObjectInputStream i = new ObjectInputStream(meuSocket.getInputStream());
+						 	ObjectOutputStream o = new ObjectOutputStream(meuSocket.getOutputStream());
+						 	System.out.println(cbSalas.getSelectedItem().toString() + " pegando valor");
+                            new FormularioChat(txtNome.getText() , i,o, cbSalas.getSelectedItem().toString());
+						 }
 
 
-						 if(txtIp.getText() != " " && txtNome.getText() != "")
-                             new FormularioChat(txtNome.getText() , txtIp.getText(), cbSalas.getSelectedItem().toString());
 					}
 					catch(Exception erro)
 					{
@@ -121,6 +131,7 @@ class FormularioP
 		public void exibeCb()throws Exception
 		{
 			 Sala sala;
+			 cbSalas.addItem("Selecione uma sala");
 			try
 			{
 			   for(int i = 0; i < 3; i++)

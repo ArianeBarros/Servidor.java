@@ -3,6 +3,7 @@ import java.awt.*;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import controle.*;
 
 public class FormularioChat
 {
@@ -11,34 +12,40 @@ public class FormularioChat
 	protected JLabel lbChat             = new JLabel("CHAT", SwingConstants.CENTER);
 	protected JTextField txtMsg         = new JTextField();
 	protected JTextArea taMsg           = new JTextArea();
-	protected JButton btnEnviar         = new JButton("Enviar");//, SwingConstants.RIGHT
-	protected JList<String> lUsu        = new JList<String>();
-
+	protected JButton btnEnviar         = new JButton("Enviar");
+	protected JComboBox cbUsu        = new JComboBox();
 	protected ObjectInputStream receptor;
 	protected ObjectOutputStream transmissor;
+	//protected SalaUsuario sala;
+	//protected SalasUsuario salas = new SalasUsuario();
+	//protected Usuario usuario;
+	//protected Socket s;
 
-    public FormularioChat(String nomeUser, String ip, String nomeSala)throws Exception
-    {
-	try
-	{
-		System.out.println("aqui");
-		Socket meuSocket = new Socket(ip, 12345);
-		System.out.println("aqui2");
-		this.receptor = new ObjectInputStream(meuSocket.getInputStream());
-		System.out.println("aqui quase");
-        this.transmissor = new ObjectOutputStream(meuSocket.getOutputStream());
-		System.out.println("yayy");
-	}
-	catch(Exception error)
-	{
-		throw new Exception("IP erradoo: " + error);
-	}
+    public FormularioChat(String nomeUser, ObjectInputStream i, ObjectOutputStream o, String nomeSala)throws Exception
+	    {
+		try
+		{
+			System.out.println("aqui");
+			System.out.println("aqui2");
+			this.transmissor = o;
+			System.out.println("aqui quase");
+	        this.receptor = i;
+			System.out.println("yayy");
+			//this.s = new Socket("localhost",12346);
+		}
+		catch(Exception error)
+		{
+			throw new Exception("IP erradoo: " + error);
+		}
 
 
-        transmissor.writeObject(nomeSala);
-        transmissor.writeObject(nomeUser);
-        transmissor.flush();
+	        transmissor.writeObject(nomeSala);
+	        transmissor.writeObject(nomeUser);
+            transmissor.flush();
+			transmissor.flush();
 
+          //  this.sala = new SalaUsuario(nomeSala, salas.descobrirSala(nomeSala).getQtd());
+           // this.usuario = new Usuario(this.s,o,i,nomeUser, this.sala);//Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, String nome, SalaUsuario aSala
 
 		lbChat.setFont(new Font("Segoe Script", 3, 50));
 		lbChat.setForeground(new Color(0, 204, 0));
@@ -71,14 +78,11 @@ public class FormularioChat
 
 		panelN.add(lbChat, BorderLayout.NORTH);
 		panelN.add(lbUsuario, BorderLayout.SOUTH);
-		panelC.add(lUsu, BorderLayout.WEST);
+		panelC.add(cbUsu, BorderLayout.WEST);
 		panelS.add(txtMsg, BorderLayout.CENTER);
 		panelS.add(btnEnviar, BorderLayout.EAST);
 		//panelC.add(taMsg, BorderLayout.CENTER);
 
-		//this.janela.add(lbChat, BorderLayout.NORTH);
-
-		//btnEntrar.setPreferredSize(new Dimension(40,40));
 		//this.janela.add(btnEntrar, BorderLayout.SOUTH);
 		//this.janela.add(lbUsuario, BorderLayout.NORTH);
 		//this.janela.add(lbSalas, BorderLayout.NORTH);
@@ -86,25 +90,33 @@ public class FormularioChat
 		this.janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.janela.setVisible(true);
 
-		/*
+		//lUsu.setVisibleRowCount(this.sala.getQtd());
 
-		 btnEntrar.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btnEntrarActionPerformed(evt);
+		/*lUsu.setModel(new AbstractListModel<String>()
+		{
+			String[] strings;
+
+			for(int z = 0; z <= this.sala.getQtd(); z++)
+		    {
+			    strings[i] = {this.sala.getUsuario(z).getNickname()};
 			}
-        });
+		}
+
+		public int getSize()
+		{
+			return strings.length;
+		}
+
+         public String getElementAt(int i)
+         {
+		   return strings[i];
+		 }});*/
+
+		 for(int z = 0; z <= this.sala.getQtd(); z++)
+		{
+			cbUsu.addItem(this.usuario.getNickname());
+		}
+
 	}
 
-	  private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt)
-	    {
-			/*String escolhida = cbSalas.getSelectedIndex();
-			int qtd = sala.getQtd();
-
-			 sala = new SalaUsuario<Usuario>(escolhida, qtd);
-			 //usuario = new Usuario(Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, txtNome.text, cbSalas.getSelectedItem());
-	         sala.add(usuario);
-
-	        new FormularioChat();
-	        */
-	}
 }

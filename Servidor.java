@@ -21,12 +21,17 @@ public class Servidor
    		{
    		FormularioP form = new FormularioP();
 
-   		ServerSocket ss = new ServerSocket(12345);
+   		ServerSocket ss = new ServerSocket(12346);
    		SalasUsuario salas = new SalasUsuario(); //Salas disponíveis
 
-
+		for(;;)
+		{
            Socket s = ss.accept();
+
 		   CuidadoraDeUsuario tratadora = new CuidadoraDeUsuario(s, salas);
+		   tratadora.start();
+	    }
+
 		}
 		catch(Exception erro)
 		{
