@@ -10,9 +10,9 @@ public class PedidoParaSairDaSala implements Enviavel
 	{
 	}
 
-	public void envia()
+	public String envia()
 	{
-
+      return "";
 	}
 
 	/*public int hashCode()

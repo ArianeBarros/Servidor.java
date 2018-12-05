@@ -124,8 +124,8 @@ public class Usuario implements Serializable
 
 	public void enviar(Enviavel coisa)throws Exception //pode ser String, ou , A SALA É UMA GUARDADORA DE USUARIOS, SALAS É GUARDADORA DE SALAS
 	{
-       this.transmissor.writeObject(coisa.toString());
-       this.transmissor.flush();
+		   this.transmissor.writeObject(coisa.toString());
+		   this.transmissor.flush();
         //this.receptor
 		//usar o receptor
 	}

@@ -21,6 +21,7 @@ public class CuidadoraDeUsuario extends Thread
 	protected Socket socket;
 	protected Enviavel recebido;
 	protected SalaUsuario sala;
+	protected  AvisoDeEntradaNaSala aviso;
 //em cada sala o usuario poderia ter um nome diferente
 //E para trocar de sala, tem rodar a janelinha denovo
 
@@ -44,21 +45,18 @@ public class CuidadoraDeUsuario extends Thread
          throw new Exception("Já existe um usuário com esse nome aqui");
 
       this.usuario = new Usuario(conexao, this.oos, this.ois, this.nome, this.sala);
+
+      this.aviso = new AvisoDeEntradaNaSala(this.nome);
   }
 //quando a pessoa sair da sala esse run para
   public void run()//Toda a interação necessária com o socket recebido por parametro
   {
 	  while(!morta)
 	  {
-                AvisoDeEntradaNaSala aviso = new AvisoDeEntradaNaSala(this.nome);
-
-
                 for(int i = 0; i < this.sala.getQtd(); i++)
                 {
-
-				  sala.getUsuario(i).enviar(aviso);
+				  this.sala.getUsuario(i).enviar(aviso);
 			    }
-
 		    //procurar em salas(param)  a sala com o nome desejado
 		  	  //interagir com o usuário via OOS e OIS para descobrir o nome que ele deseja usar, eventualmente, retornando nome invalido ou ja usado(usar metodo da Sala)
 		  	  //instanciar 1 Usuario, fornecendo conexao, OOS, OIS, sala e nome

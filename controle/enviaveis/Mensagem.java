@@ -8,7 +8,18 @@ public class Mensagem implements Enviavel
 	protected String texto;
 	protected String destinatario;
 
-	public void setTexto(String t)
+	public Mensagem(String msg, String dest)
+	{
+		this.texto = msg;
+		this.destinatario = dest;
+	}
+
+   public String envia()
+	{
+		return this.texto;
+	}
+
+/*	public void setTexto(String t)
 	{
 		this.texto = t;
 	}
@@ -62,5 +73,5 @@ public class Mensagem implements Enviavel
 			return false;
 
 		return true;
-	}
+	}*/
 }

@@ -6,8 +6,9 @@ public class EscolhaDeSala implements Enviavel // getters, setters, metodos obri
 	{
 	}
 
-	public void envia()
+	public String envia()
 	{
+		return "";
 	}
 
 	/*public EscolhaDeSala()

@@ -23,17 +23,39 @@ public class AvisoDeSaidaDaSala implements Enviavel
     this.nick = nome;
   }
 
-  public void envia()
+  public String envia()
   {
 	  try
 	  {
 		  this.transmissor.writeObject(this.nick.toString() + "saiu da sala");
 		  this.transmissor.flush();
+
 	  }
 	  catch(IOException error)
 	  {
 	    System.out.println(error);
 	  }
+
+	  return "";
   }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

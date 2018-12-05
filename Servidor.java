@@ -16,13 +16,15 @@ public class Servidor
    	{
 //   		protected Salas salas = new Salas();
   		System.out.print("ok");
+
+  		try
+   		{
    		FormularioP form = new FormularioP();
 
    		ServerSocket ss = new ServerSocket(12345);
    		SalasUsuario salas = new SalasUsuario(); //Salas disponíveis
 
-   		try
-   		{
+
            Socket s = ss.accept();
 		   CuidadoraDeUsuario tratadora = new CuidadoraDeUsuario(s, salas);
 		}
