@@ -1,9 +1,12 @@
+import controle.*;
 import javax.swing.*;
 import java.awt.*;
+import controle.bd.*;
+import java.net.*;
+import java.io.*;
+import java.awt.event.*;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
-import controle.*;
 
 public class FormularioChat
 {
@@ -11,7 +14,7 @@ public class FormularioChat
 	protected JLabel lbUsuario          = new JLabel("Usuários");
 	protected JLabel lbChat             = new JLabel("CHAT", SwingConstants.CENTER);
 	protected JTextField txtMsg         = new JTextField();
-	protected JTextArea taMsg           = new JTextArea();
+	protected JTextArea ta          = new JTextArea("");
 	protected JButton btnEnviar         = new JButton("Enviar");
 	protected JComboBox cbUsu        = new JComboBox();
 	protected ObjectInputStream receptor;
@@ -31,6 +34,7 @@ public class FormularioChat
 			System.out.println("aqui quase");
 	        this.receptor = i;
 			System.out.println("yayy");
+
 			//this.s = new Socket("localhost",12346);
 		}
 		catch(Exception error)
@@ -43,6 +47,8 @@ public class FormularioChat
 	        transmissor.writeObject(nomeUser);
             transmissor.flush();
 			transmissor.flush();
+
+			receber();
 
           //  this.sala = new SalaUsuario(nomeSala, salas.descobrirSala(nomeSala).getQtd());
            // this.usuario = new Usuario(this.s,o,i,nomeUser, this.sala);//Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, String nome, SalaUsuario aSala
@@ -81,7 +87,7 @@ public class FormularioChat
 		panelC.add(cbUsu, BorderLayout.WEST);
 		panelS.add(txtMsg, BorderLayout.CENTER);
 		panelS.add(btnEnviar, BorderLayout.EAST);
-		//panelC.add(taMsg, BorderLayout.CENTER);
+		panelC.add(ta, BorderLayout.CENTER);
 
 		//this.janela.add(btnEntrar, BorderLayout.SOUTH);
 		//this.janela.add(lbUsuario, BorderLayout.NORTH);
@@ -89,6 +95,30 @@ public class FormularioChat
 
 		this.janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.janela.setVisible(true);
+
+		//ta.append(ta.getText() + );
+
+		  btnEnviar.addActionListener(new ActionListener()
+		 {
+			 public void actionPerformed(ActionEvent event)
+			 {
+				 try
+				 {
+					 if(txtMsg.getText() != "")
+					{
+						Socket meuSocket  = new Socket("localhost",12346);
+						ObjectOutputStream o = new ObjectOutputStream(meuSocket.getOutputStream());
+						o.writeObject(txtMsg.getText());
+						o.flush();
+						ta.append(ta.getText() + txtMsg.getText());
+					 }
+				}
+				catch(Exception erro)
+				{
+					System.out.println(erro);
+				}
+			 }
+		    });
 
 		//lUsu.setVisibleRowCount(this.sala.getQtd());
 
@@ -112,11 +142,24 @@ public class FormularioChat
 		   return strings[i];
 		 }});*/
 
-		 for(int z = 0; z <= this.sala.getQtd(); z++)
-		{
-			cbUsu.addItem(this.usuario.getNickname());
-		}
+	//	 for(int z = 0; z <= receptor.readObject().getQtd(); z++)
+	//	{
+	//		cbUsu.addItem(this.usuario.getNickname());
+	//	}
 
+	}
+
+	public void receber()throws Exception
+	{
+		try
+		{
+		  String recebido = (String)this.receptor.readObject();
+		  ta.append(ta.getText() + recebido);
+	  }
+	  catch(Exception erro)
+	  {
+		  throw new Exception("Erro ao receber no chat: " + erro);
+	  }
 	}
 
 }

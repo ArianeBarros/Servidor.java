@@ -14,7 +14,6 @@ public class CuidadoraDeUsuario extends Thread
 	protected Usuario usuario;
 	protected ObjectOutputStream oos;
 	protected ObjectInputStream ois;
-	//protected SalaUsuario sala;
 	protected SalasUsuario salas;
 	protected AvisoDeSaidaDaSala avisoSaida;
 	protected String nome;
@@ -35,9 +34,9 @@ public class CuidadoraDeUsuario extends Thread
       //interagir com o usuário via OOS e OIS até descobrir o nome da sala em que ele deseja entrar, eventualmente, informando sala cheia
      this.salaDesejada = (String)ois.readObject();
      this.nome = (String)ois.readObject();
-	System.out.println(this.salaDesejada + " frangooooo");
+	 //System.out.println(this.salaDesejada);
       this.salas = salas;
-	System.out.println(this.salas);
+	 //System.out.println(this.salas);
       // this.sala = new SalaUsuario(this.salas.descobrirSala(salaDesejada));
 
       if(this.sala.jaExiste(nome))
@@ -48,9 +47,8 @@ public class CuidadoraDeUsuario extends Thread
       this.aviso = new AvisoDeEntradaNaSala(this.nome);
 
   }
-//quando a pessoa sair da sala esse run para
-//@Override
-  public void run()//Toda a interação necessária com o socket recebido por parametro
+
+  public void run()
   {
 	try
 	{

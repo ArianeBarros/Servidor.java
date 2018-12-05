@@ -1,14 +1,15 @@
 package controle.enviaveis;
 import java.net.*;
 import java.util.*;
-import java.io.BufferedReader;
+ import java.io.ObjectInputStream;
+ import java.io.ObjectOutputStream;
 import java.io.*;
 
 public class AvisoDeSaidaDaSala implements Enviavel
 {
 
  // SalasUsuario salas;
-  protected OjectOutputStream transmissor;
+  protected ObjectOutputStream transmissor;
   protected  String nick;
 
 
@@ -44,19 +45,23 @@ public class AvisoDeSaidaDaSala implements Enviavel
 	  return "o nome do usuário é"+this.nick;
   }
 
-  public boolean Equals(Object obj)
+  public boolean equals(Object obj)
   {
 	  if(this==obj)
 	      return true;
 	  if(obj==null)
 	     return false;
-	  if(this.getClass()!=obj.getClass)
+
+	 if(this.getClass()!=obj.getClass())
+	 	return false;
+	  	AvisoDeSaidaDaSala aviso = (AvisoDeSaidaDaSala)aviso;
+
+	  if(!this.transmissor.equals(aviso.transmissor))
 	  	return false;
-	  	AvisoDeSaidaDaSala adsds=(AvisoDeSaidaDaSala)adsds;
-	  if(!this.transmissor.equals(adsds.transmissor))
+
+	  if(!this.nick.equals(aviso.nick))
 	  	return false;
-	  if(!this.nick.equals(adsds.nick))
-	  	return false;
+
 	  	return true;
   }
 
@@ -65,7 +70,10 @@ public class AvisoDeSaidaDaSala implements Enviavel
 	  int ret=7;
 	  ret=ret*11+transmissor.hashCode();
 	  ret=ret*13+nick.hashCode();
+
+	  return ret;
   }
+}
 
 
 

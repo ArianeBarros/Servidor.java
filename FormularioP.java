@@ -130,6 +130,8 @@ class FormularioP
 
 		public void exibeCb()throws Exception
 		{
+			txtErro.setEditable(false);
+
 			 Sala sala;
 			 cbSalas.addItem("Selecione uma sala");
 			try
