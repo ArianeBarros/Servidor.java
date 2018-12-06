@@ -19,10 +19,10 @@ public class Servidor
 
   		try
    		{
-   		FormularioP form = new FormularioP();
+   			FormularioP form = new FormularioP();
 
-   		ServerSocket ss = new ServerSocket(12346);
-   		SalasUsuario salas = new SalasUsuario(); //Salas disponíveis
+   			ServerSocket ss = new ServerSocket(12346);
+   			SalasUsuario salas = new SalasUsuario(); //Salas disponíveis
 
 		for(;;)
 		{

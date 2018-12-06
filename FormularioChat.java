@@ -12,6 +12,7 @@ public class FormularioChat
 {
 	protected JFrame janela             = new JFrame("CHAT");
 	protected JLabel lbUsuario          = new JLabel("Usuários");
+	protected JLabel lbLinha              = new JLabel("-----------------------------------------------------------------------------------------------------------");
 	protected JLabel lbChat             = new JLabel("CHAT", SwingConstants.CENTER);
 	protected JTextField txtMsg         = new JTextField();
 	protected JTextArea ta          = new JTextArea("");
@@ -57,6 +58,7 @@ public class FormularioChat
 		lbChat.setForeground(new Color(0, 204, 0));
 
 		lbUsuario.setFont(new Font("SansSerif", 1, 18));
+		lbLinha.setFont(new Font("SansSerif", 1, 18));
 
 		//lUsu.setFont(new Font("Calibri", 0, 18));
 		//taMsg.setFont(new Font("Calibri", 0, 18));
@@ -83,8 +85,9 @@ public class FormularioChat
 		this.janela.add(panelE, BorderLayout.EAST);
 
 		panelN.add(lbChat, BorderLayout.NORTH);
-		panelN.add(lbUsuario, BorderLayout.SOUTH);
-		panelC.add(cbUsu, BorderLayout.WEST);
+		panelN.add(lbUsuario, BorderLayout.WEST);
+		panelC.add(lbLinha, BorderLayout.NORTH);
+		panelN.add(cbUsu, BorderLayout.CENTER);
 		panelS.add(txtMsg, BorderLayout.CENTER);
 		panelS.add(btnEnviar, BorderLayout.EAST);
 		panelC.add(ta, BorderLayout.CENTER);
@@ -161,5 +164,4 @@ public class FormularioChat
 		  throw new Exception("Erro ao receber no chat: " + erro);
 	  }
 	}
-
 }

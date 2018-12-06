@@ -100,11 +100,8 @@ public class CuidadoraDeUsuario extends Thread
 						for(int i =0; i < this.sala.getQtd(); i++) //pq nao funciona this.sala.size();??
 						{
 							  avisoSaida = new AvisoDeSaidaDaSala(socket, nome);
-
-
 						}
 					}
-
 				}
 			}
 			while(!(recebido instanceof PedidoParaSairDaSala));

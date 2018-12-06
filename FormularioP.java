@@ -163,12 +163,8 @@ class FormularioP
 				   				"from the combo box.");
 
 		            }
-
-
 				 }
-
 				});
-
 		   }
 		   catch(Exception error)
 		   {
