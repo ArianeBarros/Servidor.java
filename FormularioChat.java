@@ -20,10 +20,6 @@ public class FormularioChat
 	protected JComboBox cbUsu        = new JComboBox();
 	protected ObjectInputStream receptor;
 	protected ObjectOutputStream transmissor;
-	//protected SalaUsuario sala;
-	//protected SalasUsuario salas = new SalasUsuario();
-	//protected Usuario usuario;
-	//protected Socket s;
 
     public FormularioChat(String nomeUser, ObjectInputStream i, ObjectOutputStream o, String nomeSala)throws Exception
 	    {
@@ -36,7 +32,6 @@ public class FormularioChat
 	        this.receptor = i;
 			System.out.println("yayy");
 
-			//this.s = new Socket("localhost",12346);
 		}
 		catch(Exception error)
 		{
@@ -51,17 +46,11 @@ public class FormularioChat
 
 			receber();
 
-          //  this.sala = new SalaUsuario(nomeSala, salas.descobrirSala(nomeSala).getQtd());
-           // this.usuario = new Usuario(this.s,o,i,nomeUser, this.sala);//Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, String nome, SalaUsuario aSala
-
 		lbChat.setFont(new Font("Segoe Script", 3, 50));
 		lbChat.setForeground(new Color(0, 204, 0));
 
 		lbUsuario.setFont(new Font("SansSerif", 1, 18));
 		lbLinha.setFont(new Font("SansSerif", 1, 18));
-
-		//lUsu.setFont(new Font("Calibri", 0, 18));
-		//taMsg.setFont(new Font("Calibri", 0, 18));
 
 		this.janela.setSize(660, 600);
 		this.janela.getContentPane().setLayout(new BorderLayout());
@@ -92,14 +81,8 @@ public class FormularioChat
 		panelS.add(btnEnviar, BorderLayout.EAST);
 		panelC.add(ta, BorderLayout.CENTER);
 
-		//this.janela.add(btnEntrar, BorderLayout.SOUTH);
-		//this.janela.add(lbUsuario, BorderLayout.NORTH);
-		//this.janela.add(lbSalas, BorderLayout.NORTH);
-
 		this.janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.janela.setVisible(true);
-
-		//ta.append(ta.getText() + );
 
 		  btnEnviar.addActionListener(new ActionListener()
 		 {
@@ -122,34 +105,6 @@ public class FormularioChat
 				}
 			 }
 		    });
-
-		//lUsu.setVisibleRowCount(this.sala.getQtd());
-
-		/*lUsu.setModel(new AbstractListModel<String>()
-		{
-			String[] strings;
-
-			for(int z = 0; z <= this.sala.getQtd(); z++)
-		    {
-			    strings[i] = {this.sala.getUsuario(z).getNickname()};
-			}
-		}
-
-		public int getSize()
-		{
-			return strings.length;
-		}
-
-         public String getElementAt(int i)
-         {
-		   return strings[i];
-		 }});*/
-
-	//	 for(int z = 0; z <= receptor.readObject().getQtd(); z++)
-	//	{
-	//		cbUsu.addItem(this.usuario.getNickname());
-	//	}
-
 	}
 
 	public void receber()throws Exception

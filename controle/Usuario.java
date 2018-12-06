@@ -5,11 +5,10 @@ import java.net.*;
 import java.util.*;
 import controle.enviaveis.Enviavel;
 import java.util.ArrayList;
-//enfia o usu na sala e a sala no usu
 
 public class Usuario implements Serializable
 {
-	private SalaUsuario sala; // a mesma sala da main, com um ponteiro lá e outro ca
+	private SalaUsuario sala;
 	protected String nickname;
 	protected Socket socket;
 	protected ObjectInputStream receptor;
@@ -17,12 +16,6 @@ public class Usuario implements Serializable
 
 	public Usuario(Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, String nome, SalaUsuario aSala) throws Exception //SalaUsuario sala,
 	{
-		//validar parametros TODOS, por causa das antinhas
-		//GUARDAR PARAMETROS NOS ATRIBUTOS
-		//guardar conexão
-		//instanciar PrintWriter e BufferedReader
-		//mandar todos os nomes de salas
-
 		if(conexao == null) // não sei
 			throw new Exception("Socket inválido!");
 		if(transmissor == null)
@@ -38,7 +31,6 @@ public class Usuario implements Serializable
 			this.socket = conexao;
 			this.transmissor = new ObjectOutputStream(conexao.getOutputStream());
 			receptor = new ObjectInputStream(conexao.getInputStream());
-			//this.receptor = new ObjectInputStream(new InputStreamReader(conexao.getInputStream()));
 			this.nickname = nome;
 
 			this.sala = aSala;
@@ -95,9 +87,9 @@ public class Usuario implements Serializable
 		if(!this.receptor.equals(u.receptor))
 			return false;
 
-/*		if(!this.sala.equals(u.sala))
+		if(!u.sala instanceof Usuario)
 			return false;
-*/
+
 		return true;
 	}
 
@@ -126,9 +118,7 @@ public class Usuario implements Serializable
 		return this.transmissor;
 	}
 
-	//ver isso
-
-	public void enviar(Enviavel coisa)throws Exception //pode ser String, ou , A SALA É UMA GUARDADORA DE USUARIOS, SALAS É GUARDADORA DE SALAS
+	public void enviar(Enviavel coisa)throws Exception
 	{
 		try
 		{
@@ -139,8 +129,6 @@ public class Usuario implements Serializable
 	   {
 		   throw new Exception(erro);
 	   }
-        //this.receptor
-		//usar o receptor
 	}
 
 	public void fechaTudo()throws Exception

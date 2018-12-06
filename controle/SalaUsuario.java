@@ -5,14 +5,8 @@ import java.net.*;
 import java.util.*;
 import java.util.ArrayList;
 
-
-//metodo prara ver se ja existe um usaurio com o mesmo nome na sala --- throws Exceptions
-//getUsuarios() -- arraylist com todos os nomes nas salas
-
-
 public class SalaUsuario
 {
- //quant de lugares nome identificação
   protected int qtdMaxima;
   protected ArrayList<Usuario> lista;
   protected String nome;
@@ -144,8 +138,6 @@ public class SalaUsuario
 
     return ret;
    }
-
-// fazer construtor de copia
 
    public SalaUsuario(SalaUsuario modelo) throws Exception
    {

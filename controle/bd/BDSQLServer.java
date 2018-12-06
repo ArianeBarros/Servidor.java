@@ -19,7 +19,7 @@ public class BDSQLServer
         catch (Exception erro)
         {
             System.err.println (erro);
-            System.exit(0); // aborta o programa
+            System.exit(0);
         }
 
         COMANDO = comando;

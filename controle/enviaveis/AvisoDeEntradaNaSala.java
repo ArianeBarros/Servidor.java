@@ -2,7 +2,6 @@ package controle.enviaveis;
 
 public class AvisoDeEntradaNaSala implements Enviavel
 {
-	//Ou fazer uma classe só AvisoDeMovimentacao()
     protected String nick;
 
 	public AvisoDeEntradaNaSala(String nome)throws Exception

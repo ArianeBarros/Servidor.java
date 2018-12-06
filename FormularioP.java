@@ -1,5 +1,3 @@
-//pakage Servidor
-
 import controle.*;
 import javax.swing.*;
 import java.awt.*;
@@ -7,18 +5,14 @@ import controle.bd.*;
 import java.net.*;
 import java.io.*;
 import java.awt.event.*;
-//import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
 
 class FormularioP
 {
 	protected Salas salas = new Salas();
 	ServerSocket s = new ServerSocket(12345);
- 	//protected SalaUsuario salaUsuario;
 
 	protected JFrame janela             = new JFrame("CHAT");
 	protected JLabel lbUsuario          = new JLabel("Nome usuário:");
-	//protected JLabel lbIp               = new JLabel("IP da máquina: ");
 	protected JLabel lbSalas            = new JLabel("Salas disponiveís: ");
 	protected JLabel lbChat             = new JLabel("CHAT");
 	protected JTextField txtNome        = new JTextField();
@@ -37,13 +31,10 @@ class FormularioP
 
 			lbUsuario.setFont(new Font("SansSerif", 1, 18));
 
-			//lbIp.setFont(new Font("SansSerif", 1, 18));
-
 			txtNome.setFont(new Font("SansSerif", 0, 18));
 			txtErro.setFont(new Font("SansSerif", 0, 18));
 
 			cbSalas.setFont(new Font("Calibri", 0, 18));
-			//cbSalas.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
 			btnEntrar.setFont(new Font("Source Sans Pro Black", 1, 14));
 			btnEntrar.setSize(5, 10);
@@ -56,16 +47,12 @@ class FormularioP
 			JPanel panelW = new JPanel();
 			JPanel panelS = new JPanel();
 			JPanel panelE = new JPanel();
-			//JPanel h = new JPanel();
-
-			//gridlayout -- 1 coluna, 5 linhas
 
 			panelN.setLayout(new BorderLayout());
 			panelC.setLayout(new BorderLayout());
 			panelW.setLayout(new BorderLayout());
 			panelS.setLayout(new BorderLayout());
 			panelE.setLayout(new BorderLayout());
-			//h.setLayout(new BorderLayout());
 
 			this.janela.add(panelN, BorderLayout.NORTH);
 			this.janela.add(panelC, BorderLayout.CENTER);
@@ -76,17 +63,10 @@ class FormularioP
 
 			panelN.add(lbChat, BorderLayout.NORTH);
 			panelW.add(lbUsuario, BorderLayout.NORTH);
-			//panelW.add(lbIp, BorderLayout.CENTER);
 			panelC.add(txtNome, BorderLayout.NORTH);
-			//panelC.add(txtIp, BorderLayout.CENTER);
 			panelW.add(lbSalas, BorderLayout.SOUTH);
 			panelC.add(cbSalas, BorderLayout.SOUTH);
 			panelS.add(txtErro, BorderLayout.SOUTH);
-
-
-			//this.janela.add(cbSalas, BorderLayout.CENTER);
-			//panelC.add(cbSalas, BorderLayout.CENTER);
-			//cbSalas.setPreferredSize( new Dimension(10,10) );
 
 			exibeCb();
 
@@ -151,7 +131,6 @@ class FormularioP
 				 {
 	               	JComboBox comboBox = (JComboBox) event.getSource();
 
-				   	// Print the selected items and the action command.
 				   	Object selected = comboBox.getSelectedItem();
 				   	System.out.println("Selected Item  = " + selected);
 				   	String command = event.getActionCommand();
@@ -170,7 +149,5 @@ class FormularioP
 		   {
 			   throw new Exception(error);
 		   }
-
 	}
-
 }

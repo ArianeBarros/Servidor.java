@@ -54,8 +54,6 @@ public class MeuPreparedStatement extends MeuStatement implements PreparedStatem
         this.conexao.rollback ();
     }
 
-    // metodos herdados da interface PreparedStatement
-
     public void addBatch () throws SQLException
     {
         this.comando.addBatch ();

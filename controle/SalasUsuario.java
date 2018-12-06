@@ -2,14 +2,10 @@ package controle;
 
 import controle.bd.Salas;
 import java.io.*;
-//import controle.bd.*;
 import java.io.BufferedReader;
 import java.net.*;
 import java.util.*;
 import java.util.ArrayList;
-
-//guarde
-//jge fora
 
 public class SalasUsuario extends Salas
 {
@@ -48,7 +44,7 @@ public class SalasUsuario extends Salas
 	  throw new Exception("Sala não encontrada");
   }
 
-  public void excluir(SalaUsuario sala)throws Exception//pegar todos os tipos de exclusão
+  public void excluir(SalaUsuario sala)throws Exception
   {
     if(!isVazia())
     {
@@ -56,9 +52,6 @@ public class SalasUsuario extends Salas
 	   this.list.remove(indice);
        this.qtdAtualSalas--;
  	}
-   /*  else
-       throw new Exception("Sala não existe");
-	}*/
 	else
 	  throw new Exception("Sem salas disponíveis para exclusão");
   }

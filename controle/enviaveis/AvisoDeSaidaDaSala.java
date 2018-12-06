@@ -8,15 +8,12 @@ import java.io.*;
 public class AvisoDeSaidaDaSala implements Enviavel
 {
 
- // SalasUsuario salas;
   protected ObjectOutputStream transmissor;
   protected  String nick;
 
 
   public AvisoDeSaidaDaSala(Socket conexao, String nome)throws Exception
   {
-   // this.sala = new SalaUsuario();
-   // this.salas = new SalasUsuario();
    if(transmissor == null)
 	  throw new Exception("PrintWriter inválido!");
 
