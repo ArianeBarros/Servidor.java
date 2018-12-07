@@ -6,6 +6,8 @@
  import java.net.ServerSocket;
  import java.net.Socket;
  import java.util.Date;
+ import java.util.*;
+
 
 public class CuidadoraDeUsuario extends Thread
 {
@@ -24,65 +26,62 @@ public class CuidadoraDeUsuario extends Thread
 
   public CuidadoraDeUsuario(Socket conexao, SalasUsuario salas) throws Exception
   {
-	  this.socket = conexao;
-
-	  this.oos = new ObjectOutputStream(conexao.getOutputStream());
-	  this.ois = new ObjectInputStream(conexao.getInputStream());
-
-     this.salaDesejada = (String)ois.readObject();
-     this.nome = (String)ois.readObject();
-     this.salas = salas;
-
-      if(this.sala.jaExiste(nome))
-         throw new Exception("Já existe um usuário com esse nome aqui");
-
-      this.usuario = new Usuario(conexao, this.oos, this.ois, this.nome, this.sala);
-
-      this.aviso = new AvisoDeEntradaNaSala(this.nome);
-
+	 this.socket = conexao;
+	 this.oos = new ObjectOutputStream(this.socket.getOutputStream());
+	 this.ois = new ObjectInputStream(this.socket.getInputStream());
+	 this.salas = salas;
   }
 
   public void run()
   {
 	try
 	{
-	  while(!morta)
-	  {
-			for(int i = 0; i < this.sala.getQtd(); i++)
-			{
-			  this.sala.getUsuario(i).enviar(aviso);
-			}
-			do
-			{
-				if(recebido instanceof Mensagem)
-				{
-					recebido.envia();
 
-					System.out.print("O usuario quer enviar alguma mensagem");
-				}
-				else
-				{
-					if(recebido instanceof AvisoDeSaidaDaSala)
-					{
-						for(int i =0; i < this.sala.getQtd(); i++)
-						{
-							  avisoSaida = new AvisoDeSaidaDaSala(socket, nome);
-						}
-					}
-				}
+		   this.oos.writeObject(this.salas.getNomes());	  //1
+		   this.oos.flush();
+		   System.out.println("to aqui");
+		   this.salaDesejada = (String)ois.readObject();	//2
+		   this.nome = (String)ois.readObject();	//3
+
+
+		   this.sala = this.salas.descobrirSala(this.salaDesejada);
+
+		    if(this.sala.jaExiste(nome))
+		       throw new Exception("Já existe um usuário com esse nome aqui");
+
+		   this.usuario = new Usuario(this.socket, this.oos, this.ois, this.nome, this.sala);
+
+		   this.sala.adicionarUsuario(this.usuario);
+
+		   for(Usuario user: this.sala.getUsuarios())
+		   	user.enviar(new AvisoDeEntradaNaSala(this.nome));
+
+			System.out.println("vou entrar");
+		  	while(!morta)
+		  	{
+				System.out.println("entrei no loop");
+			Enviavel e = (Enviavel)this.ois.readObject();
+			System.out.println(e.getClass().getName());
+			switch(e.getClass().getName())
+			{
+				case "Mensagem": e = (Mensagem)e;break;
+				case "AvisoDeEntradaNaSala": e = (AvisoDeEntradaNaSala) e;break;
+				case "AvisoDeSaidaDaSala": e = (AvisoDeSaidaDaSala)e; break;
+				case "PedidoParaSairDaSala":morra(); e = (PedidoParaSairDaSala) e;break;
 			}
-			while(!(recebido instanceof PedidoParaSairDaSala));
+
+			if(!(e instanceof PedidoParaSairDaSala))
+				for(Usuario user: this.sala.getUsuarios())
+					user.enviar(e);
+			}
 
 			this.sala.excluirUsuario(this.usuario);
-
-			for(int i =0; i < this.sala.getQtdAtual(); i++)
-			{
-				avisoSaida = new AvisoDeSaidaDaSala(socket, nome);
-			}
+			for(Usuario user: this.sala.getUsuarios())
+				user.enviar(new AvisoDeSaidaDaSala(this.nome));
 
 			this.usuario.fechaTudo();
-			morra();
-	}}
+
+		}
 		catch(Exception err)
 		{
 		}

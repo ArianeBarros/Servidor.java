@@ -3,12 +3,11 @@ package controle.enviaveis;
 public class Mensagem implements Enviavel
 {
 	protected String texto;
-	protected String destinatario;
 
-	public Mensagem(String msg, String dest)
+
+	public Mensagem(String msg)
 	{
 		this.texto = msg;
-		this.destinatario = dest;
 	}
 
    public String envia()
@@ -16,14 +15,9 @@ public class Mensagem implements Enviavel
 		return this.texto;
 	}
 
-/*	public void setTexto(String t)
+	public void setTexto(String t)
 	{
 		this.texto = t;
-	}
-
-	public void setDestinatario(String d)
-	{
-		this.destinatario = d;
 	}
 
 	public String getTexto()
@@ -31,20 +25,14 @@ public class Mensagem implements Enviavel
 		return this.texto;
 	}
 
-	public String getDestinatario()
-	{
-		return this.destinatario;
-	}
-
 	public String toString()
 	{
-		return this.texto + this.destinatario;
+		return this.texto;
 	}
 
 	public int hashCode()
 	{
 		int ret = 3;
-		ret = ret * 7 + new String(this.destinatario).hashCode();
 		ret = ret * 7 + new String(this.texto).hashCode();;
 
 		return ret;
@@ -66,9 +54,6 @@ public class Mensagem implements Enviavel
 		if(!this.texto.equals(msg.texto))
 			return false;
 
-		if(!this.destinatario.equals(msg.destinatario))
-			return false;
-
 		return true;
-	}*/
+	}
 }

@@ -150,7 +150,7 @@ public class SalaUsuario
 
 	this.lista = new ArrayList<Usuario>(modelo.lista.size());
 
-	 this.lista = modelo.lista;//!!
+	 this.lista = modelo.lista;
   }
 
    public Object clone()

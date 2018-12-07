@@ -1,5 +1,3 @@
-//package Servidor.java;
-
 import java.io.*;
 import controle.bd.*;
 import java.awt.*;
@@ -12,14 +10,13 @@ public class Servidor
 {
    public static void main (String[]args)throws Exception
    	{
-  		System.out.print("ok");
-
   		try
    		{
-   			FormularioP form = new FormularioP();
-
-   			ServerSocket ss = new ServerSocket(12346);
-   			SalasUsuario salas = new SalasUsuario();
+   		ServerSocket ss = new ServerSocket(12346);
+   		SalasUsuario salas = new SalasUsuario();
+   		MeuResultSet result = Salas.getSalas();
+   		while(result.next())
+   			salas.guarde(new SalaUsuario(result.getString("NOME"), result.getInt("QTD")));
 
 		for(;;)
 		{
@@ -34,11 +31,6 @@ public class Servidor
 		{
            System.out.println("Servidor: " + erro);
 		}
+
 	}
 }
-/*
-synchronized(X)//rapidoooo
-{//minimo de coisas possivel
-	x.sds
-	x.dsds
-}*/

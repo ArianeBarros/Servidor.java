@@ -123,5 +123,11 @@ public class Sala implements Cloneable
 		return ret;
 	}
 
-}
+}//combobox
+
+/*bd
+Salas -- hardData -- p/ coisas que raramente mudam
+dao e dbo p/ pegar salas
+construtor da classe salas
+*/
 

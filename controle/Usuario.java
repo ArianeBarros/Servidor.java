@@ -6,21 +6,22 @@ import java.util.*;
 import controle.enviaveis.Enviavel;
 import java.util.ArrayList;
 
+
 public class Usuario implements Serializable
 {
-	private SalaUsuario sala;
+	private SalaUsuario sala; // a mesma sala da main, com um ponteiro lá e outro ca
 	protected String nickname;
 	protected Socket socket;
 	protected ObjectInputStream receptor;
 	protected ObjectOutputStream transmissor;
 
-	public Usuario(Socket conexao, ObjectOutputStream transmissor, ObjectInputStream receptor, String nome, SalaUsuario aSala) throws Exception //SalaUsuario sala,
+	public Usuario(Socket conexao, ObjectOutputStream t, ObjectInputStream r, String nome, SalaUsuario aSala) throws Exception //SalaUsuario sala,
 	{
 		if(conexao == null) // não sei
 			throw new Exception("Socket inválido!");
-		if(transmissor == null)
+		if(t == null)
 			throw new Exception("PrintWriter inválido!");
-		if(receptor == null)
+		if(r == null)
 			throw new Exception("BufferedReader inválido!");
 		if(nome == null)
 			throw new Exception("Nome inválido!");
@@ -29,8 +30,8 @@ public class Usuario implements Serializable
 		try
 		{
 			this.socket = conexao;
-			this.transmissor = new ObjectOutputStream(conexao.getOutputStream());
-			receptor = new ObjectInputStream(conexao.getInputStream());
+			this.transmissor = t;
+			this.receptor = r;
 			this.nickname = nome;
 
 			this.sala = aSala;
@@ -87,9 +88,6 @@ public class Usuario implements Serializable
 		if(!this.receptor.equals(u.receptor))
 			return false;
 
-		if(!u.sala instanceof Usuario)
-			return false;
-
 		return true;
 	}
 
@@ -118,17 +116,20 @@ public class Usuario implements Serializable
 		return this.transmissor;
 	}
 
+
+
 	public void enviar(Enviavel coisa)throws Exception
 	{
 		try
 		{
-		   this.transmissor.writeObject(coisa.toString());
+		   this.transmissor.writeObject(coisa);
 		   this.transmissor.flush();
 	   }
 	   catch(Exception erro)
 	   {
 		   throw new Exception(erro);
 	   }
+
 	}
 
 	public void fechaTudo()throws Exception

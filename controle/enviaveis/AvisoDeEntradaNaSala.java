@@ -12,9 +12,13 @@ public class AvisoDeEntradaNaSala implements Enviavel
         this.nick = nome;
 	}
 
+	public String getNick()
+	{
+		return this.nick;
+	}
 	public String envia()
 	{
-       return "O usuário " + this.nick + "entrou na sala";
+       return "O usuário " + this.nick + " entrou na sala";
 	}
 
     public String toString()
@@ -26,6 +30,7 @@ public class AvisoDeEntradaNaSala implements Enviavel
     {
        int ret=2;
        ret=ret*3+nick.hashCode();
+       return ret;
     }
 
     public boolean equals(Object obj)

@@ -7,27 +7,36 @@ import java.net.*;
 import java.util.*;
 import java.util.ArrayList;
 
-public class SalasUsuario extends Salas
+
+public class SalasUsuario
 {
-  protected ArrayList<SalaUsuario> list = new ArrayList();
+  protected ArrayList<SalaUsuario> list;
   protected int qtdAtualSalas = 0;
   protected int qtdMaxima;
 
   public SalasUsuario()
   {
-	  super();
+		this.list = new ArrayList<SalaUsuario>(50);
+		this.qtdMaxima = 50;
+  }
+
+  public ArrayList<String> getNomes()
+  {
+	  ArrayList<String> lista = new ArrayList<String>(this.list.size());
+	  for(SalaUsuario s: this.list)
+			lista.add(s.getNome());
+
+
+
+	  return lista;
   }
 
   public void guarde(SalaUsuario sala)throws Exception
   {
 	 if(!isCheia())
 	 {
-		for(int i = qtdAtualSalas; i < qtdMaxima; i++)
-		{
 		   this.list.add(sala);
 		   this.qtdAtualSalas++;
-		}
-
 	 }
      else
         throw new Exception("Sem espaço para mais salas");
@@ -63,7 +72,7 @@ public class SalasUsuario extends Salas
 
    public boolean isCheia()
     {
-       return this.list.size() == this.qtdMaxima;
+       return this.qtdAtualSalas == this.qtdMaxima;
     }
 
     public String toString()

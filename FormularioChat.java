@@ -7,31 +7,28 @@ import java.io.*;
 import java.awt.event.*;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import controle.enviaveis.*;
 
 public class FormularioChat
 {
 	protected JFrame janela             = new JFrame("CHAT");
 	protected JLabel lbUsuario          = new JLabel("Usuários");
-	protected JLabel lbLinha              = new JLabel("-----------------------------------------------------------------------------------------------------------");
-	protected JLabel lbChat             = new JLabel("CHAT", SwingConstants.CENTER);
+	protected JLabel lbChat;
 	protected JTextField txtMsg         = new JTextField();
 	protected JTextArea ta          = new JTextArea("");
 	protected JButton btnEnviar         = new JButton("Enviar");
+	protected JButton btnSair         = new JButton("Sair");
 	protected JComboBox cbUsu        = new JComboBox();
 	protected ObjectInputStream receptor;
 	protected ObjectOutputStream transmissor;
+	private String nome;
 
     public FormularioChat(String nomeUser, ObjectInputStream i, ObjectOutputStream o, String nomeSala)throws Exception
 	    {
 		try
 		{
-			System.out.println("aqui");
-			System.out.println("aqui2");
 			this.transmissor = o;
-			System.out.println("aqui quase");
 	        this.receptor = i;
-			System.out.println("yayy");
-
 		}
 		catch(Exception error)
 		{
@@ -39,18 +36,18 @@ public class FormularioChat
 		}
 
 
-	        transmissor.writeObject(nomeSala);
-	        transmissor.writeObject(nomeUser);
+	        transmissor.writeObject(nomeSala);	//2
+	        transmissor.writeObject(nomeUser);	   //3
             transmissor.flush();
 			transmissor.flush();
 
-			receber();
+									  this.nome = nomeUser;
 
+		lbChat = new JLabel(nomeSala, SwingConstants.CENTER);
 		lbChat.setFont(new Font("Segoe Script", 3, 50));
 		lbChat.setForeground(new Color(0, 204, 0));
 
 		lbUsuario.setFont(new Font("SansSerif", 1, 18));
-		lbLinha.setFont(new Font("SansSerif", 1, 18));
 
 		this.janela.setSize(660, 600);
 		this.janela.getContentPane().setLayout(new BorderLayout());
@@ -75,14 +72,31 @@ public class FormularioChat
 
 		panelN.add(lbChat, BorderLayout.NORTH);
 		panelN.add(lbUsuario, BorderLayout.WEST);
-		panelC.add(lbLinha, BorderLayout.NORTH);
-		panelN.add(cbUsu, BorderLayout.CENTER);
+		panelN.add(cbUsu, BorderLayout.SOUTH);
 		panelS.add(txtMsg, BorderLayout.CENTER);
 		panelS.add(btnEnviar, BorderLayout.EAST);
 		panelC.add(ta, BorderLayout.CENTER);
+		panelS.add(btnSair, BorderLayout.EAST);
+
+		ta.setEnabled(false);
 
 		this.janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.janela.setVisible(true);
+
+
+		btnSair.addActionListener(new ActionListener() {
+		            public void actionPerformed(ActionEvent ev) {
+						try
+						{
+		                	transmissor.writeObject(new AvisoDeSaidaDaSala(nome));
+		                	transmissor.flush();
+						}
+						catch(Exception erro)
+						{
+							System.err.println("Janela fechando: " + erro.getMessage());
+						}
+		            }
+        });
 
 		  btnEnviar.addActionListener(new ActionListener()
 		 {
@@ -92,11 +106,9 @@ public class FormularioChat
 				 {
 					 if(txtMsg.getText() != "")
 					{
-						Socket meuSocket  = new Socket("localhost",12346);
-						ObjectOutputStream o = new ObjectOutputStream(meuSocket.getOutputStream());
-						o.writeObject(txtMsg.getText());
-						o.flush();
-						ta.append(ta.getText() + txtMsg.getText());
+						System.out.println("entrei");
+						transmissor.writeObject(new Mensagem(txtMsg.getText()));
+						transmissor.flush();
 					 }
 				}
 				catch(Exception erro)
@@ -105,18 +117,49 @@ public class FormularioChat
 				}
 			 }
 		    });
+		    Receptora rec = new Receptora(this.receptor);
+		    rec.start();
 	}
 
-	public void receber()throws Exception
+	private class Receptora	extends Thread
 	{
-		try
+		protected ObjectInputStream receptor;
+		protected boolean viva = true;
+
+		public Receptora(ObjectInputStream r) throws Exception
 		{
-		  String recebido = (String)this.receptor.readObject();
-		  ta.append(ta.getText() + recebido);
-	  }
-	  catch(Exception erro)
-	  {
-		  throw new Exception("Erro ao receber no chat: " + erro);
-	  }
+			if(r == null)
+				throw new Exception("Receptor inválido!");
+
+			this.receptor = r;
+		}
+
+		public void run()
+		{
+			try
+			{
+				while(this.viva)
+				{
+					Enviavel e = (Enviavel)receptor.readObject();
+					System.out.println(e.getClass().getName());
+					switch(e.getClass().getName())
+					{
+						case "Mensagem": e = (Mensagem) e;	break;
+						case "controle.enviaveis.AvisoDeEntradaNaSala": e = (AvisoDeEntradaNaSala)e; cbUsu.addItem(((AvisoDeEntradaNaSala)e).getNick()); break;
+						case "controle.enviaveis.AvisoDeSaidaDaSala": e = (AvisoDeSaidaDaSala)e; for(int i = 0; i < cbUsu.getItemCount(); i++)
+																				if(cbUsu.getItemAt(i).equals(((AvisoDeSaidaDaSala)e).getNick()))
+																					cbUsu.remove(i);break;
+					}
+					ta.append(nome + ": " + e.envia() + "\n");
+				}
+
+			}
+			catch(Exception erro)
+			{
+				System.err.println("Erro na Receptora:" + erro);
+				this.viva = false;
+			}
+		}
 	}
+
 }

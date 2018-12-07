@@ -5,12 +5,11 @@ import controle.bd.*;
 import java.net.*;
 import java.io.*;
 import java.awt.event.*;
+import java.util.*;
 
 class FormularioP
 {
-	protected Salas salas = new Salas();
-	ServerSocket s = new ServerSocket(12345);
-
+	protected ArrayList<String> nomesSalas;
 	protected JFrame janela             = new JFrame("CHAT");
 	protected JLabel lbUsuario          = new JLabel("Nome usuário:");
 	protected JLabel lbSalas            = new JLabel("Salas disponiveís: ");
@@ -19,11 +18,21 @@ class FormularioP
 	protected JTextField txtErro        = new JTextField();
 	protected JButton btnEntrar         = new JButton("Entrar");
 	protected JComboBox<String> cbSalas = new JComboBox<String>();
+	protected Socket soc;
+	protected ObjectInputStream i;
+	protected ObjectOutputStream o;
 
-    public FormularioP() throws Exception
+    public FormularioP(Socket conexao) throws Exception
     {
 		try
 		{
+			this.soc = conexao;
+			this.i = new ObjectInputStream(soc.getInputStream());
+			this.o = new ObjectOutputStream(soc.getOutputStream());
+			System.out.println("lalal");
+
+			this.nomesSalas = (ArrayList<String>)this.i.readObject();		// 1
+		    System.out.println("dajsidashjdk");
 			lbChat.setFont(new Font("Segoe Script", 3, 50));
 			lbChat.setForeground(new Color(0, 204, 0));
 
@@ -41,6 +50,7 @@ class FormularioP
 
 			this.janela.setSize(360, 230);
 			this.janela.getContentPane().setLayout(new BorderLayout());
+
 
 			JPanel panelN = new JPanel();
 			JPanel panelC = new JPanel();
@@ -78,19 +88,15 @@ class FormularioP
 				 {
 					 try
 					 {
-						 if(txtNome.getText() == "" || txtNome.getText() == null || cbSalas.getSelectedItem().toString() == "Selecione uma sala")
+						 if(txtNome.getText().equals("") || txtNome.getText() == null || cbSalas.getSelectedItem().toString() == "Selecione uma sala")
 						 	txtErro.setText("Forneça um nome e uma sala adequada");
 						 else
 						 {
+							 System.out.println("sas");
 
-						 	Socket meuSocket  = new Socket("localhost",12346);
-							ObjectInputStream i = new ObjectInputStream(meuSocket.getInputStream());
-						 	ObjectOutputStream o = new ObjectOutputStream(meuSocket.getOutputStream());
 						 	System.out.println(cbSalas.getSelectedItem().toString() + " pegando valor");
                             new FormularioChat(txtNome.getText() , i,o, cbSalas.getSelectedItem().toString());
 						 }
-
-
 					}
 					catch(Exception erro)
 					{
@@ -112,19 +118,13 @@ class FormularioP
 		{
 			txtErro.setEditable(false);
 
-			 Sala sala;
 			 cbSalas.addItem("Selecione uma sala");
 			try
 			{
-			   for(int i = 0; i < 3; i++)
-			   {
-				  sala = new Sala(this.salas.getSala(i + 1));
+			   for(int i = 0; i < this.nomesSalas.size(); i++)
+			  		cbSalas.addItem(this.nomesSalas.get(i));
 
-				  SalaUsuario salaUser = new SalaUsuario(sala.getNome(), sala.getQtd());
 
-                  if(!salaUser.isCheia())
-				    cbSalas.addItem(sala.getNome());
-			   }
 
 			     cbSalas.addActionListener(new ActionListener() {
 				 public void actionPerformed(ActionEvent event)
@@ -142,12 +142,18 @@ class FormularioP
 				   				"from the combo box.");
 
 		            }
+
+
 				 }
+
 				});
+
 		   }
 		   catch(Exception error)
 		   {
 			   throw new Exception(error);
 		   }
+
 	}
+
 }

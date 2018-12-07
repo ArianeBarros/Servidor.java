@@ -37,6 +37,8 @@ public class MeuStatement implements Statement
                        ResultSet.CONCUR_READ_ONLY);
     }
 
+    // metodos herdados da interface Statement
+
     public void addBatch (String sql) throws SQLException
     {
         this.comando.addBatch (sql);
@@ -361,4 +363,14 @@ public class MeuStatement implements Statement
 
         return ret;
     }
+
+    // O metodo compareTo, que ?, por vezes, obrigatorio, nao esta
+    // sendo implementado porque, tendo dois objetos instanciados
+    // desta classe, nao faria sentido pensar em qual deles eh o
+    // maior ou em qual deles eh o menor.
+
+    // Os metodos clone e construtor de copia, por vezes, obrigatorios,
+    // nao estao sendo implementados porque, nao sao necessarios, ja
+    // que esta classe nao possui metodos que alterem variaveis
+    // declaradas (private ou protected).
 }
