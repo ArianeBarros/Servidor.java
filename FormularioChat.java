@@ -8,6 +8,7 @@ import java.awt.event.*;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import controle.enviaveis.*;
+import java.util.*;
 
 public class FormularioChat
 {
@@ -40,8 +41,10 @@ public class FormularioChat
 	        transmissor.writeObject(nomeUser);	   //3
             transmissor.flush();
 			transmissor.flush();
-
-									  this.nome = nomeUser;
+			ArrayList<String> userExistentes = (ArrayList<String>)receptor.readObject();
+			for(String n: userExistentes)
+				cbUsu.addItem(n);
+			this.nome = nomeUser;
 
 		lbChat = new JLabel(nomeSala, SwingConstants.CENTER);
 		lbChat.setFont(new Font("Segoe Script", 3, 50));
@@ -76,11 +79,11 @@ public class FormularioChat
 		panelS.add(txtMsg, BorderLayout.CENTER);
 		panelS.add(btnEnviar, BorderLayout.EAST);
 		panelC.add(ta, BorderLayout.CENTER);
-		panelS.add(btnSair, BorderLayout.EAST);
+		panelS.add(btnSair, BorderLayout.WEST);
 
 		ta.setEnabled(false);
 
-		this.janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.janela.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.janela.setVisible(true);
 
 
@@ -88,8 +91,11 @@ public class FormularioChat
 		            public void actionPerformed(ActionEvent ev) {
 						try
 						{
+							janela.dispose();
+
 		                	transmissor.writeObject(new AvisoDeSaidaDaSala(nome));
 		                	transmissor.flush();
+
 						}
 						catch(Exception erro)
 						{

@@ -29,10 +29,9 @@ class FormularioP
 			this.soc = conexao;
 			this.i = new ObjectInputStream(soc.getInputStream());
 			this.o = new ObjectOutputStream(soc.getOutputStream());
-			System.out.println("lalal");
 
 			this.nomesSalas = (ArrayList<String>)this.i.readObject();		// 1
-		    System.out.println("dajsidashjdk");
+
 			lbChat.setFont(new Font("Segoe Script", 3, 50));
 			lbChat.setForeground(new Color(0, 204, 0));
 
@@ -92,9 +91,7 @@ class FormularioP
 						 	txtErro.setText("Forneça um nome e uma sala adequada");
 						 else
 						 {
-							 System.out.println("sas");
-
-						 	System.out.println(cbSalas.getSelectedItem().toString() + " pegando valor");
+							 janela.dispose();
                             new FormularioChat(txtNome.getText() , i,o, cbSalas.getSelectedItem().toString());
 						 }
 					}
@@ -123,31 +120,6 @@ class FormularioP
 			{
 			   for(int i = 0; i < this.nomesSalas.size(); i++)
 			  		cbSalas.addItem(this.nomesSalas.get(i));
-
-
-
-			     cbSalas.addActionListener(new ActionListener() {
-				 public void actionPerformed(ActionEvent event)
-				 {
-	               	JComboBox comboBox = (JComboBox) event.getSource();
-
-				   	Object selected = comboBox.getSelectedItem();
-				   	System.out.println("Selected Item  = " + selected);
-				   	String command = event.getActionCommand();
-				   	System.out.println("Action Command = " + command);
-
-                    if ("comboBoxChanged".equals(command))
-				   	{
-				   		System.out.println("User has selected an item " +
-				   				"from the combo box.");
-
-		            }
-
-
-				 }
-
-				});
-
 		   }
 		   catch(Exception error)
 		   {

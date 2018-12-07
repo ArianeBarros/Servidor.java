@@ -16,8 +16,8 @@ public class SalasUsuario
 
   public SalasUsuario()
   {
-		this.list = new ArrayList<SalaUsuario>(50);
-		this.qtdMaxima = 50;
+		this.list = new ArrayList<SalaUsuario>(3);
+		this.qtdMaxima = 3;
   }
 
   public ArrayList<String> getNomes()

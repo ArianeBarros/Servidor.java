@@ -56,6 +56,15 @@ public class SalaUsuario
 	  return (ArrayList<Usuario>)this.lista.clone();
   }
 
+  public ArrayList<String> getNomeUsuarios()
+  {
+	 	ArrayList<String> nomes = new ArrayList<String>();
+	 	for(Usuario u: this.lista)
+	 		nomes.add(u.getNickname());
+
+	 	return nomes;
+  }
+
   public Usuario getUsuario(int i)
   {
     return this.lista.get(i);

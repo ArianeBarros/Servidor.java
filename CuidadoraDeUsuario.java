@@ -39,13 +39,12 @@ public class CuidadoraDeUsuario extends Thread
 
 		   this.oos.writeObject(this.salas.getNomes());	  //1
 		   this.oos.flush();
-		   System.out.println("to aqui");
 		   this.salaDesejada = (String)ois.readObject();	//2
 		   this.nome = (String)ois.readObject();	//3
 
 
 		   this.sala = this.salas.descobrirSala(this.salaDesejada);
-
+			this.oos.writeObject(this.sala.getNomeUsuarios());
 		    if(this.sala.jaExiste(nome))
 		       throw new Exception("Já existe um usuário com esse nome aqui");
 
@@ -56,11 +55,9 @@ public class CuidadoraDeUsuario extends Thread
 		   for(Usuario user: this.sala.getUsuarios())
 		   	user.enviar(new AvisoDeEntradaNaSala(this.nome));
 
-			System.out.println("vou entrar");
 		  	while(!morta)
 		  	{
-				System.out.println("entrei no loop");
-			Enviavel e = (Enviavel)this.ois.readObject();
+				Enviavel e = (Enviavel)this.ois.readObject();
 			System.out.println(e.getClass().getName());
 			switch(e.getClass().getName())
 			{
